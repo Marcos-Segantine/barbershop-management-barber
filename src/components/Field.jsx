@@ -1,15 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, View, StyleSheet, Pressable} from 'react-native';
 
-export const Field = ({text, navigateScreen}) => {
+export const Field = ({text, navigateScreen = false}) => {
   const navigation = useNavigation();
 
-  return (
+  return navigateScreen ? (
     <Pressable
       style={style.link}
       onPress={() => navigation.navigate(navigateScreen)}>
       <Text style={style.text}>{text}</Text>
     </Pressable>
+  ) : (
+    <View style={style.link}>
+      <Text style={style.text}>{text}</Text>
+    </View>
   );
 };
 

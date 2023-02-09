@@ -7,7 +7,7 @@ import {globalStyles} from '../globalStyles';
 export const Menu = () => {
   return (
     <View style={[globalStyles.container, {paddingTop: '30%'}]}>
-      <Field text={'Clientes Agendados'} navigateScreen="" />
+      <Field text={'Clientes Agendados'} navigateScreen="ScheduledClients" />
 
       <Field text={'Suas informações'} navigateScreen="" />
 

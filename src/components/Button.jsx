@@ -19,7 +19,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     marginTop: 40,
     borderRadius: 10,
-    paddingHorizontal: 55,
     paddingVertical: 13,
   },
 
@@ -29,7 +28,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     marginTop: 40,
     borderRadius: 10,
-    paddingHorizontal: 55,
     paddingVertical: 13,
   },
 

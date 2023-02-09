@@ -5,14 +5,14 @@ import {Menu} from './screens/Menu';
 import {ScheduledClients} from './screens/ScheduledClients';
 import {YourInformation} from './screens/YourInformation';
 import {ChangePassword} from './screens/ChangePassword';
-import { SchedulesInDay } from './screens/SchedulesInDay';
+import {SchedulesInDay} from './screens/SchedulesInDay';
+import {ScheduleDetails} from './screens/ScheduleDetails';
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
 export const Routes = () => {
   return (
     <Navigator
-      initialRouteName="Menu"
       screenOptions={{
         headerShown: false,
       }}>
@@ -26,7 +26,9 @@ export const Routes = () => {
 
       <Screen name="ChangePassword" component={ChangePassword} />
 
-      <Screen name='SchedulesInDay' component={SchedulesInDay} />
+      <Screen name="SchedulesInDay" component={SchedulesInDay} />
+
+      <Screen name="ScheduleDetails" component={ScheduleDetails} />
     </Navigator>
   );
 };

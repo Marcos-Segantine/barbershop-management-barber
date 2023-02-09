@@ -3,34 +3,47 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {globalStyles} from '../globalStyles';
 
 import {Title} from '../components/Title';
+import {useNavigation} from '@react-navigation/native';
 
 export const SchedulesInDay = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={globalStyles.container}>
       <Title title={'Dia 09 de Setembro'} />
 
       <View style={style.contentSchedules}>
-        <Pressable style={style.schedule}>
+        <Pressable
+          style={style.schedule}
+          onPress={() => navigation.navigate('ScheduleDetails')}>
           <Text style={style.scheduleText}>09:00</Text>
           <View style={style.thereIsSchedule}></View>
         </Pressable>
 
-        <Pressable style={style.schedule}>
+        <Pressable
+          style={style.schedule}
+          onPress={() => navigation.navigate('ScheduleDetails')}>
           <Text style={style.scheduleText}>09:00</Text>
           <View style={style.thereIsSchedule}></View>
         </Pressable>
 
-        <Pressable style={style.schedule}>
+        <Pressable
+          style={style.schedule}
+          onPress={() => navigation.navigate('ScheduleDetails')}>
           <Text style={style.scheduleText}>09:00</Text>
           <View style={style.thereIsSchedule}></View>
         </Pressable>
 
-        <Pressable style={style.schedule}>
+        <Pressable
+          style={style.schedule}
+          onPress={() => navigation.navigate('ScheduleDetails')}>
           <Text style={style.scheduleText}>09:00</Text>
           <View style={style.thereIsSchedule}></View>
         </Pressable>
 
-        <Pressable style={style.schedule}>
+        <Pressable
+          style={style.schedule}
+          onPress={() => navigation.navigate('ScheduleDetails')}>
           <Text style={style.scheduleText}>09:00</Text>
           <View style={style.thereIsSchedule}></View>
         </Pressable>

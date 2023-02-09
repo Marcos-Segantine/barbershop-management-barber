@@ -5,6 +5,7 @@ import {Menu} from './screens/Menu';
 import {ScheduledClients} from './screens/ScheduledClients';
 import {YourInformation} from './screens/YourInformation';
 import {ChangePassword} from './screens/ChangePassword';
+import { SchedulesInDay } from './screens/SchedulesInDay';
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -24,6 +25,8 @@ export const Routes = () => {
       <Screen name="YourInformation" component={YourInformation} />
 
       <Screen name="ChangePassword" component={ChangePassword} />
+
+      <Screen name='SchedulesInDay' component={SchedulesInDay} />
     </Navigator>
   );
 };

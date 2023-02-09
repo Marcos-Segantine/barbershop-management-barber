@@ -9,9 +9,9 @@ export const Menu = () => {
     <View style={[globalStyles.container, {paddingTop: '30%'}]}>
       <Field text={'Clientes Agendados'} navigateScreen="ScheduledClients" />
 
-      <Field text={'Suas informações'} navigateScreen="" />
+      <Field text={'Suas informações'} navigateScreen="YourInformation" />
 
-      <Field text={'Redefinir senha'} navigateScreen="" />
+      <Field text={'Redefinir senha'} navigateScreen="ChangePassword" />
     </View>
   );
 };

@@ -7,23 +7,21 @@ import {globalStyles} from '../globalStyles';
 
 export const ScheduledClients = () => {
   return (
-    <>
-      <View style={globalStyles.container}>
-        <Title title={'Datas de Agendamento'} />
+    <View style={globalStyles.container}>
+      <Title title={'Datas de Agendamento'} />
 
-        <View style={style.contentDays}>
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-          <Day day="01/09" />
-        </View>
+      <View style={style.contentDays}>
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
+        <Day day="01/09" />
       </View>
-    </>
+    </View>
   );
 };
 

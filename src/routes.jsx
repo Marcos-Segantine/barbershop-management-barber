@@ -10,17 +10,38 @@ import {ScheduleDetails} from './screens/ScheduleDetails';
 import {AddSchedule} from './screens/AddSchedule';
 import {CancelSchedule} from './screens/CancelSchedule';
 import {ConfirmationScreen} from './screens/ConfirmationScreen';
+import {Login} from './screens/Login';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {useEffect, useState} from 'react';
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
 export const Routes = () => {
+  const [initialScreen, setInitialScreen] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if ((await AsyncStorage.getItem('@barberApp__adm__email')) != null)
+        setInitialScreen('ScheduledClients');
+      else setInitialScreen('Login');
+    })();
+  }, []);
+
+  if (!initialScreen) return;
+
   return (
     <Navigator
-      initialRouteName="ConfirmationScreen"
+      initialRouteName={
+        initialScreen === 'ScheduledClients' ? 'ScheduledClients' : 'Login'
+      }
       screenOptions={{
         headerShown: false,
       }}>
       <Screen name="InitialScreen" component={InitialScreen} />
+
+      <Screen name="Login" component={Login} />
 
       <Screen name="Menu" component={Menu} />
 

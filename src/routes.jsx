@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {InitialScreen} from './screens/InitialScreen';
 import {Menu} from './screens/Menu';
-import {ScheduledClients} from './screens/ScheduledClients';
+import {SchedulesClients} from './screens/SchedulesClients';
 import {YourInformation} from './screens/YourInformation';
 import {ChangePassword} from './screens/ChangePassword';
 import {SchedulesInDay} from './screens/SchedulesInDay';
@@ -24,7 +24,7 @@ export const Routes = () => {
   useEffect(() => {
     (async () => {
       if ((await AsyncStorage.getItem('@barberApp__adm__email')) != null)
-        setInitialScreen('ScheduledClients');
+        setInitialScreen('SchedulesClients');
       else setInitialScreen('Login');
     })();
   }, []);
@@ -34,7 +34,7 @@ export const Routes = () => {
   return (
     <Navigator
       initialRouteName={
-        initialScreen === 'ScheduledClients' ? 'ScheduledClients' : 'Login'
+        initialScreen === 'SchedulesClients' ? 'SchedulesClients' : 'Login'
       }
       screenOptions={{
         headerShown: false,
@@ -45,7 +45,7 @@ export const Routes = () => {
 
       <Screen name="Menu" component={Menu} />
 
-      <Screen name="ScheduledClients" component={ScheduledClients} />
+      <Screen name="SchedulesClients" component={SchedulesClients} />
 
       <Screen name="YourInformation" component={YourInformation} />
 

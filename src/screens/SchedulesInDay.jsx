@@ -4,49 +4,65 @@ import {globalStyles} from '../globalStyles';
 
 import {Title} from '../components/Title';
 import {useNavigation} from '@react-navigation/native';
+import {useContext, useEffect, useState} from 'react';
 
-export const SchedulesInDay = () => {
+import {UserDataContext} from '../Context/UserData';
+
+import firestore from '@react-native-firebase/firestore';
+
+export const SchedulesInDay = ({route}) => {
+  const [data, setData] = useState(null);
+
   const navigation = useNavigation();
+
+  const {user} = useContext(UserDataContext);
+
+  const {day, schedules} = route.params;
+
+  useEffect(() => {
+    const year = day.split('').splice(0, 4).join('');
+    const month = day.split('').splice(5, 2).join('');
+    const daySchedule = day.split('').splice(8).join('');
+
+    const dateFormated = month + '_' + year;
+
+    firestore()
+      .collection('schedules_month')
+      .doc(dateFormated)
+      .get()
+      .then(({_data}) => {
+        const dataTemp = [];
+
+        for (const dataPerSchedule in _data) {
+          if (dataPerSchedule === daySchedule) {
+            for (let dataPerDay in _data[daySchedule]['Barbeiro 1']) {
+              dataTemp.push(_data[daySchedule]['Barbeiro 1'][dataPerDay]);
+            }
+          }
+        }
+
+        setData(dataTemp);
+      });
+  }, []);
 
   return (
     <View style={globalStyles.container}>
-      <Title title={'Dia 09 de Setembro'} />
+      <Title title={data[0].day} />
 
       <View style={style.contentSchedules}>
-        <Pressable
-          style={style.schedule}
-          onPress={() => navigation.navigate('ScheduleDetails')}>
-          <Text style={style.scheduleText}>09:00</Text>
-          <View style={style.thereIsSchedule}></View>
-        </Pressable>
-
-        <Pressable
-          style={style.schedule}
-          onPress={() => navigation.navigate('ScheduleDetails')}>
-          <Text style={style.scheduleText}>09:00</Text>
-          <View style={style.thereIsSchedule}></View>
-        </Pressable>
-
-        <Pressable
-          style={style.schedule}
-          onPress={() => navigation.navigate('ScheduleDetails')}>
-          <Text style={style.scheduleText}>09:00</Text>
-          <View style={style.thereIsSchedule}></View>
-        </Pressable>
-
-        <Pressable
-          style={style.schedule}
-          onPress={() => navigation.navigate('ScheduleDetails')}>
-          <Text style={style.scheduleText}>09:00</Text>
-          <View style={style.thereIsSchedule}></View>
-        </Pressable>
-
-        <Pressable
-          style={style.schedule}
-          onPress={() => navigation.navigate('ScheduleDetails')}>
-          <Text style={style.scheduleText}>09:00</Text>
-          <View style={style.thereIsSchedule}></View>
-        </Pressable>
+        {data
+          ? data.map((data, index) => {
+              return (
+                <Pressable
+                  key={index}
+                  style={style.schedule}
+                  onPress={() => navigation.navigate('ScheduleDetails')}>
+                  <Text style={style.scheduleText}>{data.shedule}</Text>
+                  <View style={style.thereIsSchedule}></View>
+                </Pressable>
+              );
+            })
+          : null}
       </View>
     </View>
   );

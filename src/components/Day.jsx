@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import {Pressable, Text, StyleSheet} from 'react-native';
 
-export const Day = ({day}) => {
+export const Day = ({day, schedules}) => {
   const navigation = useNavigation();
 
   return (
     <Pressable
       style={style.btn}
-      onPress={() => navigation.navigate('SchedulesInDay')}>
+      onPress={() => navigation.navigate('SchedulesInDay', {day, schedules,})}>
       <Text style={style.text}>{day}</Text>
     </Pressable>
   );

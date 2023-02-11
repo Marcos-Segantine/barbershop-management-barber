@@ -1,6 +1,5 @@
-import {useFocusEffect} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import {Day} from '../components/Day';
 import {Title} from '../components/Title';
@@ -13,35 +12,39 @@ import auth from '@react-native-firebase/auth';
 export const SchedulesClients = () => {
   const [dataFiltered, setDataFiltered] = useState();
 
-  const user = auth().currentUser;
-
   useEffect(() => {
-    firestore()
-      .collection('barbers')
-      .where('email', '==', user.email)
-      .get()
-      .then(({_docs}) => {
-        const barberName = _docs[0]._data.name;
+    (async () => {
+      const {email} = auth().currentUser;
 
-        firestore()
-          .collection('schedules_month')
-          .get()
-          .then(({_docs}) => {
-            const dataTemp = [];
-            for (let count = 0; count < _docs.length; count++) {
-              const month = _docs[count]._data;
+      firestore()
+        .collection('barbers')
+        .where('email', '==', email)
+        .get()
+        .then(({_docs}) => {
+          const {name} = _docs[0]._data;
 
-              for (const day in month) {
-                if (month[day][barberName]) {
-                  const key = String(Object.keys(month[day][barberName]));
+          firestore()
+            .collection('schedules_month')
+            .get()
+            .then(({_docs}) => {
+              const dataTemp = [];
 
-                  dataTemp.push(month[day][barberName][key].day);
+              for (const month in _docs) {
+                const dataFormated = _docs[month]._data;
+
+                for (let inDay in dataFormated) {
+                  if (dataFormated[inDay][name]) {
+                    const key = Object.keys(dataFormated[inDay][name])[0];
+
+                    dataTemp.push(dataFormated[inDay][name][key]);
+                  }
                 }
               }
-            }
-            setDataFiltered(dataTemp);
-          });
-      });
+
+              setDataFiltered(dataTemp);
+            });
+        });
+    })();
   }, []);
 
   return (
@@ -51,7 +54,14 @@ export const SchedulesClients = () => {
       <View style={style.contentDays}>
         {dataFiltered
           ? dataFiltered.map((day, index) => {
-              return <Day day={day} key={index} />;
+              return (
+                <Day
+                  key={index}
+                  day={day.day}
+                  scheduleUid={day.scheduleUid}
+                  schedules={day}
+                />
+              );
             })
           : null}
       </View>

@@ -9,43 +9,49 @@ import {Button} from '../components/Button';
 import {cancelScheduleFuntion} from '../functions/Schedules/cancelScheduleFuntion';
 import {useEffect, useState} from 'react';
 
-import firestore from '@react-native-firebase/firestore';
 
 export const ScheduleDetails = ({route, navigation}) => {
-  const [client, setClient] = useState();
+  const [thereAreSchedule, setThereareSchedule] = useState();
 
   const {data} = route.params;
-
   useEffect(() => {
-    const clientUid = data.scheduleUid.split('').splice(0, 28).join('');
-
-    firestore()
-      .collection('users')
-      .doc(clientUid)
-      .get()
-      .then(({_data}) => {
-        setClient(_data);
-      });
+    if (data) setThereareSchedule(true);
+    else setThereareSchedule(false);
   }, []);
 
   return (
     <View style={globalStyles.container}>
-      <Title title={'Horario de 15:00'} />
+      {thereAreSchedule ? (
+        <Title title={`Horario de ${data.shedule} do dia ${data.day}`} />
+      ) : null}
 
-      <View style={style.content}>
-        <Field text={`Nome: ${data.name}`} />
+      {thereAreSchedule ? (
+        <View style={style.content}>
+          <Field text={`Nome: ${data.name}`} />
 
-        <Field text={`Email: ${data.email}`} />
+          <Field text={`Email: ${data.email}`} />
 
-        <Field text={`Telefone: ${data.phone}`} />
+          <Field text={`Telefone: ${data.phone}`} />
 
-        <Field text={`Serviço: ${data.service}`} />
-      </View>
+          <Field text={`Serviço: ${data.service}`} />
+        </View>
+      ) : (
+        <View style={[style.content, {flex: 0.7}]}>
+          <Text style={style.text}>Sem agendamento</Text>
+        </View>
+      )}
 
-      <Button
-        text={'Cancelar agendamento'}
-        action={() => cancelScheduleFuntion(client, data, navigation)}
-      />
+      {thereAreSchedule ? (
+        <Button
+          text={'Cancelar agendamento'}
+          action={() => cancelScheduleFuntion(data.uid, data, navigation)}
+        />
+      ) : (
+        <Button
+          text={'Agendar cliente'}
+          action={() => navigation.navigate('AddSchedule')}
+        />
+      )}
     </View>
   );
 };
@@ -56,5 +62,22 @@ const style = StyleSheet.create({
     marginTop: 75,
     marginBottom: 25,
     alignItems: 'center',
+  },
+
+  input: {
+    width: '80%',
+    paddingHorizontal: 10,
+    paddingVertical: 17,
+    borderWidth: 3,
+    borderColor: '#E95401',
+    marginVertical: 5,
+    borderRadius: 20,
+  },
+
+  text: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    textAlign: 'center',
+    fontSize: 30,
   },
 });

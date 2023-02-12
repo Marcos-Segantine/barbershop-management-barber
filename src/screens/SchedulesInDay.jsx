@@ -15,35 +15,48 @@ export const SchedulesInDay = ({route}) => {
 
   const {day} = route.params;
 
+  const year = day.split('').splice(0, 4).join('');
+  const month = day.split('').splice(5, 2).join('');
+  const daySchedule = day.split('').splice(8).join('');
+
+  const dateFormated = month + '_' + year;
+
   useEffect(() => {
-    const year = day.split('').splice(0, 4).join('');
-    const month = day.split('').splice(5, 2).join('');
-    const daySchedule = day.split('').splice(8).join('');
-
-    const dateFormated = month + '_' + year;
-
     firestore()
-      .collection('schedules_month')
-      .doc(dateFormated)
+      .collection('working_hours')
       .get()
-      .then(({_data}) => {
-        const dataTemp = [];
+      .then(({_docs}) => {
+        const working_hours = _docs[0]._data.times;
 
-        for (const dataPerSchedule in _data) {
-          if (dataPerSchedule === daySchedule) {
-            for (let dataPerDay in _data[daySchedule]['Barbeiro 1']) {
-              dataTemp.push(_data[daySchedule]['Barbeiro 1'][dataPerDay]);
-            }
-          }
-        }
+        firestore()
+          .collection('schedules_month')
+          .doc(dateFormated)
+          .get()
+          .then(({_data}) => {
+            const keys = Object.keys(_data[daySchedule]['Barbeiro 1']);
 
-        setData(dataTemp);
+            const result = working_hours.map(hour => {
+              if (keys.includes(hour)) {
+                return {
+                  hour: hour,
+                  marked: true,
+                };
+              } else {
+                return {
+                  hour: hour,
+                  marked: false,
+                };
+              }
+            });
+
+            setData(result);
+          });
       });
   }, []);
 
   return (
     <View style={globalStyles.container}>
-      <Title title={data ? data[0].day : null} />
+      <Title title={daySchedule + ' / ' + month + ' / ' + year} />
 
       <View style={style.contentSchedules}>
         {data
@@ -55,8 +68,13 @@ export const SchedulesInDay = ({route}) => {
                   onPress={() =>
                     navigation.navigate('ScheduleDetails', {data})
                   }>
-                  <Text style={style.scheduleText}>{data.shedule}</Text>
-                  <View style={style.thereIsSchedule}></View>
+                  <Text style={style.scheduleText}>{data.hour}</Text>
+                  <View
+                    style={
+                      data.marked
+                        ? style.thereIsSchedule
+                        : style.thereIsNoSchedule
+                    }></View>
                 </Pressable>
               );
             })
@@ -70,7 +88,7 @@ const style = StyleSheet.create({
   contentSchedules: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 15,
   },
   schedule: {
     marginTop: 15,
@@ -90,6 +108,16 @@ const style = StyleSheet.create({
   },
 
   thereIsSchedule: {
+    backgroundColor: 'red',
+    borderRadius: 50,
+    position: 'absolute',
+    right: 5,
+    top: '30%',
+    width: 20,
+    height: 20,
+  },
+
+  thereIsNoSchedule: {
     backgroundColor: '#0EBC0A',
     borderRadius: 50,
     position: 'absolute',

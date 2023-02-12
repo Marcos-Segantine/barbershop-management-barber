@@ -39,9 +39,11 @@ export const SchedulesClients = () => {
                       data[day][name] &&
                       Object.keys(data[day][name]).length > 0
                     ) {
-                      const key = Object.keys(data[day][name]);
-
+                      const key = Object.keys(data[day][name])[0]
+                      
+                      // console.log(data[day][name][key]);
                       dataTemp.push(data[day][name][key]);
+                      break;
                     }
                   }
                 }

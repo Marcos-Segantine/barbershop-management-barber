@@ -4,9 +4,7 @@ import {globalStyles} from '../globalStyles';
 
 import {Title} from '../components/Title';
 import {useNavigation} from '@react-navigation/native';
-import {useContext, useEffect, useState} from 'react';
-
-import {UserDataContext} from '../Context/UserData';
+import {useEffect, useState} from 'react';
 
 import firestore from '@react-native-firebase/firestore';
 
@@ -15,9 +13,7 @@ export const SchedulesInDay = ({route}) => {
 
   const navigation = useNavigation();
 
-  const {user} = useContext(UserDataContext);
-
-  const {day, schedules} = route.params;
+  const {day} = route.params;
 
   useEffect(() => {
     const year = day.split('').splice(0, 4).join('');
@@ -47,7 +43,7 @@ export const SchedulesInDay = ({route}) => {
 
   return (
     <View style={globalStyles.container}>
-      <Title title={data[0].day} />
+      <Title title={data ? data[0].day : null} />
 
       <View style={style.contentSchedules}>
         {data
@@ -56,7 +52,9 @@ export const SchedulesInDay = ({route}) => {
                 <Pressable
                   key={index}
                   style={style.schedule}
-                  onPress={() => navigation.navigate('ScheduleDetails')}>
+                  onPress={() =>
+                    navigation.navigate('ScheduleDetails', {data})
+                  }>
                   <Text style={style.scheduleText}>{data.shedule}</Text>
                   <View style={style.thereIsSchedule}></View>
                 </Pressable>

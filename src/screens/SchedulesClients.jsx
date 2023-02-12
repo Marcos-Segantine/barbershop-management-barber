@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {Day} from '../components/Day';
@@ -8,44 +8,50 @@ import {globalStyles} from '../globalStyles';
 
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import {useFocusEffect} from '@react-navigation/native';
 
 export const SchedulesClients = () => {
   const [dataFiltered, setDataFiltered] = useState();
 
-  useEffect(() => {
-    (async () => {
-      const {email} = auth().currentUser;
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        const {email} = auth().currentUser;
 
-      firestore()
-        .collection('barbers')
-        .where('email', '==', email)
-        .get()
-        .then(({_docs}) => {
-          const {name} = _docs[0]._data;
+        firestore()
+          .collection('barbers')
+          .where('email', '==', email)
+          .get()
+          .then(({_docs}) => {
+            const {name} = _docs[0]._data;
 
-          firestore()
-            .collection('schedules_month')
-            .get()
-            .then(({_docs}) => {
-              const dataTemp = [];
+            firestore()
+              .collection('schedules_month')
+              .get()
+              .then(({_docs}) => {
+                const dataTemp = [];
 
-              for (const month in _docs) {
-                const dataFormated = _docs[month]._data;
+                for (let month in _docs) {
+                  const data = _docs[month]._data;
 
-                for (let inDay in dataFormated) {
-                  if (dataFormated[inDay][name]) {
-                    const key = Object.keys(dataFormated[inDay][name])[0];
+                  for (let day in data) {
+                    if (
+                      data[day][name] &&
+                      Object.keys(data[day][name]).length > 0
+                    ) {
+                      const key = Object.keys(data[day][name]);
 
-                    dataTemp.push(dataFormated[inDay][name][key]);
+                      dataTemp.push(data[day][name][key]);
+                    }
                   }
                 }
-              }
 
-              setDataFiltered(dataTemp);
-            });
-        });
-    })();
-  }, []);
+                setDataFiltered(dataTemp);
+              });
+          });
+      })();
+    }, []),
+  );
 
   return (
     <View style={globalStyles.container}>

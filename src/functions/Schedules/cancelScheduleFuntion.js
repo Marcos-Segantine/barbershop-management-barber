@@ -6,13 +6,13 @@ import {verifySchedules} from './verifySchedules';
 
 import firestore from '@react-native-firebase/firestore';
 
-export const cancelScheduleFuntion = (userData, item, navigation) => {
+export const cancelScheduleFuntion = (uidClient, item, navigation) => {
   const sheduleMouth = getMonth(item);
   const scheduleDay = getDay(item);
   const professional = getProfessional(item);
   firestore()
     .collection('schedules_by_user')
-    .doc(userData.uid)
+    .doc(uidClient)
     .get()
     .then(({_data}) => {
       const newSchedules__Temp = _data.schedules.filter(itemFilter => {
@@ -23,7 +23,7 @@ export const cancelScheduleFuntion = (userData, item, navigation) => {
 
       firestore()
         .collection('schedules_by_user')
-        .doc(userData.uid)
+        .doc(uidClient)
         .update({..._data});
     });
 

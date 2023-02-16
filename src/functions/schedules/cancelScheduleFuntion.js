@@ -1,8 +1,8 @@
-import {getMonth} from './getMonth';
-import {getDay} from './getDay';
-import {getProfessional} from './getProfessional';
+import {getMonth} from '../helpers/getMonth';
+import {getDay} from '../helpers/getDay';
+import {getProfessional} from '../helpers/getProfessional';
 
-import {verifySchedules} from './verifySchedules';
+import {verifySchedules} from '../helpers/verifySchedules';
 
 import firestore from '@react-native-firebase/firestore';
 

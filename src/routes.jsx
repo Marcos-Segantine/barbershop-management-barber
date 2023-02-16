@@ -11,6 +11,7 @@ import {AddSchedule} from './screens/AddSchedule';
 import {CancelSchedule} from './screens/CancelSchedule';
 import {ConfirmationScreen} from './screens/ConfirmationScreen';
 import {Login} from './screens/Login';
+import {ConfirmNewSchedule} from './screens/ConfirmNewSchedule';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -60,6 +61,8 @@ export const Routes = () => {
       <Screen name="CancelSchedule" component={CancelSchedule} />
 
       <Screen name="ConfirmationScreen" component={ConfirmationScreen} />
+
+      <Screen name="ConfirmNewSchedule" component={ConfirmNewSchedule} />
     </Navigator>
   );
 };

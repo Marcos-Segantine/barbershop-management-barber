@@ -1,13 +1,21 @@
 import {useNavigation} from '@react-navigation/native';
+import { useContext } from 'react';
 import {Pressable, Text, StyleSheet} from 'react-native';
+import {AddScheduleContext} from '../Context/AddSchedule';
 
-export const Day = ({day, schedules}) => {
+export const Day = ({day}) => {
   const navigation = useNavigation();
 
+  const {schedule, setSchedule} = useContext(AddScheduleContext);
+
+  const handleClick = () => {
+    setSchedule({...schedule, day: day})
+    
+    navigation.navigate('SchedulesInDay', {day});
+  };
+
   return (
-    <Pressable
-      style={style.btn}
-      onPress={() => navigation.navigate('SchedulesInDay', {day, schedules,})}>
+    <Pressable style={style.btn} onPress={handleClick}>
       <Text style={style.text}>{day}</Text>
     </Pressable>
   );

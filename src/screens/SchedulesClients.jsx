@@ -1,4 +1,4 @@
-import {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState, useCallback, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {Day} from '../components/Day';
@@ -15,43 +15,32 @@ export const SchedulesClients = () => {
 
   useFocusEffect(
     useCallback(() => {
-      (async () => {
+      const fetchData = async () => {
         const {email} = auth().currentUser;
-
-        firestore()
+        const barbersQuerySnapshot = await firestore()
           .collection('barbers')
           .where('email', '==', email)
-          .get()
-          .then(({_docs}) => {
-            const {name} = _docs[0]._data;
+          .get();
+        const barberName = barbersQuerySnapshot.docs[0].data().name;
 
-            firestore()
-              .collection('schedules_month')
-              .get()
-              .then(({_docs}) => {
-                const dataTemp = [];
-
-                for (let month in _docs) {
-                  const data = _docs[month]._data;
-
-                  for (let day in data) {
-                    if (
-                      data[day][name] &&
-                      Object.keys(data[day][name]).length > 0
-                    ) {
-                      const key = Object.keys(data[day][name])[0]
-                      
-                      // console.log(data[day][name][key]);
-                      dataTemp.push(data[day][name][key]);
-                      break;
-                    }
-                  }
-                }
-
-                setDataFiltered(dataTemp);
-              });
+        const schedulesQuerySnapshot = await firestore()
+          .collection('schedules_month')
+          .get();
+        const dataTemp = [];
+        schedulesQuerySnapshot.forEach(doc => {
+          const data = doc.data();
+          Object.keys(data).forEach(day => {
+            const barberSchedule = data[day][barberName];
+            if(!barberSchedule) return
+            const keys__barberSchedule = Object.keys(barberSchedule)
+            if (barberSchedule && keys__barberSchedule.length > 0) {
+              dataTemp.push(barberSchedule[Object.keys(barberSchedule)[0]]);
+            }
           });
-      })();
+        });
+        setDataFiltered(dataTemp);
+      };
+      fetchData();
     }, []),
   );
 
@@ -62,14 +51,7 @@ export const SchedulesClients = () => {
       <View style={style.contentDays}>
         {dataFiltered
           ? dataFiltered.map((day, index) => {
-              return (
-                <Day
-                  key={index}
-                  day={day.day}
-                  scheduleUid={day.scheduleUid}
-                  schedules={day}
-                />
-              );
+              return <Day key={index} day={day.day} />;
             })
           : null}
       </View>

@@ -6,17 +6,22 @@ import {Title} from '../components/Title';
 import {Field} from '../components/Field';
 import {Button} from '../components/Button';
 
-import {cancelScheduleFuntion} from '../functions/Schedules/cancelScheduleFuntion';
-import {useEffect, useState} from 'react';
-
+import {cancelScheduleFuntion} from '../functions/schedules/cancelScheduleFuntion';
+import {useContext, useEffect, useState} from 'react';
+import {AddScheduleContext} from '../Context/AddSchedule';
 
 export const ScheduleDetails = ({route, navigation}) => {
   const [thereAreSchedule, setThereareSchedule] = useState();
 
-  const {data} = route.params;
+  const {schedule, setSchedule} = useContext(AddScheduleContext);
+
+  const {data, hour} = route.params;
+
   useEffect(() => {
     if (data) setThereareSchedule(true);
     else setThereareSchedule(false);
+
+    setSchedule({...schedule, shedule: hour});
   }, []);
 
   return (

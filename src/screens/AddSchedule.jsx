@@ -4,21 +4,52 @@ import {globalStyles} from '../globalStyles';
 
 import {Title} from '../components/Title';
 import {Button} from '../components/Button';
+import {useContext, useState} from 'react';
+
+import {AddScheduleContext} from '../Context/AddSchedule';
+
+import {getUserDataByEmailOrPhone} from '../functions/helpers/getUserDataByEmailOrPhone';
+
+import {Services} from '../components/modals/Services';
 
 export const AddSchedule = () => {
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const [modaServicelVisible, setModalServiceVisible] = useState(false);
+
+  const {schedule, setSchedule} = useContext(AddScheduleContext);
+
   return (
     <View style={globalStyles.container}>
+      <Services
+        modalVisible={modaServicelVisible}
+        setModalVisible={setModalServiceVisible}
+      />
+
       <Title title={'Agendamento de cliente'} />
 
       <View style={style.cotent}>
-        <TextInput style={style.input} placeholder="Nome" />
+        <TextInput
+          style={style.input}
+          placeholder="Email"
+          onChangeText={text => setEmail(text)}
+        />
 
-        <TextInput style={style.input} placeholder="Email" />
-
-        <TextInput style={style.input} placeholder="Telefone" />
+        <TextInput
+          style={style.input}
+          placeholder="Telefone"
+          onChangeText={text => setPhone(text)}
+          keyboardType="numeric"
+        />
       </View>
 
-      <Button text={'Comfirmar'} />
+      <Button
+        text={'Comfirmar'}
+        action={() =>
+          getUserDataByEmailOrPhone(email, phone, schedule, setSchedule, setModalServiceVisible)
+        }
+      />
     </View>
   );
 };

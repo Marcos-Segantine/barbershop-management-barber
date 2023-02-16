@@ -38,7 +38,6 @@ export const SchedulesInDay = ({route}) => {
 
             const result = working_hours.map(hour => {
               if (keys.includes(hour)) {
-                // console.log( _data[daySchedule]['Barbeiro 1'][hour].shedule);
 
                 return {
                   marked: true,
@@ -57,6 +56,7 @@ export const SchedulesInDay = ({route}) => {
             setData(result);
           });
       });
+
   }, []);
 
   return (
@@ -72,7 +72,8 @@ export const SchedulesInDay = ({route}) => {
                   style={style.schedule}
                   onPress={() =>
                     navigation.navigate('ScheduleDetails', {
-                      data: data.data
+                      data: data.data,
+                      hour: data.hour
                     })
                   }>
                   <Text style={style.scheduleText}>{data.hour}</Text>

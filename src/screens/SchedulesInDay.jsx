@@ -1,19 +1,19 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
-import {Title} from '../components/Title';
-import {useNavigation} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
+import { Title } from '../components/Title';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 
 import firestore from '@react-native-firebase/firestore';
 
-export const SchedulesInDay = ({route}) => {
+export const SchedulesInDay = ({ route }) => {
   const [data, setData] = useState(null);
 
   const navigation = useNavigation();
 
-  const {day} = route.params;
+  const { day } = route.params;
 
   const year = day.split('').splice(0, 4).join('');
   const month = day.split('').splice(5, 2).join('');
@@ -21,41 +21,36 @@ export const SchedulesInDay = ({route}) => {
 
   const dateFormated = month + '_' + year;
 
+  const date = new Date(day).getDay() + 1
+  const weekday = date <= 5 ? 2 : date - 6
+
   useEffect(() => {
-    firestore()
-      .collection('working_hours')
-      .get()
-      .then(({_docs}) => {
-        const working_hours = _docs[0]._data.times;
 
-        firestore()
-          .collection('schedules_month')
-          .doc(dateFormated)
-          .get()
-          .then(({_data}) => {
-            const keys = Object.keys(_data[daySchedule]['Barbeiro 1']);
+    (async () => {
+      const workingHoursRef = await firestore().collection("working_hours").get()
+      const workingHoursData = workingHoursRef._docs[weekday]._data.times
 
+      const unavailableTimesRef = firestore().collection("unavailable_times").doc(dateFormated)
+      const unavailableTimesData = (await unavailableTimesRef.get()).data()[daySchedule]["Barbeiro 1"]
 
-            const result = working_hours.map(hour => {
-              if (keys.includes(hour)) {
+      const dataTemp = workingHoursData.map(workingHour => {
+        if (unavailableTimesData.includes(workingHour)) {
+          return {
+            day: day,
+            isScheduleFree: false,
+            hour: workingHour
+          }
+        } else {
+          return {
+            day: day,
+            isScheduleFree: true,
+            hour: workingHour
+          }
+        }
+      })
 
-                return {
-                  marked: true,
-                  data: _data[daySchedule]['Barbeiro 1'][hour],
-                  hour: hour
-                };
-              } else {
-                return {
-                  marked: false,
-                  data: _data[daySchedule]['Barbeiro 1'][hour],
-                  hour: hour
-                };
-              }
-            });
-
-            setData(result);
-          });
-      });
+      setData(dataTemp)
+    })();
 
   }, []);
 
@@ -66,26 +61,27 @@ export const SchedulesInDay = ({route}) => {
       <View style={style.contentSchedules}>
         {data
           ? data.map((data, index) => {
-              return (
-                <Pressable
-                  key={index}
-                  style={style.schedule}
-                  onPress={() =>
-                    navigation.navigate('ScheduleDetails', {
-                      data: data.data,
-                      hour: data.hour
-                    })
-                  }>
-                  <Text style={style.scheduleText}>{data.hour}</Text>
-                  <View
-                    style={
-                      data.marked
-                        ? style.thereIsSchedule
-                        : style.thereIsNoSchedule
-                    }></View>
-                </Pressable>
-              );
-            })
+            return (
+              <Pressable
+                key={index}
+                style={style.schedule}
+                onPress={() =>
+                  navigation.navigate('ScheduleDetails', {
+                    day: data.day,
+                    hour: data.hour,
+                    isScheduleFree: data.isScheduleFree
+                  })
+                }>
+                <Text style={style.scheduleText}>{data.hour}</Text>
+                <View
+                  style={
+                    data.isScheduleFree
+                      ? style.thereIsNoSchedule
+                      : style.thereIsSchedule
+                  }></View>
+              </Pressable>
+            );
+          })
           : null}
       </View>
     </View>

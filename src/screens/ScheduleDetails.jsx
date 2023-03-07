@@ -1,62 +1,71 @@
-import {StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { useContext, useEffect, useState } from 'react';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
-import {Title} from '../components/Title';
-import {Field} from '../components/Field';
-import {Button} from '../components/Button';
+import { Title } from '../components/Title';
+import { Field } from '../components/Field';
+import { Button } from '../components/Button';
 
-import {cancelScheduleFuntion} from '../functions/schedules/cancelScheduleFuntion';
-import {useContext, useEffect, useState} from 'react';
-import {AddScheduleContext} from '../Context/AddSchedule';
+import { getScheduleByDateAndHour } from '../functions/schedules/getScheduleByDateAndHour';
+import { cancelScheduleFuntion } from '../functions/schedules/cancelScheduleFuntion';
 
-export const ScheduleDetails = ({route, navigation}) => {
-  const [thereAreSchedule, setThereareSchedule] = useState();
+import { AddScheduleContext } from '../Context/AddSchedule';
+import { UserDataContext } from '../Context/UserData';
 
-  const {schedule, setSchedule} = useContext(AddScheduleContext);
+export const ScheduleDetails = ({ route, navigation }) => {
+  const [isScheduleFree, setIsScheduleFree] = useState(route.params.isScheduleFree);
+  const [data, setData] = useState(null)
 
-  const {data, hour} = route.params;
+  const { schedule, setSchedule } = useContext(AddScheduleContext);
+  const { user } = useContext(UserDataContext)
+
+  const { hour, day } = route.params;
 
   useEffect(() => {
-    if (data) setThereareSchedule(true);
-    else setThereareSchedule(false);
+    (async () => {
+      setData(
+        await getScheduleByDateAndHour(isScheduleFree, user, hour, route)
+      );
 
-    setSchedule({...schedule, shedule: hour});
+    })();
+
   }, []);
 
   return (
     <View style={globalStyles.container}>
-      {thereAreSchedule ? (
-        <Title title={`Horario de ${data.shedule} do dia ${data.day}`} />
-      ) : null}
+      {
+        !isScheduleFree && data ?
+          (
+            <>
+              <Title title={`Horario de ${hour} do dia ${day}`} />
 
-      {thereAreSchedule ? (
-        <View style={style.content}>
-          <Field text={`Nome: ${data.name}`} />
+              <View style={style.content}>
+                <Field text={`Nome: ${data.name}`} />
 
-          <Field text={`Email: ${data.email}`} />
+                <Field text={`Email: ${data.email}`} />
 
-          <Field text={`Telefone: ${data.phone}`} />
+                <Field text={`Telefone: ${data.phone}`} />
 
-          <Field text={`Serviço: ${data.service}`} />
-        </View>
-      ) : (
-        <View style={[style.content, {flex: 0.7}]}>
-          <Text style={style.text}>Sem agendamento</Text>
-        </View>
-      )}
+                <Field text={`Serviço: ${data.service}`} />
+              </View>
 
-      {thereAreSchedule ? (
-        <Button
-          text={'Cancelar agendamento'}
-          action={() => cancelScheduleFuntion(data.uid, data, navigation)}
-        />
-      ) : (
-        <Button
-          text={'Agendar cliente'}
-          action={() => navigation.navigate('AddSchedule')}
-        />
-      )}
+              <Button
+                text={'Cancelar agendamento'}
+                action={() => cancelScheduleFuntion(data.uid, data, navigation)}
+              />
+            </>
+          ) : (
+            <View style={style.content}>
+              <Text style={style.text}>Sem agendamento</Text>
+
+              <Button
+                text={'Agendar cliente'}
+                action={() => navigation.navigate('AddSchedule')}
+              />
+            </View>
+          )
+      }
     </View>
   );
 };

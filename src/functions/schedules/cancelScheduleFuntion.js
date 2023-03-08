@@ -1,64 +1,58 @@
-import {getMonth} from '../helpers/getMonth';
-import {getDay} from '../helpers/getDay';
-import {getProfessional} from '../helpers/getProfessional';
+import { getMonth } from '../helpers/getMonth';
+import { getDay } from '../helpers/getDay';
+import { getProfessional } from '../helpers/getProfessional';
+import { getYear } from '../helpers/getYear';
 
-import {verifySchedules} from '../helpers/verifySchedules';
+import { verifySchedules } from '../helpers/verifySchedules';
 
 import firestore from '@react-native-firebase/firestore';
 
-export const cancelScheduleFuntion = (uidClient, item, navigation) => {
-  const sheduleMouth = getMonth(item);
-  const scheduleDay = getDay(item);
-  const professional = getProfessional(item);
-  firestore()
-    .collection('schedules_by_user')
-    .doc(uidClient)
-    .get()
-    .then(({_data}) => {
-      const newSchedules__Temp = _data.schedules.filter(itemFilter => {
-        return itemFilter.scheduleUid !== item.scheduleUid;
-      });
+export const cancelScheduleFuntion = async (uidClient, schedule, navigation) => {
 
-      _data.schedules = newSchedules__Temp;
+  const scheduleDay = getDay(schedule);
+  const scheduleMouth = getMonth(schedule);
+  const scheduleYear = getYear(schedule)
+  const professional = getProfessional(schedule);
 
-      firestore()
-        .collection('schedules_by_user')
-        .doc(uidClient)
-        .update({..._data});
+  const referenceDocMonth_Year = `${scheduleMouth}_${scheduleYear}`
+
+  const batch = firestore().batch()
+
+  try {
+
+    // getting collections reference
+    const schedulesByUserRef = firestore().collection("schedules_by_user").doc(uidClient)
+    const schedulesMonthRef = firestore().collection("schedules_month").doc(referenceDocMonth_Year)
+    const unavailableTimesRef = firestore().collection("unavailable_times").doc(referenceDocMonth_Year)
+
+    // getting data from eaxxh collection
+    const schedulesByUserData = (await schedulesByUserRef.get()).data()
+    const schedulesMonthData = (await schedulesMonthRef.get()).data()
+    const unavailableTimesData = (await unavailableTimesRef.get()).data()
+
+    // setting new data to 'schedules_by_user' collection
+    const newSchedules__Temp = schedulesByUserData.schedules.filter(scheduleFilter => {
+      return scheduleFilter.scheduleUid !== schedule.scheduleUid;
     });
+    schedulesByUserData.schedules = newSchedules__Temp;
 
-  firestore()
-    .collection('schedules_month')
-    .doc(`${sheduleMouth}_2023`)
-    .get()
-    .then(({_data}) => {
-      delete _data[scheduleDay][professional][item.shedule];
+    // setting new data to 'schedules_month' collection
+    delete schedulesMonthData[scheduleDay][professional][schedule.shedule];
 
-      firestore()
-        .collection('schedules_month')
-        .doc(`${sheduleMouth}_2023`)
-        .update({..._data});
-    });
+    // setting new data to 'unavailable_times' collection
+    const unavailableTimesIndexToRemove = unavailableTimesData[scheduleDay][professional].indexOf(schedule.shedule)
+    unavailableTimesData[scheduleDay][professional].splice(unavailableTimesIndexToRemove, 1)
 
-  firestore()
-    .collection('unavailable_times')
-    .doc(`${sheduleMouth}_2023`)
-    .get()
-    .then(({_data}) => {
-      const newData = _data[scheduleDay][professional].filter(schedule => {
-        return schedule !== item.shedule;
-      });
+    //updating collections
+    batch.update(schedulesByUserRef, { ...schedulesByUserData })
+    batch.update(schedulesMonthRef, { ...schedulesMonthData })
+    batch.update(unavailableTimesRef, { ...unavailableTimesData })
 
-      _data[scheduleDay][professional] = newData;
+    await batch.commit()
 
-      firestore()
-        .collection('unavailable_times')
-        .doc(`${sheduleMouth}_2023`)
-        .update({..._data})
-        .then(() => {
-          verifySchedules(item);
-
-          navigation.navigate('InitialScreen');
-        });
-    });
+    verifySchedules(schedule, 'removeSchedule')
+    navigation.navigate('SchedulesClients');
+  } catch (error) {
+    console.log("ERROR");
+  }
 };

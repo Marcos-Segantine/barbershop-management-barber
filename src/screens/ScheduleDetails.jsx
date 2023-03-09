@@ -63,7 +63,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
               <Button
                 text={'Cancelar agendamento'}
-                action={() => cancelScheduleFuntion(data.uid, data, navigation)}
+                action={() => navigation.navigate("CancelSchedule", {data, user,})}
               />
             </>
           ) : (

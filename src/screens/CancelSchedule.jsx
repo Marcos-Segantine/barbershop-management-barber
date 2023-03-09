@@ -1,15 +1,39 @@
-import {View, StyleSheet, Text, TextInput} from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
-import {Title} from '../components/Title';
-import {Button} from '../components/Button';
+import { Title } from '../components/Title';
+import { Button } from '../components/Button';
+import { cancelScheduleFuntion } from '../functions/schedules/cancelScheduleFuntion';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
-export const CancelSchedule = () => {
+import { ConfirmCancelSchedule } from '../components/modals/ConfirmCancelSchedule';
+
+export const CancelSchedule = ({ route }) => {
+  const [modalConfirmation, setModalConfirmation] = useState(false)
+
+  const { data, user } = route.params
+
+  const navigation = useNavigation()
+
+  const cancelSchedule = () => {
+    cancelScheduleFuntion(data.uid, data, navigation, user.name)
+
+    setModalConfirmation(false)
+  }
+
   return (
     <View style={globalStyles.container}>
-      <Title  title={"Motivo do cancelamento"} />
-      
+      <ConfirmCancelSchedule
+        visible={modalConfirmation}
+        setModalConfirmation={setModalConfirmation}
+        action={cancelSchedule}
+        dataSchedule={data}
+      />
+
+      <Title title={"Motivo do cancelamento"} />
+
       <TextInput
         style={style.input}
         placeholder="Descreva o motivo do cancelamento..."
@@ -18,7 +42,7 @@ export const CancelSchedule = () => {
         textAlignVertical="top"
       />
 
-      <Button text={"Confirmar"} />
+      <Button text={"Confirmar"} action={() => setModalConfirmation(true)} />
     </View>
   );
 };

@@ -1,6 +1,5 @@
 import { getMonth } from '../helpers/getMonth';
 import { getDay } from '../helpers/getDay';
-import { getProfessional } from '../helpers/getProfessional';
 import { getYear } from '../helpers/getYear';
 
 import { verifySchedules } from '../helpers/verifySchedules';

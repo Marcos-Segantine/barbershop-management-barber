@@ -7,12 +7,11 @@ import { verifySchedules } from '../helpers/verifySchedules';
 
 import firestore from '@react-native-firebase/firestore';
 
-export const cancelScheduleFuntion = async (uidClient, schedule, navigation) => {
+export const cancelScheduleFuntion = async (uidClient, schedule, navigation, professionalName) => {
 
   const scheduleDay = getDay(schedule);
   const scheduleMouth = getMonth(schedule);
   const scheduleYear = getYear(schedule)
-  const professional = getProfessional(schedule);
 
   const referenceDocMonth_Year = `${scheduleMouth}_${scheduleYear}`
 
@@ -37,11 +36,11 @@ export const cancelScheduleFuntion = async (uidClient, schedule, navigation) => 
     schedulesByUserData.schedules = newSchedules__Temp;
 
     // setting new data to 'schedules_month' collection
-    delete schedulesMonthData[scheduleDay][professional][schedule.shedule];
+    delete schedulesMonthData[scheduleDay][professionalName][schedule.shedule];
 
     // setting new data to 'unavailable_times' collection
-    const unavailableTimesIndexToRemove = unavailableTimesData[scheduleDay][professional].indexOf(schedule.shedule)
-    unavailableTimesData[scheduleDay][professional].splice(unavailableTimesIndexToRemove, 1)
+    const unavailableTimesIndexToRemove = unavailableTimesData[scheduleDay][professionalName].indexOf(schedule.shedule)
+    unavailableTimesData[scheduleDay][professionalName].splice(unavailableTimesIndexToRemove, 1)
 
     //updating collections
     batch.update(schedulesByUserRef, { ...schedulesByUserData })
@@ -50,8 +49,9 @@ export const cancelScheduleFuntion = async (uidClient, schedule, navigation) => 
 
     await batch.commit()
 
-    verifySchedules(schedule, 'removeSchedule')
+    verifySchedules(schedule, 'removeSchedule', professionalName)
     navigation.navigate('SchedulesClients');
+    
   } catch (error) {
     console.log("ERROR");
   }

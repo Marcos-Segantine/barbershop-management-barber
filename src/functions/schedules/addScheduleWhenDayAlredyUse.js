@@ -29,8 +29,6 @@ export const addScheduleWhenDayAlredyUse = async (
     .doc(client.uid);
 
 
-  console.log(schedule.shedule);
-
   const batch = firestore().batch();
 
   const schedulesMonthSnapshot = await schedulesMonthRef.get();
@@ -60,6 +58,7 @@ export const addScheduleWhenDayAlredyUse = async (
               password: client.password,
               phone: client.phone,
               professional: professionalName,
+              service: schedule.service,
               scheduleUid: schedule.scheduleUid,
               shedule: schedule.shedule,
               uid: client.uid,
@@ -111,6 +110,7 @@ export const addScheduleWhenDayAlredyUse = async (
           password: client.password,
           phone: client.phone,
           professional: professionalName,
+          service: schedule.service,
           scheduleUid: schedule.scheduleUid,
           shedule: schedule.shedule,
           uid: client.uid,

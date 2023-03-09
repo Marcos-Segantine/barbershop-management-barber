@@ -1,16 +1,16 @@
 import firestore from '@react-native-firebase/firestore';
 
-import {getDay} from '../helpers/getDay';
-import {getMonth} from '../helpers/getMonth';
-import {getHour} from '../helpers/getHours';
+import { getDay } from '../helpers/getDay';
+import { getMonth } from '../helpers/getMonth';
+import { getHour } from '../helpers/getHours';
 
-import {verifySchedules} from '../helpers/verifySchedules';
+import { verifySchedules } from '../helpers/verifySchedules';
 
 export const addScheduleWhenDayAlredyUse = async (
   navigation,
-  userData,
+  client,
   schedule,
-  scheduleProfessional,
+  professionalName,
 ) => {
   const scheduleMonth = getMonth(schedule);
   const scheduleDay = getDay(schedule);
@@ -26,93 +26,102 @@ export const addScheduleWhenDayAlredyUse = async (
     .doc(`${scheduleMonth}_2023`);
   const schedulesByUserRef = firestore()
     .collection('schedules_by_user')
-    .doc(userData.uid);
+    .doc(client.uid);
+
+
+  console.log(schedule.shedule);
 
   const batch = firestore().batch();
 
   const schedulesMonthSnapshot = await schedulesMonthRef.get();
   const schedulesMonthData = schedulesMonthSnapshot.data();
 
-  if (schedulesMonthData[scheduleDay]?.[scheduleProfessional]) {
-    const existingSchedule =
-      schedulesMonthData[scheduleDay][scheduleProfessional][scheduleHour];
-    if (existingSchedule) {
-      throw new Error(
-        'There is already a schedule at the same time for this professional.',
-      );
-    }
-    const atualSchedulesProfessional =
-      schedulesMonthData[scheduleDay][scheduleProfessional];
-    batch.update(schedulesMonthRef, {
-      ...schedulesMonthData,
-      [scheduleDay]: {
-        [scheduleProfessional]: {
-          ...atualSchedulesProfessional,
-          [scheduleHour]: {
-            day: schedule.day,
-            email: schedule.client.email,
-            name: schedule.client.name,
-            password: schedule.client.password,
-            phone: schedule.client.phone,
-            professional: scheduleProfessional,
-            scheduleUid: schedule.scheduleUid,
-            shedule: schedule.shedule,
-            uid: schedule.client.uid,
+  try {
+    if (schedulesMonthData[scheduleDay]?.[professionalName]) {
+      const existingSchedule =
+        schedulesMonthData[scheduleDay][professionalName][scheduleHour];
+      if (existingSchedule) {
+        throw new Error(
+          'There is already a schedule at the same time for this professional.',
+        );
+      }
+      
+      const atualSchedulesProfessional =
+        schedulesMonthData[scheduleDay][professionalName];
+      batch.update(schedulesMonthRef, {
+        ...schedulesMonthData,
+        [scheduleDay]: {
+          [professionalName]: {
+            ...atualSchedulesProfessional,
+            [scheduleHour]: {
+              day: schedule.day,
+              email: client.email,
+              name: client.name,
+              password: client.password,
+              phone: client.phone,
+              professional: professionalName,
+              scheduleUid: schedule.scheduleUid,
+              shedule: schedule.shedule,
+              uid: client.uid,
+            },
           },
         },
-      },
-    });
-  } else {
-    batch.set(
-      schedulesMonthRef,
-      {
-        [`${scheduleDay}.${scheduleProfessional}`]: {
-          [scheduleHour]: schedule,
+      });
+    } else {
+      batch.set(
+        schedulesMonthRef,
+        {
+          [`${scheduleDay}.${professionalName}`]: {
+            [scheduleHour]: schedule,
+          },
         },
-      },
-      {merge: true},
-    );
+        { merge: true },
+      );
+    }
+
+    const unavailableTimesSnapshot = await unavailableTimesRef.get();
+    const unavailableTimesData = unavailableTimesSnapshot.data();
+
+    if (unavailableTimesData[scheduleDay]?.[professionalName]) {
+      batch.update(unavailableTimesRef, {
+        [`${scheduleDay}.${professionalName}`]:
+          firestore.FieldValue.arrayUnion(schedule.shedule),
+      });
+    } else {
+      batch.set(
+        unavailableTimesRef,
+        {
+          [`${scheduleDay}.${professionalName}`]: [schedule.shedule],
+        },
+        { merge: true },
+      );
+    }
+
+    verifySchedules(schedule, 'addSchedule', professionalName);
+
+    const schedulesByUserSnapshot = await schedulesByUserRef.get();
+    const schedulesByUserData = schedulesByUserSnapshot.data();
+    const updatedSchedulesByUser = {
+      schedules: [
+        ...schedulesByUserData.schedules,
+        {
+          day: schedule.day,
+          email: client.email,
+          name: client.name,
+          password: client.password,
+          phone: client.phone,
+          professional: professionalName,
+          scheduleUid: schedule.scheduleUid,
+          shedule: schedule.shedule,
+          uid: client.uid,
+        },
+      ],
+    };
+    batch.update(schedulesByUserRef, updatedSchedulesByUser);
+
+  } catch (error) {
+    console.log(error);
   }
-
-  const unavailableTimesSnapshot = await unavailableTimesRef.get();
-  const unavailableTimesData = unavailableTimesSnapshot.data();
-
-  if (unavailableTimesData[scheduleDay]?.[scheduleProfessional]) {
-    batch.update(unavailableTimesRef, {
-      [`${scheduleDay}.${scheduleProfessional}`]:
-        firestore.FieldValue.arrayUnion(schedule.shedule),
-    });
-  } else {
-    batch.set(
-      unavailableTimesRef,
-      {
-        [`${scheduleDay}.${scheduleProfessional}`]: [schedule.shedule],
-      },
-      {merge: true},
-    );
-  }
-
-  verifySchedules(schedule, scheduleProfessional);
-
-  const schedulesByUserSnapshot = await schedulesByUserRef.get();
-  const schedulesByUserData = schedulesByUserSnapshot.data();
-  const updatedSchedulesByUser = {
-    schedules: [
-      ...schedulesByUserData.schedules,
-      {
-        day: schedule.day,
-        email: schedule.client.email,
-        name: schedule.client.name,
-        password: schedule.client.password,
-        phone: schedule.client.phone,
-        professional: scheduleProfessional,
-        scheduleUid: schedule.scheduleUid,
-        shedule: schedule.shedule,
-        uid: schedule.client.uid,
-      },
-    ],
-  };
-  batch.update(schedulesByUserRef, updatedSchedulesByUser);
 
   await batch.commit();
 

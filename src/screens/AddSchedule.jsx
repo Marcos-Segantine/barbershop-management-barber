@@ -45,7 +45,7 @@ export const AddSchedule = () => {
       </View>
 
       <Button
-        text={'Comfirmar'}
+        text={'Confirmar'}
         action={() =>
           getUserDataByEmailOrPhone(email, phone, schedule, setSchedule, setModalServiceVisible)
         }

@@ -32,6 +32,17 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
   }, []);
 
+  useEffect(() => {
+    const updateHourSchedule = async () => {
+      return { ...schedule, shedule: hour }
+    }
+
+    (async () => {
+      setSchedule(await updateHourSchedule())
+
+    })();
+  }, [])
+
   return (
     <View style={globalStyles.container}>
       {

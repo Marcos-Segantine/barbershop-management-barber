@@ -1,53 +1,58 @@
-import {Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
-import {Title} from '../components/Title';
-import {Button} from '../components/Button';
+import { Title } from '../components/Title';
+import { Button } from '../components/Button';
 
-import {useContext, useEffect} from 'react';
+import { useContext, useEffect } from 'react';
 
 import firestore from '@react-native-firebase/firestore';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
-import {getMonth} from '../functions/helpers/getMonth';
-import {getDay} from '../functions/helpers/getDay';
-import {dateFormated} from '../functions/helpers/dateFormated';
+import { getMonth } from '../functions/helpers/getMonth';
+import { getDay } from '../functions/helpers/getDay';
+import { dateFormated } from '../functions/helpers/dateFormated';
 
-import {addScheduleWhenDayAlredyUse} from '../functions/schedules/addScheduleWhenDayAlredyUse';
-import {addScheduleWhenDayNotUse} from '../functions/schedules/addScheduleWhenDayNotUse';
-import {addScheduleWhenMonthIsNotUse} from '../functions/schedules/addScheduleWhenMonthIsNotUse';
+import { addScheduleWhenDayAlredyUse } from '../functions/schedules/addScheduleWhenDayAlredyUse';
+import { addScheduleWhenDayNotUse } from '../functions/schedules/addScheduleWhenDayNotUse';
+import { addScheduleWhenMonthIsNotUse } from '../functions/schedules/addScheduleWhenMonthIsNotUse';
 
-import {useIsFocused} from '@react-navigation/native';
-import {AddScheduleContext} from '../Context/AddSchedule';
-import {UserDataContext} from '../Context/UserData';
+import { useIsFocused } from '@react-navigation/native';
+import { AddScheduleContext } from '../Context/AddSchedule';
+import { UserDataContext } from '../Context/UserData';
+import { getYear } from '../functions/helpers/getYear';
 
-export const ConfirmNewSchedule = ({navigation}) => {
-  const {schedule, setSchedule} = useContext(AddScheduleContext);
-  const {user} = useContext(UserDataContext);
+export const ConfirmNewSchedule = ({ navigation }) => {
+  const { schedule, setSchedule } = useContext(AddScheduleContext);
+  const { user } = useContext(UserDataContext);
 
+  console.log(schedule, 'schedule');
   const date = dateFormated(schedule);
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    schedule.scheduleUid = `${schedule.client.uid}-${schedule.day}-${user.name}-${schedule.shedule}-${schedule.service}`;
+    schedule.scheduleUid = `${schedule.client.uid}-${schedule.day}-${user.name}-${schedule.client.shedule}-${schedule.client.service}`;
   }, [isFocused]);
 
   const handleComfirm = async () => {
     const sheduleMouth = getMonth(schedule);
     const sheduleDay = getDay(schedule);
+    const sheduleYear = getYear(schedule)
+
+    const dateForDoc = `${sheduleMouth}_${sheduleYear}`
 
     firestore()
       .collection('schedules_month')
-      .doc(`${sheduleMouth}_2023`)
+      .doc(dateForDoc)
       .get()
-      .then(({_data}) => {
+      .then(({ _data }) => {
         if (_data === undefined) {
           addScheduleWhenMonthIsNotUse(
-            navigation,
-            schedule.client,
             schedule,
-            user.name,
+            navigation,
+            schedule,
+            setSchedule,
           );
           return;
         }
@@ -55,18 +60,13 @@ export const ConfirmNewSchedule = ({navigation}) => {
         const dayIsAlredyUse = _data[sheduleDay];
 
         dayIsAlredyUse
-          ? addScheduleWhenDayAlredyUse(
-              navigation,
-              schedule.client,
-              schedule,
-              user.name
-            )
+          ? addScheduleWhenDayAlredyUse(navigation, schedule.client, schedule, user.name)
           : addScheduleWhenDayNotUse(
-              schedule.client.uid,
-              navigation,
-              schedule,
-              setSchedule,
-            );
+            schedule,
+            navigation,
+            schedule,
+            setSchedule,
+          );
       });
   };
 
@@ -82,17 +82,17 @@ export const ConfirmNewSchedule = ({navigation}) => {
         </View>
 
         <View style={style.data}>
-          <Text style={style.textData}>Serviço: {schedule.service}</Text>
+          <Text style={style.textData}>Serviço: {schedule.client.service}</Text>
         </View>
 
         <View style={style.data}>
           <Text style={style.textData}>
-            Profissional: {schedule.professional}
+            Profissional: {user.name}
           </Text>
         </View>
 
         <View style={style.data}>
-          <Text style={style.textData}>Horário: {schedule.shedule}</Text>
+          <Text style={style.textData}>Horário: {schedule.client.shedule}</Text>
         </View>
       </View>
 

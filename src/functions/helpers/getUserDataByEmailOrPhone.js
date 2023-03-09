@@ -14,7 +14,7 @@ export const getUserDataByEmailOrPhone = async (
       .get();
     if (!querySnapshot.empty) {
       const userData = querySnapshot.docs[0].data();
-      setSchedule({...schedule, client: userData});
+      setSchedule({ ...schedule, client: { ...userData } });
       setModalServiceVisible(true);
     } else {
       const querySnapshot = await firestore()
@@ -23,19 +23,19 @@ export const getUserDataByEmailOrPhone = async (
         .get();
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
-        setSchedule({...schedule, client: userData});
+        setSchedule({ ...schedule, client: { ...userData } });
         setModalServiceVisible(true);
       } else {
         console.log('User not found');
 
-        setSchedule({...schedule, client: null});
+        // setSchedule({ null});
         setModalServiceVisible(true);
         return null;
       }
     }
   } catch (error) {
     console.log('Error getting user data:', error);
-    setSchedule({...schedule, client: null});
+    // setSchedule({ null});
     setModalServiceVisible(false);
     return null;
   }

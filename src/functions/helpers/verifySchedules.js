@@ -1,59 +1,61 @@
 import firestore from '@react-native-firebase/firestore';
 
-import {getDay} from '../helpers/getDay';
-import {getMonth} from '../helpers/getMonth';
-import {getProfessional} from '../helpers/getProfessional';
-import {getYear} from './getYear';
+import { getDay } from '../helpers/getDay';
+import { getMonth } from '../helpers/getMonth';
+import { getYear } from './getYear';
 
-const DAYS_OF_WEEK = ['weekday', 'saturday', 'sunday'];
+const DAYS_OF_WEEK = ['saturday', 'sunday', 'weekday'];
 
-export const verifySchedules = async (schedulesUser, barberName) => {
+export const verifySchedules = async (schedulesUser, action, professionalName) => {
   const year = getYear(schedulesUser);
   const month = getMonth(schedulesUser);
   const day = getDay(schedulesUser);
   const date = new Date(schedulesUser.day);
   const dayOfSchedule = date.getDay() + 1;
-  const weekDay = DAYS_OF_WEEK[dayOfSchedule > 5 ? dayOfSchedule - 5 : 0];
+  const weekDay = DAYS_OF_WEEK[dayOfSchedule <= 5 ? 0 : dayOfSchedule - 6];
 
-  const workingHourDoc = await firestore()
-    .collection('working_hours')
-    .doc(weekDay)
-    .get();
-  const workingHour = workingHourDoc.data().times;
-
-  const unavailableTimesDoc = await firestore()
+  const workingHoursRef = firestore().collection('working_hours');
+  const unavailableTimesRef = firestore()
     .collection('unavailable_times')
-    .doc(`${month}_${year}`)
-    .get();
-  const unavailableTimes = unavailableTimesDoc.data();
-
-  const deniedDaysDoc = await firestore()
+    .doc(`${month}_${year}`);
+  const deniedDaysRef = firestore()
     .collection('denied_days')
-    .doc(`${month}_${year}`)
-    .get();
-  const deniedDays = deniedDaysDoc.data();
+    .doc(`${month}_${year}`);
 
-  console.log(unavailableTimes, day);
-  if (unavailableTimes[day][barberName].length === workingHour.length) {
-    deniedDays[`2023-${month}-${day}`] = {
-      disableTouchEvent: true,
-      disabled: true,
-    };
+  const deniedDaysData = (await deniedDaysRef.get()).data();
 
-    await firestore()
-      .collection('denied_days')
-      .doc(`${month}_${year}`)
-      .update(deniedDays);
-  } else if (
-    unavailableTimes[day][barberName].length ===
-    workingHour.length - 1
+  const workingHourDocs = await workingHoursRef.get();
+  const workingHoursData =
+    workingHourDocs._docs[DAYS_OF_WEEK.indexOf(weekDay)]._data;
+
+  const unavailableTimesData = (await unavailableTimesRef.get()).data();
+
+  const unavailableTimesByProfessional =
+    unavailableTimesData[day][professionalName];
+
+  if (
+    unavailableTimesByProfessional.length ===
+    workingHoursData.times.length - 1 &&
+    action === 'addSchedule'
   ) {
-    delete deniedDays[schedulesUser.day].disableTouchEvent;
-    delete deniedDays[schedulesUser.day].disabled;
+    deniedDaysData[day][professionalName].push({
+      [schedulesUser.day]: {
+        disabled: true,
+        disableTouchEvent: true,
+      },
+    });
+    deniedDaysRef.update(deniedDaysData);
+  } else if (action === 'removeSchedule') {
+    const dayToRemove = deniedDaysData[day][professionalName].filter(currentDay => {
+      return Object.keys(currentDay)[0] === schedulesUser.day;
+    });
 
-    await firestore()
-      .collection('denied_days')
-      .doc(`${month}_${year}`)
-      .update(deniedDays);
+    const dayToRemoveIndex = deniedDaysData[day][professionalName].indexOf(
+      Object.keys(dayToRemove),
+    );
+
+    deniedDaysData[day][professionalName].splice(dayToRemoveIndex, 1);
+
+    deniedDaysRef.update(deniedDaysData);
   }
 };

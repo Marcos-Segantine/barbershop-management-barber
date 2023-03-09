@@ -26,7 +26,6 @@ export const ConfirmNewSchedule = ({ navigation }) => {
   const { schedule, setSchedule } = useContext(AddScheduleContext);
   const { user } = useContext(UserDataContext);
 
-  console.log(schedule, 'schedule');
   const date = dateFormated(schedule);
 
   const isFocused = useIsFocused();

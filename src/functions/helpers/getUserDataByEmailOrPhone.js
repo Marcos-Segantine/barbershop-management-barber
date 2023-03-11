@@ -1,5 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
+import { takeOutFormatPhoneNumber } from './takeOutFormatPhoneNumber';
+
 export const getUserDataByEmailOrPhone = async (
   email,
   phone,
@@ -16,7 +18,7 @@ export const getUserDataByEmailOrPhone = async (
       userDocData = (await usersRef.get()).docs[0].data()
     }
     else if (phone) {
-      const usersRef = firestore().collection('users').where('phone', '==', `+55${phone}`);
+      const usersRef = firestore().collection('users').where('phone', '==', `+55${takeOutFormatPhoneNumber(phone)}`);
       userDocData = (await usersRef.get()).docs[0].data()
     } else {
       setModalServiceVisible(false)

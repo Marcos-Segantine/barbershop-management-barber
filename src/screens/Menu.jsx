@@ -8,12 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import auth from '@react-native-firebase/auth';
 
-import {useContext} from 'react';
-import {UserDataContext} from '../Context/UserData';
-
 export const Menu = ({navigation}) => {
-  const {setUser, setUid} = useContext(UserDataContext);
-
   const handleLogOut = () => {
     auth()
       .signOut()

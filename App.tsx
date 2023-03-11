@@ -2,8 +2,8 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {Header} from './src/shared/Header';
 
-import {UserProvider} from './src/Context/UserData';
-import {AddScheduleProvider} from './src/Context/AddSchedule';
+import {UserProvider} from './src/context/UserData';
+import {AddScheduleProvider} from './src/context/AddSchedule';
 
 import {Routes} from './src/routes';
 

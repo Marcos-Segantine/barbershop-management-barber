@@ -1,8 +1,6 @@
-import { getMonth } from '../helpers/getMonth';
-import { getDay } from '../helpers/getDay';
-import { getYear } from '../helpers/getYear';
+import { getDay, getYear, getMonth } from '../helpers/getDate';
 
-import { verifySchedules } from '../helpers/verifySchedules';
+import { verifySchedules } from './verifySchedules';
 
 import firestore from '@react-native-firebase/firestore';
 
@@ -50,7 +48,7 @@ export const cancelScheduleFuntion = async (uidClient, schedule, navigation, pro
 
     verifySchedules(schedule, 'removeSchedule', professionalName)
     navigation.navigate('SchedulesClients');
-    
+
   } catch (error) {
     console.log("ERROR");
   }

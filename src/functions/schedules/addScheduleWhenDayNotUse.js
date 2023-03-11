@@ -1,12 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
-import { getDay } from '../helpers/getDay';
-import { getMonth } from '../helpers/getMonth';
-import { getHour } from '../helpers/getHours';
+import { getDay, getYear, getMonth } from '../helpers/getDate'
 
-import { verifySchedules } from '../helpers/verifySchedules';
-import { getYear } from '../helpers/getYear';
+import { verifySchedules } from './verifySchedules';
 
 import { setDataToUpdateSchedulesMonth } from './addScheduleWhenDayNotUse/setDataToUpdateSchedulesMonth';
 import { setDataToUpdateSchedulesByUser } from './addScheduleWhenDayNotUse/setDataToUpdateSchedulesByUser';
@@ -53,10 +50,10 @@ export const addScheduleWhenDayNotUse = async (
           [scheduleProfessional]: [`${schedule.shedule}`],
         },
       };
-        } else {
+    } else {
       unavailableTimesData[scheduleDay][scheduleProfessional]
         ? unavailableTimesData[scheduleDay][scheduleProfessional].push(
-          `${schedule.shedule}`,  
+          `${schedule.shedule}`,
         )
         : (unavailableTimesData[scheduleDay] = {
           ...unavailableTimesData[scheduleDay],

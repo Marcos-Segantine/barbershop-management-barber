@@ -1,7 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
-import { getDay } from '../helpers/getDay';
-import { getMonth } from '../helpers/getMonth';
-import { getYear } from '../helpers/getYear';
+
+import { getYear, getDay, getMonth } from '../helpers/getDate';
 
 export const getScheduleByDateAndHour = async (isScheduleFree, user, hour, route) => {
 

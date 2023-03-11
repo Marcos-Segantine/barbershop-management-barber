@@ -11,7 +11,7 @@ import {Title} from '../Title';
 import {Button} from '../Button';
 import {useContext, useEffect, useState} from 'react';
 
-import {AddScheduleContext} from '../../Context/AddSchedule';
+import {AddScheduleContext} from '../../context/AddSchedule';
 
 import {globalStyles} from '../../globalStyles';
 

@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import { useContext } from 'react';
 import {Pressable, Text, StyleSheet} from 'react-native';
-import {AddScheduleContext} from '../Context/AddSchedule';
+import {AddScheduleContext} from '../context/AddSchedule';
 
 export const Day = ({day}) => {
   const navigation = useNavigation();

@@ -8,10 +8,9 @@ import { Field } from '../components/Field';
 import { Button } from '../components/Button';
 
 import { getScheduleByDateAndHour } from '../functions/schedules/getScheduleByDateAndHour';
-import { cancelScheduleFuntion } from '../functions/schedules/cancelScheduleFuntion';
 
-import { AddScheduleContext } from '../Context/AddSchedule';
-import { UserDataContext } from '../Context/UserData';
+import { AddScheduleContext } from '../context/AddSchedule';
+import { UserDataContext } from '../context/UserData';
 
 export const ScheduleDetails = ({ route, navigation }) => {
   const [isScheduleFree, setIsScheduleFree] = useState(route.params.isScheduleFree);

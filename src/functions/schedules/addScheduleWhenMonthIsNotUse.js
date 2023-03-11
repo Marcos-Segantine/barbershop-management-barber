@@ -1,10 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 
-import { getDay } from '../helpers/getDay';
-import { getMonth } from '../helpers/getMonth';
-import { getProfessional } from '../helpers/getProfessional';
-import { getHour } from '../helpers/getHours';
-import { getYear } from '../helpers/getYear';
+import { getDay, getYear, getMonth, getProfessional, getHour } from '../helpers/getDate';
 
 import { setDataToUpdateSchedulesMonth } from './addScheduleWhenMonthIsNotUse/setDataToUpdateSchedulesMonth';
 import { setDataToUpdateSchedulesByUser } from './addScheduleWhenMonthIsNotUse/setDataToUpdateSchedulesByUser';

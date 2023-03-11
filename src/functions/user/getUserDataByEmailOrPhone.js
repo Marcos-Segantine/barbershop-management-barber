@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 
-import { takeOutFormatPhoneNumber } from './takeOutFormatPhoneNumber';
+import { takeOutFormatPhoneNumber } from '../helpers/takeOutFormatPhoneNumber';
 
 export const getUserDataByEmailOrPhone = async (
   email,

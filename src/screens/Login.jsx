@@ -1,24 +1,20 @@
-import {Text, Pressable, View, StyleSheet, TextInput} from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 
-import {useContext, useState} from 'react';
+import { useState } from 'react';
 
-import {Title} from '../components/Title';
-import {Button} from '../components/Button';
+import { Title } from '../components/Title';
+import { Button } from '../components/Button';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
-import {UserDataContext} from '../Context/UserData';
-
-import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const Login = ({navigation}) => {
+export const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {setUser, uid} = useContext(UserDataContext);
 
   const handleLogin = () => {
     auth()

@@ -9,18 +9,18 @@ import firestore from '@react-native-firebase/firestore';
 
 import { globalStyles } from '../globalStyles';
 
-import { getMonth } from '../functions/helpers/getMonth';
-import { getDay } from '../functions/helpers/getDay';
 import { dateFormated } from '../functions/helpers/dateFormated';
+
+import { getYear, getDay, getMonth } from '../functions/helpers/getDate';
 
 import { addScheduleWhenDayAlredyUse } from '../functions/schedules/addScheduleWhenDayAlredyUse';
 import { addScheduleWhenDayNotUse } from '../functions/schedules/addScheduleWhenDayNotUse';
 import { addScheduleWhenMonthIsNotUse } from '../functions/schedules/addScheduleWhenMonthIsNotUse';
 
 import { useIsFocused } from '@react-navigation/native';
-import { AddScheduleContext } from '../Context/AddSchedule';
-import { UserDataContext } from '../Context/UserData';
-import { getYear } from '../functions/helpers/getYear';
+import { AddScheduleContext } from '../context/AddSchedule';
+import { UserDataContext } from '../context/UserData';
+
 
 export const ConfirmNewSchedule = ({ navigation }) => {
   const { schedule, setSchedule } = useContext(AddScheduleContext);

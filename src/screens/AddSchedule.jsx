@@ -6,9 +6,9 @@ import { Title } from '../components/Title';
 import { Button } from '../components/Button';
 import { useContext, useState } from 'react';
 
-import { AddScheduleContext } from '../Context/AddSchedule';
+import { AddScheduleContext } from '../context/AddSchedule';
 
-import { getUserDataByEmailOrPhone } from '../functions/helpers/getUserDataByEmailOrPhone';
+import { getUserDataByEmailOrPhone } from '../functions/user/getUserDataByEmailOrPhone';
 import { formatPhoneNumber } from '../functions/helpers/formatPhoneNumber';
 
 import { Services } from '../components/modals/Services';

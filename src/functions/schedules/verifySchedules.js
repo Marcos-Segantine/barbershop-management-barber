@@ -1,8 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 
-import { getDay } from '../helpers/getDay';
-import { getMonth } from '../helpers/getMonth';
-import { getYear } from './getYear';
+import { getDay, getYear, getMonth } from '../helpers/getDate'
 
 const DAYS_OF_WEEK = ['saturday', 'sunday', 'weekday'];
 

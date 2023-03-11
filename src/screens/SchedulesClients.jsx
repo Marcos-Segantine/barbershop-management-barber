@@ -25,7 +25,7 @@ export const SchedulesClients = () => {
     return () => unsubscribe();
   }, []);
 
-  // set initial data in to `dataFiltered` all the `SchedulesClients` is focused
+  // sets initial data in to `dataFiltered` all the `SchedulesClients` is focused
   useFocusEffect(
     useCallback(() => {
       fetchDataSchedulesClients(setDataFiltered);

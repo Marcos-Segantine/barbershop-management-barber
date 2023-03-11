@@ -6,6 +6,8 @@ import { Title } from '../components/Title';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 
+import { getSchedulesInDay } from '../functions/schedules/getSchedulesInDay';
+
 import firestore from '@react-native-firebase/firestore';
 
 export const SchedulesInDay = ({ route }) => {
@@ -19,38 +21,39 @@ export const SchedulesInDay = ({ route }) => {
   const month = day.split('').splice(5, 2).join('');
   const daySchedule = day.split('').splice(8).join('');
 
-  const dateFormated = month + '_' + year;
-
   const date = new Date(day).getDay() + 1
   const weekday = date <= 5 ? 2 : date - 6
 
+  const dateFormated = month + '_' + year;
+
+  // listener that update the data all the times that `working_hours` collection is updated
   useEffect(() => {
+    const workingHoursRef = firestore().collection("working_hours")
+    const unsubscribe = workingHoursRef.onSnapshot(() => {
+      getSchedulesInDay(dateFormated, daySchedule, weekday, setData, day)
 
-    (async () => {
-      const workingHoursRef = await firestore().collection("working_hours").get()
-      const workingHoursData = workingHoursRef._docs[weekday]._data.times
+    })
 
-      const unavailableTimesRef = firestore().collection("unavailable_times").doc(dateFormated)
-      const unavailableTimesData = (await unavailableTimesRef.get()).data()[daySchedule]["Barbeiro 1"]
+    return () => unsubscribe()
 
-      const dataTemp = workingHoursData.map(workingHour => {
-        if (unavailableTimesData.includes(workingHour)) {
-          return {
-            day: day,
-            isScheduleFree: false,
-            hour: workingHour
-          }
-        } else {
-          return {
-            day: day,
-            isScheduleFree: true,
-            hour: workingHour
-          }
-        }
-      })
+  }, [])
 
-      setData(dataTemp)
-    })();
+
+  // listener that update the data all the times that `unavailable_times` collection is updated
+  useEffect(() => {
+    const unavailableTimesRef = firestore().collection("unavailable_times")
+    const unsubscribe = unavailableTimesRef.onSnapshot(() => {
+      getSchedulesInDay(dateFormated, daySchedule, weekday, setData, day)
+
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+
+  // sets the initial data
+  useEffect(() => {
+    getSchedulesInDay(dateFormated, daySchedule, weekday, setData, day)
 
   }, []);
 

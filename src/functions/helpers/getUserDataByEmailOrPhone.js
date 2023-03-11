@@ -16,7 +16,7 @@ export const getUserDataByEmailOrPhone = async (
       userDocData = (await usersRef.get()).docs[0].data()
     }
     else if (phone) {
-      const usersRef = firestore().collection('users').where('phone', '==', phone);
+      const usersRef = firestore().collection('users').where('phone', '==', `+55${phone}`);
       userDocData = (await usersRef.get()).docs[0].data()
     } else {
       setModalServiceVisible(false)

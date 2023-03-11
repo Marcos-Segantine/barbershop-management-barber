@@ -1,16 +1,17 @@
-import {View, TextInput, StyleSheet} from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
-import {Title} from '../components/Title';
-import {Button} from '../components/Button';
-import {useContext, useState} from 'react';
+import { Title } from '../components/Title';
+import { Button } from '../components/Button';
+import { useContext, useState } from 'react';
 
-import {AddScheduleContext} from '../Context/AddSchedule';
+import { AddScheduleContext } from '../Context/AddSchedule';
 
-import {getUserDataByEmailOrPhone} from '../functions/helpers/getUserDataByEmailOrPhone';
+import { getUserDataByEmailOrPhone } from '../functions/helpers/getUserDataByEmailOrPhone';
+import { formatPhoneNumber } from '../functions/helpers/formatPhoneNumber';
 
-import {Services} from '../components/modals/Services';
+import { Services } from '../components/modals/Services';
 
 export const AddSchedule = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ export const AddSchedule = () => {
 
   const [modaServicelVisible, setModalServiceVisible] = useState(false);
 
-  const {schedule, setSchedule} = useContext(AddScheduleContext);
+  const { schedule, setSchedule } = useContext(AddScheduleContext);
 
   return (
     <View style={globalStyles.container}>
@@ -38,8 +39,9 @@ export const AddSchedule = () => {
 
         <TextInput
           style={style.input}
+          value={phone}
           placeholder="Telefone"
-          onChangeText={text => setPhone(text)}
+          onChangeText={text => setPhone(formatPhoneNumber(text))}
           keyboardType="numeric"
         />
       </View>

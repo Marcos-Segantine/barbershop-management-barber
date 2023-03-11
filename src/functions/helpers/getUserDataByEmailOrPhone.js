@@ -13,23 +13,35 @@ export const getUserDataByEmailOrPhone = async (
 
     let userDocData
 
+    // users collection reference
+    const usersRef = firestore().collection('users')
+
+    // if email was gave, search user by email
     if (email) {
-      const usersRef = firestore().collection('users').where('email', '==', email);
-      userDocData = (await usersRef.get()).docs[0].data()
-    }
-    else if (phone) {
-      const usersRef = firestore().collection('users').where('phone', '==', `+55${takeOutFormatPhoneNumber(phone)}`);
-      userDocData = (await usersRef.get()).docs[0].data()
-    } else {
-      setModalServiceVisible(false)
-      throw Error("USER NOT FOUND")
+      const userData = usersRef.where('email', '==', email);
+      if (!(await userData.get()).docs.length) throw Error("User not found!")
+
+      userDocData = (await userData.get()).docs[0].data()
     }
 
+    // if phone number was gave, search user by phone number
+    else if (phone) {
+      const userData = usersRef.where('phone', '==', `+55${takeOutFormatPhoneNumber(phone)}`);
+      if (!(await userData.get()).docs.length) throw Error("User not found!")
+
+      userDocData = (await userData.get()).docs[0].data()
+    }
+
+    console.log(userDocData);
+    // set data from user in context
     setSchedule({ ...schedule, client: { ...userDocData } });
+
+    // show the services to keep on schedule
     setModalServiceVisible(true);
 
   } catch (error) {
-    console.log('Error getting user data:', error);
+
+    console.log(error);
     setModalServiceVisible(false);
     return null;
   }

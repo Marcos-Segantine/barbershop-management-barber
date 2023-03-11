@@ -6,23 +6,11 @@ import { Title } from '../components/Title';
 import { Button } from '../components/Button';
 
 import { globalStyles } from '../globalStyles';
-
-import auth from '@react-native-firebase/auth';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInWithEmailAndPassword } from '../functions/user/signInWithEmailAndPassword';
 
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-
-  const handleLogin = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(async () => {
-        await AsyncStorage.setItem('@barberApp__adm__email', email);
-      });
-  };
 
   return (
     <View style={globalStyles.container}>
@@ -47,7 +35,7 @@ export const Login = ({ navigation }) => {
           secureTextEntry={true}
         />
 
-        <Button text="Entrar" action={handleLogin} />
+        <Button text="Entrar" action={() => signInWithEmailAndPassword(email, password, navigation)} />
       </View>
     </View>
   );

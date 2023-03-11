@@ -1,17 +1,43 @@
-import {useNavigation} from '@react-navigation/native';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 
-import Svg, {Path, Defs, Pattern, Image, Use} from 'react-native-svg';
+import Svg, { Path, Defs, Pattern, Image, Use } from 'react-native-svg';
 
-import {globalStyles} from '../globalStyles';
+import { globalStyles } from '../globalStyles';
 
 export const Header = () => {
   const navigation = useNavigation();
 
+  const stateNavigation = useNavigationState(
+    stateNavigation => stateNavigation,
+  );
+  const indexNavigationScreen = stateNavigation?.index;
+  const nameRouteNavigation = stateNavigation?.routes[indexNavigationScreen].name;
+
+  const handleComeBack = () => {
+    switch (nameRouteNavigation) {
+      case 'InitialScreen':
+        break;
+      case 'Main':
+        navigation.navigate('InitialScreen');
+        break;
+      case 'Login':
+        navigation.navigate('InitialScreen');
+        break;
+      case 'SchedulesClients':
+        navigation.navigate('InitialScreen');
+        break;
+      default:
+        navigation.goBack();
+        break;
+    }
+  };
+
+
   return (
     <View style={style.container}>
       <View style={style.containerIcons}>
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={handleComeBack}>
           <Svg width={50} height={40} viewBox="0 0 30 30" fill="none">
             <Path fill="url(#pattern0)" d="M0 0H30V30H0z" />
             <Defs>

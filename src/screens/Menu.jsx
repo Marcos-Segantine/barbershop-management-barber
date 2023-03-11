@@ -21,7 +21,7 @@ export const Menu = ({navigation}) => {
 
   return (
     <View style={[globalStyles.container, {paddingTop: '30%'}]}>
-      <Field text={'Clientes Agendados'} navigateScreen="ScheduledClients" />
+      <Field text={'Clientes Agendados'} navigateScreen="SchedulesClients" />
 
       <Field text={'Suas informações'} navigateScreen="YourInformation" />
 

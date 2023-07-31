@@ -1,0 +1,232 @@
+import { useContext, useState } from "react"
+import { TextInput, View, ScrollView, StyleSheet, TouchableOpacity, Image, Text } from "react-native"
+
+import { Button } from "../components/Button"
+import { ComeBack } from "../components/ComeBack"
+import { Loading } from "../components/Loading"
+import { DefaultModal } from "../components/modals/DefaultModal"
+
+import { EditProfilePicture } from "../assets/icons/EditProfilePictureIcon"
+import { globalStyles } from "../assets/globalStyles"
+import DefaultPicture from "../assets/icons/DefaultPicture.png"
+
+import { UserContext } from "../context/UserContext"
+import { CreateNewPersonContext } from "../context/CreateNewPerson"
+
+import { handleConfirmFillProfile } from "../handlers/handleConfirmFillProfile"
+
+import { launchImageLibrary } from 'react-native-image-picker';
+
+import { generateNewUid } from "../utils/generateNewUid"
+
+import CheckBox from '@react-native-community/checkbox';
+
+export const FillProfile = ({ navigation, route }) => {
+    const { userData, setUserData } = useContext(UserContext)
+    const { createNewPerson, setCreateNewPearson } = useContext(CreateNewPersonContext)
+
+    const [picture, setPicture] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [modalContent, setModalContent] = useState(null)
+
+    const [male, setMale] = useState(false)
+    const [fame, setFame] = useState(false)
+    const [otherGender, setOtherGender] = useState(false)
+
+    const { isToUpdateProfessionalData } = route.params
+
+    const setNewProfilePicture = async () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: true,
+        };
+
+        let uid = null
+        if (!isToUpdateProfessionalData) {
+            uid = generateNewUid()
+            setCreateNewPearson({ ...createNewPerson, uid: uid })
+        }
+        else uid = userData.uid
+
+        launchImageLibrary(options, (response) => {
+            if (response.assets && response.assets.length > 0) {
+                const pathPic = response.assets[0].base64;
+                if (pathPic) {
+                    setCreateNewPearson({ ...createNewPerson, profilePicture: pathPic })
+                    setPicture(pathPic);
+                }
+            }
+        });
+    }
+
+    if (isLoading) return <Loading flexSize={1} />
+
+    return (
+        <ScrollView contentContainerStyle={globalStyles.container}>
+            <ComeBack text={"Preencha seu perfil"} />
+
+            <DefaultModal
+                modalContent={modalContent}
+            />
+
+            {
+                isToUpdateProfessionalData &&
+                <Text style={{ color: "#000000", fontWeight: "bold", marginVertical: 20, fontSize: globalStyles.fontSizeSmall }}>
+                    AVISO: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontWeight: "normal" }}>As informações dos campos vazios não serão atualizadas</Text>
+                </Text>
+            }
+
+            <View style={picture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
+                {
+                    picture ?
+                        <Image source={{ uri: `data:image/png;base64,${picture}` }} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
+                        <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
+                }
+
+                <TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={setNewProfilePicture}>
+                    <EditProfilePicture width={40} height={40} />
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.contentInput}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nome completo"
+                    value={createNewPerson.name}
+                    placeholderTextColor={"#00000050"}
+                    onChangeText={text => setCreateNewPearson({ ...createNewPerson, name: text })}
+                />
+                <TextInput
+                    style={styles.input}
+                    value={createNewPerson.nickname}
+                    placeholder="Apelido (como devemos te chamar)"
+                    placeholderTextColor={"#00000050"}
+                    onChangeText={text => setCreateNewPearson({ ...createNewPerson, nickname: text })}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    value={createNewPerson.email}
+                    placeholderTextColor={"#00000050"}
+                    onChangeText={text => setCreateNewPearson({ ...createNewPerson, email: text })}
+                    keyboardType="email-address"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Número de celular"
+                    placeholderTextColor={"#00000050"}
+                    value={createNewPerson.phone}
+                    onChangeText={text => setCreateNewPearson({ ...createNewPerson, phone: text })}
+                    keyboardType="numeric"
+                />
+
+                <Text style={{ color: "#000000", fontWeight: "bold", fontSize: globalStyles.fontSizeSmall, width: "100%", marginTop: 20, textAlign: "center" }}>Gênero</Text>
+
+                <View style={styles.contentGenderOptions}>
+                    <View style={styles.contentCheckbox}>
+                        <CheckBox
+                            tintColors={{ true: globalStyles.orangeColor, false: globalStyles.orangeColor }}
+                            disabled={false}
+                            value={male}
+                            onValueChange={(newValue) => { setMale(newValue), setFame(false), setOtherGender(false) }}
+                        />
+
+                        <Text style={styles.text}>Masculino</Text>
+                    </View>
+
+                    <View style={[styles.contentCheckbox, { justifyContent: "center" }]}>
+                        <CheckBox
+                            tintColors={{ true: globalStyles.orangeColor, false: globalStyles.orangeColor }}
+                            disabled={false}
+                            value={fame}
+                            onValueChange={(newValue) => { setFame(newValue), setMale(false), setOtherGender(false) }}
+                        />
+
+                        <Text style={styles.text}>Feminino</Text>
+                    </View>
+
+                    <View style={styles.contentCheckbox}>
+                        <CheckBox
+                            tintColors={{ true: globalStyles.orangeColor, false: globalStyles.orangeColor }}
+                            disabled={false}
+                            value={otherGender}
+                            onValueChange={(newValue) => { setOtherGender(newValue), setFame(false), setMale(false) }}
+                        />
+
+                        <Text style={styles.text}>Outro</Text>
+                    </View>
+                </View>
+            </View>
+
+            <Button
+                text={"Confirmar"}
+                action={() => handleConfirmFillProfile(
+                    setIsLoading,
+                    { male, fame, otherGender },
+                    picture,
+                    isToUpdateProfessionalData,
+                    createNewPerson,
+                    userData,
+                    setModalContent,
+                    setUserData,
+                    setCreateNewPearson,
+                    navigation,
+                )}
+            />
+
+        </ScrollView >
+    )
+}
+
+const styles = StyleSheet.create({
+    contentInput: {
+        marginTop: "10%",
+        marginBottom: "10%",
+        width: "100%",
+        alignItems: 'center'
+    },
+
+    input: {
+        width: "100%",
+        backgroundColor: "#fafafa",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "transparent",
+        marginTop: 10,
+        paddingHorizontal: 20,
+        color: "#000000",
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    contentEditPicture: {
+        backgroundColor: '#fc9501',
+        position: 'absolute',
+        bottom: 15,
+        padding: 3,
+        borderRadius: 10,
+        right: 15,
+        padding: 5,
+    },
+
+    contentGenderOptions: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        flexWrap: "wrap",
+        marginTop: 20
+    },
+
+    contentCheckbox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: "50%",
+        marginVertical: 5,
+    },
+
+    text: {
+        color: "#000000",
+        fontWeight: "bold",
+        fontSize: globalStyles.fontSizeSmall
+    }
+})

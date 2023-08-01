@@ -40,8 +40,6 @@ export const Profile = ({ navigation }) => {
     navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
   }
 
-  console.log(userData?.profilePicture);
-
   return (
     <>
       <ScrollView contentContainerStyle={globalStyles.container}>

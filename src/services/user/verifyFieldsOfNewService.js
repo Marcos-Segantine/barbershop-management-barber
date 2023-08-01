@@ -21,8 +21,6 @@ export const verifyFieldsOfNewService = (
         return false
     }
 
-    // console.log(currentServices.includes(serviceName), ">>>>", currentServices);
-
     for (const service of currentServices) {
         if (service.name === serviceName) {
             setError({

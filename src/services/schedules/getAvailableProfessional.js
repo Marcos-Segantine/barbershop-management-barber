@@ -2,7 +2,11 @@ import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getHour, getMonth, getYear } from '../../utils/dateHelper';
 
-export const getAvailableProfessional = async (schedule, setAvailableProfessional, setIsLoading) => {
+export const getAvailableProfessional = async (
+    schedule,
+    setAvailableProfessional,
+    setIsLoading
+) => {
     try {
         setIsLoading(true)
 

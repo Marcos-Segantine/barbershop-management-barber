@@ -21,7 +21,6 @@ export const fetchDataSchedulesClients = async (
       Object.keys(data).forEach(day => {
         const barberSchedule = data[day][barberName];
         if (!barberSchedule) return
-        // console.log(barberSchedule, "<");
 
         const hasScheduleInCurrentDay = Object.keys(data[day][barberName])
         
@@ -36,8 +35,6 @@ export const fetchDataSchedulesClients = async (
         }
       });
     });
-
-    // console.log(dataTemp);
 
     setDataFiltered(dataTemp.length ? dataTemp : []);
 

@@ -19,7 +19,6 @@ export const updateUserPassword = async (
         setUserData({ ...userData, password: newPassword })
 
     } catch (error) {
-        console.log(error.code);
         if (error.code === 'auth/requires-recent-login') {
             auth()
                 .signInWithEmailAndPassword(userData.email, userData.password)

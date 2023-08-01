@@ -6,6 +6,8 @@ export const formatPhoneNumber = (
 
         let phoneWithoutCountryCode = ""
 
+        if(!phone) return
+
         if (phone.length >= 12) {
             phoneWithoutCountryCode = phone.split("").splice(3, phone.length).join("")
         }

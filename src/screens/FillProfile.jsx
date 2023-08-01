@@ -59,8 +59,6 @@ export const FillProfile = ({ navigation, route }) => {
         });
     }
 
-    console.log(picture);
-
     if (isLoading) return <Loading flexSize={1} />
 
     return (

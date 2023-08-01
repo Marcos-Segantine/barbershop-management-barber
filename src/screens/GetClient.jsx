@@ -109,7 +109,7 @@ export const GetClient = ({ navigation }) => {
                 <Button text={"Confirmar"} action={handleConfirm} addStyles={{ marginTop: 30, marginBottom: 20 }} isToBlockButton={!email.trim("") && !phone.trim("") ? true : false} />
 
                 <Pressable onPress={handleNewClient}>
-                    <Text style={styles.alertInfo}>O cliente deve ter uma conta registrada. Caso ainda não tenha uma,
+                    <Text style={styles.alertInfo}>O cliente deve ter uma conta cadastrada. Caso ainda não tenha uma,
                         <Text style={{ color: globalStyles.orangeColor }}> registre-o clicando aqui.</Text>
                     </Text>
                 </Pressable>

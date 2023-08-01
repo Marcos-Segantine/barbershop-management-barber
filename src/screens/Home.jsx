@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { StyleSheet, Text, View, Image } from "react-native"
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native"
 
 import { globalStyles } from "../assets/globalStyles"
 import { FreeTimeImage } from "../assets/imgs/FreeTimeImage"
@@ -70,7 +70,7 @@ export const Home = ({ navigation }) => {
 
     return (
         <>
-            <View style={[globalStyles.container, { justifyContent: "space-between", flex: 1 }]}>
+            <ScrollView contentContainerStyle={[globalStyles.container, { justifyContent: "space-between" }]}>
                 <HeaderScreensMenu screenName={dayFormatted} />
                 <View style={styles.contentDate}>
                     <Text style={styles.scheduleHour}>{scheduleEarlier && scheduleEarlier.schedule}</Text>
@@ -101,7 +101,7 @@ export const Home = ({ navigation }) => {
                         userData,
                     )}
                 />
-            </View>
+            </ScrollView>
 
             <Menu />
         </>

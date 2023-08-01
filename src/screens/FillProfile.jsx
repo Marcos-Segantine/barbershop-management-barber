@@ -59,6 +59,8 @@ export const FillProfile = ({ navigation, route }) => {
         });
     }
 
+    console.log(picture);
+
     if (isLoading) return <Loading flexSize={1} />
 
     return (
@@ -120,7 +122,7 @@ export const FillProfile = ({ navigation, route }) => {
                     keyboardType="numeric"
                 />
 
-                <Text style={{ color: "#000000", fontWeight: "bold", fontSize: globalStyles.fontSizeSmall, width: "100%", marginTop: 20, textAlign: "center" }}>Gênero</Text>
+                <Text style={{ color: "#000000", fontWeight: "bold", fontSize: globalStyles.fontSizeSmall, width: "100%", marginTop: 20 }}>Gênero</Text>
 
                 <View style={styles.contentGenderOptions}>
                     <View style={styles.contentCheckbox}>

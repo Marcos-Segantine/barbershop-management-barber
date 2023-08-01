@@ -43,6 +43,6 @@ export const getSchedulesInDay = async (dateFormatted, scheduleDay, weekday, bar
 
   } catch (error) {
     console.error(error);
-    // setSomethingWrong(true)
+    setSomethingWrong(true)
   }
 }

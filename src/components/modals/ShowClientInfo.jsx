@@ -8,12 +8,15 @@ import DefaultPicture from "../../assets/icons/DefaultPicture.png"
 
 import { ScheduleContext } from "../../context/ScheduleContext"
 
+import { formatPhoneNumber } from "../../utils/formatPhoneNumber"
+
 import { Button } from "../Button"
 
 export const ShowClientInfo = ({ modalShowUser, setModalShowUser }) => {
     const navigation = useNavigation()
 
     const { schedule } = useContext(ScheduleContext)
+    const { setSomethingWrong } = useContext(ScheduleContext)
 
     const handleAction = (action = "confirm") => {
         if (action === 'cancel') {
@@ -35,7 +38,7 @@ export const ShowClientInfo = ({ modalShowUser, setModalShowUser }) => {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <Text style={{ fontSize: globalStyles.fontSizeMedium, color: "#000000", fontWeight: "bold", marginBottom: 20 }}>Refere-se a este cliente?</Text>
-                    
+
                     <View>
                         {
                             schedule?.client?.profilePicture ?
@@ -52,7 +55,7 @@ export const ShowClientInfo = ({ modalShowUser, setModalShowUser }) => {
 
                     <View style={{ alignItems: 'flex-start', marginTop: 25 }}>
                         <Text style={styles.description}>Email: <Text style={styles.info}>{schedule.client && schedule.client.email}</Text></Text>
-                        <Text style={styles.description}>Celular: <Text style={styles.info}>{schedule.client && schedule.client.phone}</Text></Text>
+                        <Text style={styles.description}>Celular: <Text style={styles.info}>{schedule.client && formatPhoneNumber(schedule.client.phone, setSomethingWrong)}</Text></Text>
                     </View>
 
                     <View style={styles.contentButtons}>

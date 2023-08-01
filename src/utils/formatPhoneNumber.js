@@ -1,4 +1,7 @@
-export const formatPhoneNumber = (phone, setSomethingWrong) => {
+export const formatPhoneNumber = (
+    phone,
+    setSomethingWrong
+) => {
     try {
 
         let phoneWithoutCountryCode = ""

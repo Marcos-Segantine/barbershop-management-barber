@@ -109,7 +109,12 @@ export const EditServices = ({ navigation }) => {
                     keyboardType="numeric"
                 />
 
-                <Button text={"Adicionar"} addStyles={{ marginTop: 20, width: "100%" }} action={handleNewService} />
+                <Button
+                    text={"Adicionar"}
+                    addStyles={{ marginTop: 20, width: "100%" }}
+                    action={handleNewService}
+                    isToBlockButton={!newService.name && !newService.price}
+                />
 
                 <View style={[styles.contentServices]}>
                     {
@@ -135,7 +140,7 @@ export const EditServices = ({ navigation }) => {
                 !!currentServices.length &&
                 (
                     <Button
-                        text={"Continuar"}
+                        text={"Confirmar"}
                         addStyles={{ marginTop: 30, width: "100%" }}
                         action={handleContinue}
                     />

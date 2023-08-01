@@ -109,7 +109,7 @@ export const handleConfirmFillProfile = async (
 
         updateProfessionalData(
             userData.uid,
-            { ...createNewPerson, gender: gender },
+            { ...createNewPerson, gender: gender, profilePicture: picture },
             userData,
             setUserData,
             setIsLoading,

@@ -26,7 +26,7 @@ export const SomethingWrong = () => {
         >
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <SomethingWrongImage height={"60%"} />
+                    <SomethingWrongImage height={300} />
 
                     <Text style={styles.mainMessage}>Algo deu errado!</Text>
                     <Text style={styles.message}>Sentimos muito mas ocorreu um erro, por favor tente novamente mais tarde. Caso queira pode entrar em contato conosco</Text>

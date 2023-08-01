@@ -40,19 +40,20 @@ export const Profile = ({ navigation }) => {
     navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
   }
 
+  console.log(userData?.profilePicture);
+
   return (
     <>
       <ScrollView contentContainerStyle={globalStyles.container}>
         <HeaderScreensMenu screenName={"Perfil"} />
 
         <View style={{ alignItems: 'center' }}>
-          <View style={userData?.profilePicture ? { padding: 10 } : { borderRadius: 150 }}>
+          <View>
             {
-              false ?
+              userData?.profilePicture ?
                 <Image src={userData.profilePicture} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
                 <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
             }
-
           </View>
 
           <Text style={styles.userName}>{userData && userData.name}</Text>

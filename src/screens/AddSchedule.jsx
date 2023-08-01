@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 
 import { ScheduleContext } from "../context/ScheduleContext"
 
@@ -21,8 +21,11 @@ export const AddSchedule = ({ navigation, route }) => {
 
   const { schedule, setSchedule } = useContext(ScheduleContext)
 
+  const scrollViewRef = useRef();
+
   useEffect(() => {
     setSchedule({ ...schedule, professional: null, schedule: null, day: null })
+      scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
 
   }, [])
 
@@ -31,7 +34,11 @@ export const AddSchedule = ({ navigation, route }) => {
   }
 
   return (
-    <ScrollView contentContainerStyle={[globalStyles.container, { paddingBottom: "20%" }]}>
+    <ScrollView
+      ref={scrollViewRef}
+      contentContainerStyle={[globalStyles.container, { paddingBottom: "20%" }]}
+      onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+    >
       <ComeBack text={headerText} />
 
       <Text style={styles.text}>Voce tem preferência por profissional?</Text>
@@ -50,25 +57,39 @@ export const AddSchedule = ({ navigation, route }) => {
           (
             <>
               <Professionals preferProfessional={preferProfessional} />
-              <CalendarComponent />
-              <Schedules preferProfessional={preferProfessional} />
+              {
+                schedule.professional &&
+                <CalendarComponent />
+              }
+              {
+                schedule.professional && schedule.day &&
+                <Schedules preferProfessional={preferProfessional} />
+              }
             </>
           ) :
           (
             <>
               <Schedules preferProfessional={preferProfessional} />
-              <CalendarComponent />
-              <Professionals preferProfessional={preferProfessional} />
+              {
+                schedule.schedule &&
+                <CalendarComponent />
+              }
+              {
+                schedule.schedule && schedule.day &&
+                <Professionals preferProfessional={preferProfessional} />
+              }
             </>
           )
       }
 
-      <Button
-        text={"Continuar"}
-        action={handleConfirm}
-        isToBlockButton={(!!schedule.professional && !!schedule.schedule && !!schedule.day) === false ? true : false}
-        addStyles={{ marginTop: 30 }}
-      />
+      {
+        (schedule.schedule && schedule.professional && schedule.day) &&
+        <Button
+          text={"Continuar"}
+          action={handleConfirm}
+          addStyles={{ marginTop: 30 }}
+        />
+      }
     </ScrollView>
   );
 };

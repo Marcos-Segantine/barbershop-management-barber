@@ -166,6 +166,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                         text={"Adicionar"}
                         addStyles={{ marginTop: 10, width: "100%" }}
                         action={handleNewSchedule}
+                        isToBlockButton={newSchedule === ""}
                     />
 
                     <View style={styles.contentSchedules}>

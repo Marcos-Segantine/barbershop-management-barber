@@ -31,7 +31,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
     const { scheduleToUpdate, isToUpdateSchedule } = route.params
 
     const dateFormatted = schedule && formatDate(schedule.day, setSomethingWrong)
-    const phoneFormatted = schedule.client.phone && formatPhoneNumber(schedule.client.phone, setSomethingWrong)
+    const phoneFormatted = schedule.client?.phone && formatPhoneNumber(schedule.client.phone, setSomethingWrong)
 
     const isFocused = useIsFocused();
 

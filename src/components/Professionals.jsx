@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     img: {
         width: 130,
         height: 130,
-        borderRadius: 15,
+        borderRadius: 150,
     },
 
     professionalName: {

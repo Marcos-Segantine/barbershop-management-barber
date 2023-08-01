@@ -18,16 +18,16 @@ export const fetchDataSchedulesClients = async (
 
       const data = doc.data();
 
-
       Object.keys(data).forEach(day => {
         const barberSchedule = data[day][barberName];
         if (!barberSchedule) return
+        // console.log(barberSchedule, "<");
 
         const hasScheduleInCurrentDay = Object.keys(data[day][barberName])
         
         if(!hasScheduleInCurrentDay.length) return
         
-        if(isDatePassed(data[day][barberName][Object.keys(data[day][barberName])[0]])) return
+        if(isDatePassed(data[day][barberName][Object.keys(data[day][barberName])[0]].day)) return
 
         const keys__barberSchedule = Object.keys(barberSchedule)
 
@@ -36,6 +36,8 @@ export const fetchDataSchedulesClients = async (
         }
       });
     });
+
+    // console.log(dataTemp);
 
     setDataFiltered(dataTemp.length ? dataTemp : []);
 

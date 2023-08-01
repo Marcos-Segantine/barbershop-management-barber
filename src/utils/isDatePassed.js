@@ -1,7 +1,11 @@
 export const isDatePassed = (date) => {
-    const currentDate = new Date();
+    const currentDay = new Date().getDate();
+    const currentMonth = new Date().getMonth();
+    
+    const day = new Date(date).getDate()
+    const month = new Date(date).getMonth()
 
-    if (!(date instanceof Date)) date = new Date(date);
-
-    return date < currentDate;
+    if(month < currentMonth) return true
+    if(day < currentDay) return true
+    return false
 }

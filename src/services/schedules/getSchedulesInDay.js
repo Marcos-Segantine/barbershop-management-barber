@@ -1,8 +1,16 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getMonth, getYear } from '../../utils/dateHelper';
+import { getCurrentHour } from '../../utils/getCurrentHour';
 
-export const getSchedulesInDay = async (dateFormatted, scheduleDay, weekday, barberInfo, setData, setSomethingWrong) => {
+export const getSchedulesInDay = async (
+  dateFormatted,
+  scheduleDay,
+  weekday,
+  barberInfo,
+  setData,
+  setSomethingWrong
+) => {
   try {
 
     const day = getDay(scheduleDay)
@@ -11,7 +19,7 @@ export const getSchedulesInDay = async (dateFormatted, scheduleDay, weekday, bar
 
     const schedulesMonthRef = firestore().collection("schedules_month").doc(dateFormatted)
     const workingHoursRef = firestore().collection("working_hours").doc(barberInfo.uid)
-    
+
     const schedulesMonthData = (await schedulesMonthRef.get()).data()[day][barberInfo.name]
     const workingHoursData = (await workingHoursRef.get()).data()[weekday]
 
@@ -19,7 +27,13 @@ export const getSchedulesInDay = async (dateFormatted, scheduleDay, weekday, bar
 
     const schedulesOfProfessional = Object.keys(schedulesMonthData)
 
+    const currentHour = getCurrentHour()
+
     workingHoursData.forEach(workTime => {
+      const workTimeToCompare = Number(workTime.split(":")[0])
+
+      if (workTimeToCompare < currentHour) return
+
       if (schedulesOfProfessional.includes(workTime)) {
         data.push({
           day: day,

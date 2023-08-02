@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 52,
         color: "#000000",
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         marginLeft: 25,
     },
 
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
 
     linksAuth: {
         color: globalStyles.orangeColor,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: 16,
         marginTop: 20,
     },

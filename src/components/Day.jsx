@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
     textAlign: 'center',
     color: '#000000',
   },

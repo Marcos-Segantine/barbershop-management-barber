@@ -71,8 +71,8 @@ export const FillProfile = ({ navigation, route }) => {
 
             {
                 isToUpdateProfessionalData &&
-                <Text style={{ color: "#000000", fontWeight: "bold", marginVertical: 20, fontSize: globalStyles.fontSizeSmall }}>
-                    AVISO: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontWeight: "normal" }}>As informações dos campos vazios não serão atualizadas</Text>
+                <Text style={{ color: "#000000", fontFamily: globalStyles.fontFamilyBold, marginVertical: 20, fontSize: globalStyles.fontSizeSmall }}>
+                    AVISO: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontFamily: "normal" }}>As informações dos campos vazios não serão atualizadas</Text>
                 </Text>
             }
 
@@ -120,7 +120,7 @@ export const FillProfile = ({ navigation, route }) => {
                     keyboardType="numeric"
                 />
 
-                <Text style={{ color: "#000000", fontWeight: "bold", fontSize: globalStyles.fontSizeSmall, width: "100%", marginTop: 20 }}>Gênero</Text>
+                <Text style={{ color: "#000000", fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, width: "100%", marginTop: 20 }}>Gênero</Text>
 
                 <View style={styles.contentGenderOptions}>
                     <View style={styles.contentCheckbox}>
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
 
     text: {
         color: "#000000",
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall
     }
 })

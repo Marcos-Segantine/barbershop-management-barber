@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: globalStyles.fontSizeMedium,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         color: '#000000',
         marginLeft: "3%",
         letterSpacing: -0.5,

@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
     mainMessage: {
         color: globalStyles.orangeColor,
         fontSize: globalStyles.fontSizeMedium,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
     },
 
     message: {
         color: "#000000",
         fontSize: globalStyles.fontSizeSmall,
         marginVertical: 15,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
         textAlign: 'center',
     },

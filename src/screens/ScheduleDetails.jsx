@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   clientName: {
     color: "#000000",
     fontSize: globalStyles.fontSizeMedium,
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
     maxWidth: "100%",
     textAlign: 'center',
     marginTop: 20,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: globalStyles.fontSizeSmall,
     marginVertical: 8,
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
     maxWidth: "80%",
   },
 
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
     fontSize: globalStyles.fontSizeSmall,
     marginVertical: 15,
     maxWidth: "100%",
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
   }
 });

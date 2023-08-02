@@ -126,8 +126,8 @@ export const EditServices = ({ navigation }) => {
                                         <Pressable style={styles.removeIcon} onPress={() => handleRemoveService(service.name)}>
                                             <CloseIcon width={35} height={35} />
                                         </Pressable>
-                                        <Text style={styles.serviceText}><Text style={{ fontWeight: "bold" }}>Serviço:</Text> {service.name}</Text>
-                                        <Text style={styles.serviceText}><Text style={{ fontWeight: "bold" }}>Preço:</Text> {formatPrice(service.price)}</Text>
+                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Serviço:</Text> {service.name}</Text>
+                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Preço:</Text> {formatPrice(service.price)}</Text>
                                     </View>
                                 )
                             })

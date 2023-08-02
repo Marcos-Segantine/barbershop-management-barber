@@ -147,14 +147,14 @@ const styles = StyleSheet.create({
 
     serviceContact: {
         color: '#00000070',
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
     },
 
     contactData: {
         color: '#000000',
         fontSize: globalStyles.fontSizeSmall,
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
     },
 
     input: {
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     textOr: {
         color: '#00000080',
         fontSize: globalStyles.fontSizeSmall,
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
     },
 
     alertInfo: {

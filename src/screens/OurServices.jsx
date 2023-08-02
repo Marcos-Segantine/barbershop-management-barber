@@ -49,7 +49,7 @@ export const OurServices = ({ navigation, route }) => {
             <ComeBack text={"Selecione Serviço(s)"} />
 
             <View style={styles.contentServicesSelected}>
-                <Text style={{ color: "#000000", fontSize: globalStyles.fontSizeVerySmall, fontWeight: globalStyles.fontFamilyBold }}>Serviço(s) selecionado(s):</Text>
+                <Text style={{ color: "#000000", fontSize: globalStyles.fontSizeVerySmall, fontFamily: globalStyles.fontFamilyBold }}>Serviço(s) selecionado(s):</Text>
                 {
                     servicesSelected.map((service, index) => (
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }} key={index}>
@@ -116,14 +116,14 @@ const styles = StyleSheet.create({
     describe: {
         color: "#00000070",
         fontSize: globalStyles.fontSizeSmall,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         marginLeft: 10,
     },
 
     info: {
         fontSize: globalStyles.fontSizeSmall,
         color: "#000000",
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "75%",
     },
 

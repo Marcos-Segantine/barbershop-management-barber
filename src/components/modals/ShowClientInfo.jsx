@@ -37,7 +37,7 @@ export const ShowClientInfo = ({ modalShowUser, setModalShowUser }) => {
         >
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={{ fontSize: globalStyles.fontSizeMedium, color: "#000000", fontWeight: "bold", marginBottom: 20 }}>Refere-se a este cliente?</Text>
+                    <Text style={{ fontSize: globalStyles.fontSizeMedium, color: "#000000", fontFamily: globalStyles.fontFamilyBold, marginBottom: 20 }}>Refere-se a este cliente?</Text>
 
                     <View>
                         {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontSize: 24,
         marginTop: 30,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
         textAlign: 'center',
     },
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontSize: 16,
         marginVertical: 8,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
         textAlign: 'center',
     },
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         maxWidth: "80%",
         textAlign: 'center',
-        fontWeight: "400",
+        fontFamily: globalStyles.fontFamilyBold,
     },
 
     contentButtons: {

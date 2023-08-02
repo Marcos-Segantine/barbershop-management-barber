@@ -108,7 +108,7 @@ export const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   userName: {
     fontSize: globalStyles.fontSizeMedium,
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
     color: '#000000',
     marginTop: 20,
     marginBottom: 5,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 
   userEmail: {
     fontSize: globalStyles.fontSizeSmall,
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
     color: '#000000'
   },
 

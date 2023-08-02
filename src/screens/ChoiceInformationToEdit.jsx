@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#000000",
         fontSize: globalStyles.fontSizeMedium,
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         textAlign: "center",
     }
 })

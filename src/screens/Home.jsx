@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         fontSize: globalStyles.fontSizeMedium,
         color: "#000000",
         marginTop: 12,
-        fontWeight: "800",
+        fontFamily: "800",
         textAlign: "center"
     },
 
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontSize: globalStyles.fontSizeMedium,
         marginTop: 30,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
         textAlign: 'center',
     },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontSize: globalStyles.fontSizeSmall,
         marginVertical: 8,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
         textAlign: 'center',
     },
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         maxWidth: "80%",
         textAlign: 'center',
-        fontWeight: "400",
+        fontFamily: "400",
     },
 
     contentButtons: {

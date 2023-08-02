@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
     orangeColorDarker: "#b16401",
     champagneColor: "#fff8ef",
     fontFamilyMedium: "Satoshi-Medium",
-    fontFamilyBold: "700", // Satoshi-Bold
+    fontFamilyBold: "Satoshi-Bold",
     fontFamilyRegular: "Satoshi-Regular",
     fontFamilyLight: "Satoshi-Light",
     fontSizeVerySmall: getFontSize(12),

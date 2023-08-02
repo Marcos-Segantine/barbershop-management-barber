@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
     price: {
         color: globalStyles.orangeColor,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
     }
 })

@@ -105,7 +105,7 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 25,
     borderTopRightRadius: 25,
     borderColor: '#E95401',
-    fontWeight: '700',
+    fontFamily: globalStyles.fontFamilyBold,
     paddingVertical: 5,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -121,7 +121,7 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 25,
     borderTopRightRadius: 25,
     borderColor: '#E95401',
-    fontWeight: '700',
+    fontFamily: globalStyles.fontFamilyBold,
     paddingVertical: 5,
     paddingHorizontal: 25,
     alignItems: 'center',
@@ -130,6 +130,6 @@ const style = StyleSheet.create({
   serviceText: {
     color: '#FFFFFF',
     fontSize: globalStyles.fontSizeMedium,
-    fontWeight: '700',
+    fontFamily: globalStyles.fontFamilyBold,
   },
 });

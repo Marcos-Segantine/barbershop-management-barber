@@ -117,13 +117,13 @@ const styles = StyleSheet.create({
 
     time: {
         color: globalStyles.orangeColor,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
     },
 
     text: {
         color: "#000000",
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         width: "100%",
         fontSize: globalStyles.fontSizeSmall,
         marginTop: 30,

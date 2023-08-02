@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
 
     text: {
         color: "#FFFFFF",
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
     }
 })

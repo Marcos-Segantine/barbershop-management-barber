@@ -108,13 +108,13 @@ const styles = StyleSheet.create({
 
     professionalName: {
         fontSize: globalStyles.fontSizeMedium,
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         color: "#000000",
     },
 
     text: {
         color: "#000000",
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         width: "100%",
         fontSize: globalStyles.fontSizeSmall,
         marginTop: 30,

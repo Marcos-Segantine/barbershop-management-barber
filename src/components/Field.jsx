@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, View, StyleSheet, Pressable} from 'react-native';
+import { globalStyles } from '../assets/globalStyles';
 
 export const Field = ({text, navigateScreen = false}) => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const style = StyleSheet.create({
 
   text: {
     color: '#FFFFFF',
-    fontWeight: '700',
+    fontFamily: globalStyles.fontFamilyBold,
     textAlign: 'center',
   },
 });

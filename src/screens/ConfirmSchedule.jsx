@@ -145,13 +145,13 @@ const styles = StyleSheet.create({
     describe: {
         color: "#00000070",
         fontSize: globalStyles.fontSizeSmall,
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
     },
 
     info: {
         fontSize: globalStyles.fontSizeSmall,
         color: "#000000",
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "75%",
     },
 

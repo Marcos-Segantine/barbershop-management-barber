@@ -115,7 +115,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                     <Text style={styles.text}>Insira os horário de atendimento no campo abaixo.</Text>
                     <Text style={styles.text}>
                         O formato inserido deve ser de um modo em especifico, por exemplo:
-                        <Text style={{ fontWeight: "bold" }}>12:00</Text>
+                        <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>12:00</Text>
                     </Text>
                     <TextInput
                         style={styles.input}
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     },
 
     time: {
-        fontWeight: globalStyles.fontFamilyBold,
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
         color: '#FFFFFF'
     },
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
         color: "#FF0000",
         textAlign: "center",
         marginVertical: 15,
-        fontWeight: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
     }
 })

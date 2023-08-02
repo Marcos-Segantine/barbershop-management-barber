@@ -132,7 +132,7 @@ const style = StyleSheet.create({
 
   scheduleText: {
     color: '#000000',
-    fontWeight: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyBold,
     textAlign: 'center',
     fontSize: globalStyles.fontSizeSmall,
   },

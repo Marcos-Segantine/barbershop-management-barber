@@ -65,17 +65,12 @@ export const Home = ({ navigation }) => {
         </>
     )
 
-    const dayFormatted = scheduleEarlier.day && formatDate(scheduleEarlier.day).split(",")[0] + " - " + getDayOfWeek(scheduleEarlier.day)
-    const services = scheduleEarlier.services && scheduleEarlier.services.map(service => service.name).join(", ")
+    const dayFormatted = scheduleEarlier.day && formatDate(scheduleEarlier.day).split(",")[0]
 
     return (
         <>
             <ScrollView contentContainerStyle={[globalStyles.container, { justifyContent: "space-between" }]}>
                 <HeaderScreensMenu screenName={dayFormatted} />
-                <View style={styles.contentDate}>
-                    <Text style={styles.scheduleHour}>{scheduleEarlier && scheduleEarlier.schedule}</Text>
-                </View>
-
                 {
                     scheduleEarlier?.profilePicture ?
                         <Image src={scheduleEarlier.profilePicture} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
@@ -84,10 +79,24 @@ export const Home = ({ navigation }) => {
 
                 <Text style={styles.clientName}>{scheduleEarlier && scheduleEarlier.name}</Text>
 
-                <View style={{ alignItems: 'flex-start', marginTop: 25 }}>
-                    <Text style={styles.description}>Email: <Text style={styles.info}>{scheduleEarlier && scheduleEarlier.email}</Text></Text>
+                <View style={{ alignItems: 'flex-start', marginTop: 20, width: "100%" }}>
+                    <Text style={styles.description}>Dia: <Text style={styles.info}>{getDayOfWeek(scheduleEarlier.day)}</Text></Text>
+                    <Text style={styles.description}>Hora: <Text style={styles.info}>{scheduleEarlier && scheduleEarlier.schedule}</Text></Text>
                     <Text style={styles.description}>Celular: <Text style={styles.info}>{scheduleEarlier && formatPhoneNumber(scheduleEarlier.phone, setSomethingWrong)}</Text></Text>
-                    <Text style={styles.description}>Serviços: <Text style={styles.info}>{services}</Text></Text>
+                    <View style={styles.servicesList}>
+                        <Text style={styles.description}>Serviços:</Text>
+                        {
+                            scheduleEarlier?.services && scheduleEarlier.services.map(service => {
+                                return (
+                                    <View key={service.name} style={styles.serviceContentList}>
+                                        <View style={{ width: 8, height: 8, borderRadius: 150, backgroundColor: "black", marginRight: 10 }}></View>
+                                        <Text style={[styles.info, { marginVertical: 0 }]}>{service.name}</Text>
+                                    </View>
+                                )
+                            })
+                        }
+                    </View>
+                    <Text style={styles.description}>Email: <Text style={styles.info}>{scheduleEarlier && scheduleEarlier.email}</Text></Text>
                 </View>
 
                 <Button
@@ -145,7 +154,24 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         maxWidth: "80%",
         textAlign: 'center',
-        fontFamily: "400",
+        fontFamily: globalStyles.fontFamilyMedium,
+    },
+
+    servicesList: {
+        color: "#000000",
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyBold,
+        maxWidth: "80%",
+        textAlign: 'center',
+        alignItems: "flex-start"
+    },
+
+    serviceContentList: {
+        fontSize: globalStyles.fontSizeSmall,
+        marginVertical: 5,
+        maxWidth: "80%",
+        flexDirection: "row",
+        alignItems: "center",
     },
 
     contentButtons: {

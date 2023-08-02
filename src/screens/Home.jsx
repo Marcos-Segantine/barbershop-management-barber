@@ -86,9 +86,9 @@ export const Home = ({ navigation }) => {
                     <View style={styles.servicesList}>
                         <Text style={styles.description}>Serviços:</Text>
                         {
-                            scheduleEarlier?.services && scheduleEarlier.services.map(service => {
+                            scheduleEarlier?.services && scheduleEarlier.services.map((service, index) => {
                                 return (
-                                    <View key={service.name} style={styles.serviceContentList}>
+                                    <View key={index} style={styles.serviceContentList}>
                                         <View style={{ width: 8, height: 8, borderRadius: 150, backgroundColor: "black", marginRight: 10 }}></View>
                                         <Text style={[styles.info, { marginVertical: 0 }]}>{service.name}</Text>
                                     </View>

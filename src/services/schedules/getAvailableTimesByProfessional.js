@@ -1,8 +1,13 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getMonth, getProfessional, getYear } from '../../utils/dateHelper';
+import { getCurrentHour } from '../../utils/getCurrentHour';
 
-export const getAvailableTimesByProfessional = async (professionalUid, scheduleInfo, setIsLoading) => {
+export const getAvailableTimesByProfessional = async (
+    professionalUid,
+    scheduleInfo,
+    setIsLoading
+) => {
     setIsLoading(true)
 
     try {
@@ -12,23 +17,33 @@ export const getAvailableTimesByProfessional = async (professionalUid, scheduleI
         const day = getDay(scheduleInfo);
         const professional = getProfessional(scheduleInfo)
 
-        const currentDay = new Date(scheduleInfo.day).getDay() + 1
-        const weekday = currentDay <= 5 ? "weekday" : currentDay === 6 ? "saturday" : "sunday"
-
+        const CurrentDayWeek = new Date(scheduleInfo.day).getDay() + 1
+        const weekday = CurrentDayWeek <= 5 ? "weekday" : CurrentDayWeek === 6 ? "saturday" : "sunday"
 
         const unavailableTimesRef = firestore().collection("unavailable_times").doc(`${month}_${year}`)
         const workingHoursRef = firestore().collection('working_hours').doc(professionalUid)
-        
+
         const workingHoursData = (await workingHoursRef.get({ source: "server" })).data()[weekday]
         const unavailableTimesData = (await unavailableTimesRef.get({ source: "server" })).data()
 
+        const currentMonth = new Date().getMonth() + 1;
+        const currentDay = new Date().getDate();
+        const currentDate = Number(currentDay) === Number(day) && Number(currentMonth) === Number(month)
+
+        const currentHour = getCurrentHour()
+
         // if professional or day selected don't have any schedule, return all times because he is free
         if (!unavailableTimesData) return workingHoursData
+        else if (!unavailableTimesData[day] && currentDate || unavailableTimesData[day] && currentDate) {
+            return workingHoursData.filter(schedule => Number(schedule.split(":")[0]) > Number(currentHour) && !unavailableTimesData[day][professional].includes(schedule))
+        }
+        else if (!unavailableTimesData[day]?.[professional] && currentDate) return workingHoursData.filter(schedule => Number(schedule.split(":")[0]) > Number(currentHour))
+
         else if (!unavailableTimesData[day]) return workingHoursData
         else if (!unavailableTimesData[day][professional]) return workingHoursData
 
-        const dataTemp = workingHoursData.filter(time => {
-            return !unavailableTimesData[day][professional].includes(time)
+        const dataTemp = workingHoursData.filter(schedule => {
+            return !unavailableTimesData[day][professional].includes(schedule)
         })
 
         return dataTemp;

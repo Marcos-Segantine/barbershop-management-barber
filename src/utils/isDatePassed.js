@@ -1,11 +1,13 @@
+import { getDay, getMonth } from "./dateHelper";
+
 export const isDatePassed = (date) => {
     const currentDay = new Date().getDate();
-    const currentMonth = new Date().getMonth();
-    
-    const day = new Date(date).getDate()
-    const month = new Date(date).getMonth()
+    const currentMonth = new Date().getMonth() + 1;
 
-    if(month < currentMonth) return true
-    if(day < currentDay) return true
+    const day = Number(getDay(date))
+    const month = Number(getMonth(date))
+
+    if (month < currentMonth) return true
+    if (day < currentDay) return true
     return false
 }

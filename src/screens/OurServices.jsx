@@ -14,6 +14,7 @@ import { CloseIcon } from "../assets/icons/CloseIcon"
 import { getServicesOfProfessional } from "../services/user/getServicesOfProfessional"
 
 import { formatPrice } from "../utils/formatPrice"
+import { useIsFocused } from "@react-navigation/native"
 
 export const OurServices = ({ navigation, route }) => {
     const { schedule, setSchedule } = useContext(ScheduleContext)
@@ -24,10 +25,17 @@ export const OurServices = ({ navigation, route }) => {
 
     const { scheduleToUpdate, isToUpdateSchedule } = route.params
 
+    const isFocused = useIsFocused()
+
     useEffect(() => {
         (schedule.professional && !services) && getServicesOfProfessional(setServices, schedule.professionalUid, setSomethingWrong)
 
     }, [schedule])
+
+    useEffect(() => {
+        setServicesSelected([])
+
+    }, [isFocused])
 
     const removeServiceSelected = (serviceToRemove) => {
         const dataTemp = servicesSelected.filter(service => service.name !== serviceToRemove)

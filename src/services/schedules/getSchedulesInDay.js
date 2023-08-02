@@ -28,11 +28,14 @@ export const getSchedulesInDay = async (
     const schedulesOfProfessional = Object.keys(schedulesMonthData)
 
     const currentHour = getCurrentHour()
+    const currentMonth = new Date().getMonth() + 1;
+    const currentDay = new Date().getDate();
+    const currentDate = Number(currentDay) === Number(day) && Number(currentMonth) === Number(month)
 
     workingHoursData.forEach(workTime => {
       const workTimeToCompare = Number(workTime.split(":")[0])
 
-      if (workTimeToCompare < currentHour) return
+      if (workTimeToCompare < currentHour && currentDate) return
 
       if (schedulesOfProfessional.includes(workTime)) {
         data.push({

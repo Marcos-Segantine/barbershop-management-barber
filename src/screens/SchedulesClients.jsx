@@ -28,10 +28,11 @@ export const SchedulesClients = () => {
     const unsubscribe = schedulesMonthRef.onSnapshot(async () => {
       userData && await fetchDataSchedulesClients(setDataFiltered, userData.name, setSomethingWrong);
     });
-
+    
     return () => unsubscribe();
 
   }, [userData]);
+
 
   if (dataFiltered === null) return <Loading flexSize={1} />
 

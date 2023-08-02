@@ -23,10 +23,10 @@ export const fetchDataSchedulesClients = async (
         if (!barberSchedule) return
 
         const hasScheduleInCurrentDay = Object.keys(data[day][barberName])
-        
-        if(!hasScheduleInCurrentDay.length) return
-        
-        if(isDatePassed(data[day][barberName][Object.keys(data[day][barberName])[0]].day)) return
+
+        if (!hasScheduleInCurrentDay.length) return
+
+        if (isDatePassed(data[day][barberName][Object.keys(data[day][barberName])[0]].day)) return
 
         const keys__barberSchedule = Object.keys(barberSchedule)
 
@@ -36,7 +36,13 @@ export const fetchDataSchedulesClients = async (
       });
     });
 
-    setDataFiltered(dataTemp.length ? dataTemp : []);
+    setDataFiltered(
+      dataTemp.sort((a, b) => {
+        const dateA = new Date(a.day);
+        const dateB = new Date(b.day);
+        return dateA - dateB;
+      })
+    );
 
   } catch (error) {
     console.error(error);

@@ -59,7 +59,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
     return ',' + service.name
   }).join('')
 
-  if (data === null) return <Loading />
+  if (data === null) return <Loading flexSize={1} />
 
   return (
     <View style={globalStyles.container}>

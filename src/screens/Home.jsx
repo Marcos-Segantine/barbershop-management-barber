@@ -4,11 +4,13 @@ import { StyleSheet, Text, View, Image, ScrollView } from "react-native"
 import { globalStyles } from "../assets/globalStyles"
 import { FreeTimeImage } from "../assets/imgs/FreeTimeImage"
 import DefaultPicture from "../assets/icons/DefaultPicture.png"
+import { ConfirmScheduleDone } from "../assets/imgs/ConfirmScheduleDone"
 
 import { Button } from "../components/Button"
 import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { Menu } from "../components/Menu"
 import { Loading } from "../components/Loading"
+import { DefaultModal } from "../components/modals/DefaultModal"
 
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 import { UserContext } from "../context/UserContext"
@@ -27,6 +29,7 @@ import firestore from '@react-native-firebase/firestore';
 export const Home = ({ navigation }) => {
     const [schedulesOfProfessional, setSchedulesOfProfessional] = useState(null)
     const [scheduleEarlier, setScheduleEarlier] = useState(null)
+    const [modalContent, setModalContent] = useState(null)
 
     const { userData } = useContext(UserContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -45,6 +48,29 @@ export const Home = ({ navigation }) => {
         !!schedulesOfProfessional && getCurrentSchedule(schedulesOfProfessional, setScheduleEarlier)
 
     }, [schedulesOfProfessional]);
+
+    const handleDone = () => {
+        setModalContent({
+            image: <ConfirmScheduleDone />,
+            firstButtonText: "Confirmar",
+            secondButtonText: "Cancelar",
+            mainMessage: "Ateção",
+            message: "Caso você confirme o agendamento será completamente apagado.",
+            firstButtonAction: () => {
+                handleScheduleDoneHome(
+                    setScheduleEarlier,
+                    scheduleEarlier,
+                    setSomethingWrong,
+                    setSchedulesOfProfessional,
+                    userData,
+                )
+                setModalContent(null)
+            },
+
+            secondButtonAction: () => setModalContent(null)
+        })
+
+    }
 
     if (schedulesOfProfessional === null || scheduleEarlier === null) return <Loading flexSize={1} />
 
@@ -70,6 +96,10 @@ export const Home = ({ navigation }) => {
     return (
         <>
             <ScrollView contentContainerStyle={[globalStyles.container, { justifyContent: "space-between" }]}>
+                <DefaultModal
+                    modalContent={modalContent}
+                />
+
                 <HeaderScreensMenu screenName={dayFormatted} />
                 {
                     scheduleEarlier?.profilePicture ?
@@ -102,13 +132,7 @@ export const Home = ({ navigation }) => {
                 <Button
                     text={"Feito"}
                     addStyles={{ marginTop: 22 }}
-                    action={() => handleScheduleDoneHome(
-                        setScheduleEarlier,
-                        scheduleEarlier,
-                        setSomethingWrong,
-                        setSchedulesOfProfessional,
-                        userData,
-                    )}
+                    action={handleDone}
                 />
             </ScrollView>
 

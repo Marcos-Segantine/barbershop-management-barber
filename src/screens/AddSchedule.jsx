@@ -17,15 +17,15 @@ export const AddSchedule = ({ navigation, route }) => {
   const preferProfessionalStyle__Yes = preferProfessional ? [styles.btn, { backgroundColor: globalStyles.orangeColor, borderColor: 'transparent' }] : styles.btn
   const preferProfessionalStyle__No = !preferProfessional ? [styles.btn, { backgroundColor: globalStyles.orangeColor, borderColor: 'transparent' }] : styles.btn
 
-  const { headerText, scheduleToUpdate, isToUpdateSchedule } = route.params
+  const { headerText, scheduleToUpdate, isToUpdateSchedule, isToClearScheduleContext } = route.params
 
   const { schedule, setSchedule } = useContext(ScheduleContext)
 
   const scrollViewRef = useRef();
 
   useEffect(() => {
-    setSchedule({ ...schedule, professional: null, schedule: null, day: null })
-      scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+    isToClearScheduleContext && setSchedule({ ...schedule, professional: null, schedule: null, day: null })
+    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
 
   }, [])
 

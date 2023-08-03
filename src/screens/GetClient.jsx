@@ -17,7 +17,7 @@ import { globalStyles } from "../assets/globalStyles"
 import { getUserDataByEmailOrPhone } from "../services/user/getUserDataByEmailOrPhone"
 import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
-export const GetClient = ({ navigation }) => {
+export const GetClient = ({ navigation, route }) => {
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
 
@@ -28,9 +28,17 @@ export const GetClient = ({ navigation }) => {
     const { setSomethingWrong } = useContext(SomethingWrongContext)
     const { createNewPerson, setCreateNewPearson } = useContext(CreateNewPersonContext)
 
+    const { isToClearScheduleContext } = route.params || {}
+
     const handleConfirm = async () => {
-        const clientData = await getUserDataByEmailOrPhone(email.trim(), phone.trim(), setNotFoundUserVisible, setModalShowUser, setSomethingWrong)
-        
+        const clientData = await getUserDataByEmailOrPhone(
+            email.trim(),
+            phone.trim(),
+            setNotFoundUserVisible,
+            setModalShowUser,
+            setSomethingWrong
+        )
+
         if (notFoundUserVisible) return
         setSchedule({ ...schedule, client: { ...clientData } })
     }
@@ -46,6 +54,7 @@ export const GetClient = ({ navigation }) => {
                 <ShowClientInfo
                     modalShowUser={modalShowUser}
                     setModalShowUser={setModalShowUser}
+                    isToClearScheduleContext={isToClearScheduleContext}
                 />
                 <UserNotFound
                     notFoundUserVisible={notFoundUserVisible}

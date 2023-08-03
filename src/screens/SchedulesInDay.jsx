@@ -79,7 +79,6 @@ export const SchedulesInDay = ({ route }) => {
                 style={style.schedule}
                 onPress={() =>
                   navigation.navigate('ScheduleDetails', {
-                    day: data.day,
                     hour: data.hour,
                     isScheduleFree: data.isScheduleFree,
                     date: data.date

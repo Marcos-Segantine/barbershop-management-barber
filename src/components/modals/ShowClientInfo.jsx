@@ -12,7 +12,7 @@ import { formatPhoneNumber } from "../../utils/formatPhoneNumber"
 
 import { Button } from "../Button"
 
-export const ShowClientInfo = ({ modalShowUser, setModalShowUser }) => {
+export const ShowClientInfo = ({ modalShowUser, setModalShowUser, isToClearScheduleContext }) => {
     const navigation = useNavigation()
 
     const { schedule } = useContext(ScheduleContext)
@@ -25,7 +25,7 @@ export const ShowClientInfo = ({ modalShowUser, setModalShowUser }) => {
         }
         else {
             setModalShowUser(false)
-            navigation.navigate("AddSchedule", { headerText: "Novo Agendamento", scheduleToUpdate: null, isToUpdateSchedule: false })
+            navigation.navigate("AddSchedule", { headerText: "Novo Agendamento", scheduleToUpdate: null, isToUpdateSchedule: false, isToClearScheduleContext, })
         }
     }
 

@@ -18,12 +18,14 @@ import DefaultPicture from "../assets/icons/DefaultPicture.png"
 import { CancelSchedule } from '../assets/imgs/CancelSchedule';
 
 import { formatPhoneNumber } from '../utils/formatPhoneNumber';
+import { ScheduleContext } from '../context/ScheduleContext';
 
 export const ScheduleDetails = ({ route, navigation }) => {
   const [data, setData] = useState(null)
   const [confirmCancelScheduleVisible, setConfirmCancelSchedule] = useState(false)
 
   const { userData } = useContext(UserContext)
+  const { schedule, setSchedule } = useContext(ScheduleContext)
   const { setSomethingWrong } = useContext(SomethingWrongContext)
 
   const { hour, isScheduleFree, date } = route.params;
@@ -52,6 +54,11 @@ export const ScheduleDetails = ({ route, navigation }) => {
       secondButtonText: "Cancelar",
       secondButtonAction: () => setConfirmCancelSchedule(null)
     })
+  }
+
+  const handleNewSchedule = () => {
+    navigation.navigate('GetClient', { isToClearScheduleContext: false })
+    setSchedule({ ...schedule, day: date, professionalUid: userData.uid, professional: userData.name })
   }
 
   const services = data && data.services.map((service, index) => {
@@ -113,7 +120,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
               <Button
                 text={'Agendar cliente'}
-                action={() => navigation.navigate('GetClient')}
+                action={handleNewSchedule}
               />
             </View>
           )

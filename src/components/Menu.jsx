@@ -39,7 +39,7 @@ export const Menu = () => {
                 <Text style={itemSelected === 'Home' ? { color: "#fc9501" } : { color: "#000000" }}>Home</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => handleNavigation('GetClient', { headerText : "Agendar Novo Horário", scheduleToUpdate: null, isToUpdateSchedule: false })}>
+            <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => handleNavigation('GetClient', { headerText : "Agendar Novo Horário", scheduleToUpdate: null, isToUpdateSchedule: false, isToClearScheduleContext: true })}>
                 {
                     itemSelected === 'GetClient' ?
                         <NewScheduleIconSelected /> :

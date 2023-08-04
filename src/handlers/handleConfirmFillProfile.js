@@ -119,7 +119,7 @@ export const handleConfirmFillProfile = async (
     else {
         const isFieldsAvailable = verifyFieldsToCreateAccount(
             { ...createNewPerson, gender: gender },
-            ["name", "email", "phone", "nickname", "gender"],
+            ["name", "email", "phone", "gender"],
             setModalContent
         )
 

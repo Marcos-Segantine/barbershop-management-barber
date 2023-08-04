@@ -83,7 +83,6 @@ export const createPerson = async (newPerson, setSchedule, schedule) => {
 
         batch.set(barbersRef, {
             name: newPerson.name,
-            nickname: newPerson.nickname,
             phone: newPerson.phone,
             email: newPerson.email,
             password: newPerson.password,

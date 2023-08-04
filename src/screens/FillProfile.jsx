@@ -98,13 +98,6 @@ export const FillProfile = ({ navigation, route }) => {
                 />
                 <TextInput
                     style={styles.input}
-                    value={createNewPerson.nickname}
-                    placeholder="Apelido (como devemos te chamar)"
-                    placeholderTextColor={"#00000050"}
-                    onChangeText={text => setCreateNewPearson({ ...createNewPerson, nickname: text })}
-                />
-                <TextInput
-                    style={styles.input}
                     placeholder="Email"
                     value={createNewPerson.email}
                     placeholderTextColor={"#00000050"}

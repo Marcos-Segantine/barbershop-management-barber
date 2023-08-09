@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 
 import { UserContext } from '../context/UserContext';
 import { SomethingWrongContext } from '../context/SomethingWrongContext';
@@ -28,7 +28,7 @@ export const SchedulesClients = () => {
     const unsubscribe = schedulesMonthRef.onSnapshot(async () => {
       userData && await fetchDataSchedulesClients(setDataFiltered, userData.name, setSomethingWrong);
     });
-    
+
     return () => unsubscribe();
 
   }, [userData]);
@@ -38,23 +38,22 @@ export const SchedulesClients = () => {
 
   return (
     <>
-      <ScrollView contentContainerStyle={[globalStyles.container, { flex: 1 }]}>
-        <HeaderScreensMenu screenName={!dataFiltered?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
-
-        {
+      <FlatList
+        contentContainerStyle={[globalStyles.container, { alignItems: "flex-start" }]}
+        ListHeaderComponent={() => (
+          <HeaderScreensMenu screenName={!dataFiltered?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
+        )}
+        ListEmptyComponent={() => (
           !dataFiltered.length && <FreeTimeImage width={400} height={"80%"} />
-        }
-
-        <View style={style.contentDays}>
-          {
-            !!dataFiltered.length &&
-            dataFiltered.map((day, index) => {
-              return <Day key={index} day={day.day} />;
-            })
-          }
-
-        </View>
-      </ScrollView>
+        )}
+        data={dataFiltered}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <Day day={item.day} />
+        )}
+        numColumns={2}
+        columnWrapperStyle={style.contentDays}
+      />
 
       <Menu />
     </>

@@ -7,6 +7,7 @@ import { SomethingWrongContext } from "../context/SomethingWrongContext"
 import { ComeBack } from "../components/ComeBack"
 import { Service } from "../components/Service"
 import { Button } from "../components/Button"
+import { Loading } from "../components/Loading"
 
 import { globalStyles } from "../assets/globalStyles"
 import { CloseIcon } from "../assets/icons/CloseIcon"
@@ -14,35 +15,26 @@ import { CloseIcon } from "../assets/icons/CloseIcon"
 import { getServicesOfProfessional } from "../services/user/getServicesOfProfessional"
 
 import { formatPrice } from "../utils/formatPrice"
-import { useIsFocused } from "@react-navigation/native"
 
 export const OurServices = ({ navigation, route }) => {
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const [services, setServices] = useState(null)
-    const [servicesSelected, setServicesSelected] = useState(schedule.services || [])
+    const [servicesSelected, setServicesSelected] = useState([])
 
     const { scheduleToUpdate, isToUpdateSchedule } = route.params
-
-    const isFocused = useIsFocused()
 
     useEffect(() => {
         (schedule.professional && !services) && getServicesOfProfessional(setServices, schedule.professionalUid, setSomethingWrong)
 
     }, [schedule])
 
-    useEffect(() => {
-        setServicesSelected([])
-
-    }, [isFocused])
-
     const removeServiceSelected = (serviceToRemove) => {
         const dataTemp = servicesSelected.filter(service => service.name !== serviceToRemove)
 
         setServicesSelected([...dataTemp])
     }
-
     const handleConfirm = () => {
         setSchedule({ ...schedule, services: servicesSelected })
         navigation.navigate("ConfirmSchedule", { scheduleToUpdate, isToUpdateSchedule })
@@ -51,6 +43,8 @@ export const OurServices = ({ navigation, route }) => {
     const scrollServicesHeight = 60 - servicesSelected.length * 5
 
     const totalPriceServicesSelected = formatPrice(servicesSelected.reduce((acc, service) => acc + Number(service.price), 0))
+
+    if (services === null) return <Loading flexSize={1} />
 
     return (
         <View style={globalStyles.container}>

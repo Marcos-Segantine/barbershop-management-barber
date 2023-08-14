@@ -29,7 +29,7 @@ export const Day = ({ day }) => {
   };
 
   (async () => {
-    setNumberOfSchedules(await getNumberOfSchedules(userData.name, day))
+    setNumberOfSchedules(await getNumberOfSchedules(userData.uid, day))
     setdayOfWeek(getDayOfWeek(day))
 
   })();

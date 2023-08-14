@@ -5,7 +5,6 @@ import {
   getYear,
   getMonth,
   getHour,
-  getProfessional
 } from '../../utils/dateHelper'
 
 import { sendScheduleUidToDB } from './sendScheduleUidToDB';
@@ -27,7 +26,6 @@ export const addScheduleWhenDayNotUse = async (
     const scheduleDay = getDay(scheduleInfo);
     const scheduleHour = getHour(scheduleInfo);
     const scheduleYear = getYear(scheduleInfo)
-    const scheduleProfessional = getProfessional(scheduleInfo);
 
     const nameDocMonth_Year = `${scheduleMonth}_${scheduleYear}`
 
@@ -42,7 +40,7 @@ export const addScheduleWhenDayNotUse = async (
     if (!unavailableTimesData[scheduleDay]) {
       unavailableTimesData = {
         [scheduleDay]: {
-          [scheduleProfessional]:
+          [scheduleInfo.professionalUid]:
             firestore.FieldValue.arrayUnion(scheduleInfo.schedule),
         }
       };
@@ -60,7 +58,7 @@ export const addScheduleWhenDayNotUse = async (
     const dataToUpdateSchedulesMonth = {
       ...schedulesMonthData,
       [scheduleDay]: {
-        [scheduleProfessional]: {
+        [scheduleInfo.professionalUid]: {
           [scheduleHour]: { ...scheduleInfo },
         },
       },

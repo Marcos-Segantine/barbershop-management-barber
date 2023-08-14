@@ -34,7 +34,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
     (async () => {
 
       setData(
-        await getScheduleByDateAndHour(isScheduleFree, userData.name, hour, date, setSomethingWrong)
+        await getScheduleByDateAndHour(isScheduleFree, userData.uid, hour, date, setSomethingWrong)
       );
 
     })();

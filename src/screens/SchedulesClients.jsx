@@ -26,7 +26,7 @@ export const SchedulesClients = () => {
 
   useEffect(() => {
     const unsubscribe = schedulesMonthRef.onSnapshot(async () => {
-      userData && await fetchDataSchedulesClients(setDataFiltered, userData.name, setSomethingWrong);
+      userData && await fetchDataSchedulesClients(setDataFiltered, userData.uid, setSomethingWrong);
     });
 
     return () => unsubscribe();

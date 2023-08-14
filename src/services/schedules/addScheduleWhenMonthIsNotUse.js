@@ -3,7 +3,6 @@ import firestore from '@react-native-firebase/firestore';
 import {
   getMonth,
   getDay,
-  getProfessional,
   getHour,
   getYear,
 } from "../../utils/dateHelper"
@@ -27,7 +26,6 @@ export const addScheduleWhenMonthIsNotUse = async (
     const scheduleHour = getHour(scheduleInfo);
     const scheduleDay = getDay(scheduleInfo);
     const scheduleYear = getYear(scheduleInfo);
-    const scheduleProfessional = getProfessional(scheduleInfo);
 
     const nameDocMonth_Year = `${scheduleMonth}_${scheduleYear}`
 
@@ -39,7 +37,7 @@ export const addScheduleWhenMonthIsNotUse = async (
 
     const scheduleMonthData = {
       [scheduleDay]: {
-        [scheduleProfessional]: {
+        [scheduleInfo.professionalUid]: {
           [scheduleHour]: { ...scheduleInfo },
         },
       },
@@ -47,7 +45,7 @@ export const addScheduleWhenMonthIsNotUse = async (
 
     const unavailableTimesData = {
       [scheduleDay]: {
-        [scheduleProfessional]: [scheduleHour]
+        [scheduleInfo.professionalUid]: [scheduleHour]
       }
     }
 

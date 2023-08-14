@@ -21,6 +21,7 @@ export const handleConfirmationNewSchedule = async (
         scheduleUid: schedule.scheduleUid,
         services: schedule.services,
         professional: schedule.professional,
+        professionalUid: schedule.professionalUid,
         day: schedule.day,
         schedule: schedule.schedule,
     }

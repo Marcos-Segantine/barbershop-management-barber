@@ -38,7 +38,7 @@ export const Home = ({ navigation }) => {
 
     useEffect(() => {
         const unsubscribe = schedulesMonthRef.onSnapshot(async () => {
-            userData && fetchDataSchedulesClients(setSchedulesOfProfessional, userData.name, setSomethingWrong)
+            userData && fetchDataSchedulesClients(setSchedulesOfProfessional, userData.uid, setSomethingWrong)
         });
 
         return () => unsubscribe();

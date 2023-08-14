@@ -4,7 +4,7 @@ import { isDatePassed } from '../../utils/isDatePassed';
 
 export const fetchDataSchedulesClients = async (
   setDataFiltered,
-  barberName,
+  professionalUid,
   setSomethingWrong
 ) => {
 
@@ -19,14 +19,14 @@ export const fetchDataSchedulesClients = async (
       const data = doc.data();
 
       Object.keys(data).forEach(day => {
-        const barberSchedule = data[day][barberName];
+        const barberSchedule = data[day][professionalUid];
         if (!barberSchedule) return
 
-        const hasScheduleInCurrentDay = Object.keys(data[day][barberName])
+        const hasScheduleInCurrentDay = Object.keys(data[day][professionalUid])
 
         if (!hasScheduleInCurrentDay.length) return
 
-        if (isDatePassed(data[day][barberName][Object.keys(data[day][barberName])[0]].day)) return
+        if (isDatePassed(data[day][professionalUid][Object.keys(data[day][professionalUid])[0]].day)) return
 
         const keys__barberSchedule = Object.keys(barberSchedule)
 

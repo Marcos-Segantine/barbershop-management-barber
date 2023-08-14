@@ -20,7 +20,7 @@ export const getSchedulesInDay = async (
     const schedulesMonthRef = firestore().collection("schedules_month").doc(dateFormatted)
     const workingHoursRef = firestore().collection("working_hours").doc(barberInfo.uid)
 
-    const schedulesMonthData = (await schedulesMonthRef.get()).data()[day][barberInfo.name]
+    const schedulesMonthData = (await schedulesMonthRef.get()).data()[day][barberInfo.uid]
     const workingHoursData = (await workingHoursRef.get()).data()[weekday]
 
     const data = []

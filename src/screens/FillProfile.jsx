@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { TextInput, View, ScrollView, StyleSheet, TouchableOpacity, Image, Text } from "react-native"
 
 import { Button } from "../components/Button"
@@ -20,6 +20,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { generateNewUid } from "../utils/generateNewUid"
 
 import CheckBox from '@react-native-community/checkbox';
+import { useIsFocused } from "@react-navigation/native"
 
 export const FillProfile = ({ navigation, route }) => {
     const { userData, setUserData } = useContext(UserContext)
@@ -58,6 +59,15 @@ export const FillProfile = ({ navigation, route }) => {
             }
         });
     }
+
+    const isFocused = useIsFocused()
+
+    useEffect(() => {
+        setCreateNewPearson({
+            ...createNewPerson, name: "", email: "", phone: ""
+        })
+
+    }, [isFocused])
 
     if (isLoading) return <Loading flexSize={1} />
 

@@ -2,12 +2,11 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
 import { generateNewUid } from '../../utils/generateNewUid';
+import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
+import { capitalizeName } from '../../utils/capitalizaName';
 
 export const createPerson = async (newPerson, setSchedule, schedule) => {
     try {
-
-        newPerson.name = newPerson.name.trim()
-        newPerson.email = newPerson.email.trim()
 
         const uid = newPerson.uid ? newPerson.uid : generateNewUid()
 
@@ -24,10 +23,10 @@ export const createPerson = async (newPerson, setSchedule, schedule) => {
             const schedulesByUserRef = firestore().collection("schedules_by_user").doc(uid)
 
             batch.set(usersRef, {
-                name: newPerson.name,
-                email: newPerson.email,
+                name: capitalizeName(trimAndNormalizeSpaces(newPerson.name)),
+                email: trimAndNormalizeSpaces(newPerson.email),
                 password: newPerson.password,
-                phone: newPerson.phone,
+                phone: trimAndNormalizeSpaces(newPerson.phone),
                 gender: newPerson.gender,
                 profilePicture: newPerson.profilePicture && await reference.getDownloadURL(),
                 uid: uid,

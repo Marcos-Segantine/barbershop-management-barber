@@ -1,6 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
+import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
+import { capitalizeName } from '../../utils/capitalizaName';
+
 export const updateProfessionalData = async (
     professionalUid,
     professionalData,
@@ -21,11 +24,14 @@ export const updateProfessionalData = async (
             url = await storage().ref("barbers/profilePictures/" + professionalUid).getDownloadURL();
         }
 
+        const name = capitalizeName(trimAndNormalizeSpaces(professionalData.name || userData.name))
+        const email = trimAndNormalizeSpaces(professionalData.email || userData.email)
+        const phone = trimAndNormalizeSpaces(professionalData.phone || userData.phone)
+
         const dataUpdated = {
-            name: professionalData.name || userData.name,
-            email: professionalData.email || userData.email,
-            nickname: professionalData.nickname || userData.nickname,
-            phone: professionalData.phone || userData.phone,
+            name: name,
+            email: email,
+            phone: phone,
             profilePicture: url || userData.profilePicture,
             gender: professionalData.gender || userData.gender,
             uid: professionalUid

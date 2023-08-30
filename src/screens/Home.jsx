@@ -79,7 +79,7 @@ export const Home = ({ navigation }) => {
             <View style={[globalStyles.container, { flex: 1, justifyContent: "space-between" }]}>
                 <HeaderScreensMenu screenName={"No momento, sua agenda está vazia"} />
 
-                <FreeTimeImage width={400} height={"60%"} />
+                <FreeTimeImage width={"100%"} height={"60%"} />
 
                 <Button
                     text={"Agendar horário"}

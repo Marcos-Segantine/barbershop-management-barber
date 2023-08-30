@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 
 import { UserContext } from '../context/UserContext';
 import { SomethingWrongContext } from '../context/SomethingWrongContext';
@@ -15,8 +15,9 @@ import { HeaderScreensMenu } from '../components/HeaderScreensMenu';
 import { Day } from '../components/Day';
 import { Menu } from '../components/Menu';
 import { Loading } from '../components/Loading';
+import { Button } from '../components/Button';
 
-export const SchedulesClients = () => {
+export const SchedulesClients = ({ navigation }) => {
   const [dataFiltered, setDataFiltered] = useState(null);
 
   const { userData } = useContext(UserContext)
@@ -33,8 +34,24 @@ export const SchedulesClients = () => {
 
   }, [userData]);
 
-
   if (dataFiltered === null) return <Loading flexSize={1} />
+
+  if (!dataFiltered?.length) return (
+    <>
+      <View style={[globalStyles.container, { flex: 1, justifyContent: "space-between" }]}>
+        <HeaderScreensMenu screenName={!dataFiltered?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
+
+        <FreeTimeImage width={"100%"} height={"60%"} />
+
+        <Button
+          text={"Agendar horário"}
+          action={() => navigation.navigate("GetClient")}
+        />
+      </View>
+
+      <Menu />
+    </>
+  )
 
   return (
     <>
@@ -42,9 +59,6 @@ export const SchedulesClients = () => {
         contentContainerStyle={[globalStyles.container, { alignItems: "flex-start" }]}
         ListHeaderComponent={() => (
           <HeaderScreensMenu screenName={!dataFiltered?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
-        )}
-        ListEmptyComponent={() => (
-          !dataFiltered.length && <FreeTimeImage width={400} height={"80%"} />
         )}
         data={dataFiltered}
         keyExtractor={(item, index) => index.toString()}

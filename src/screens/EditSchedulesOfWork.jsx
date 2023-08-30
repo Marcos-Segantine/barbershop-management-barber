@@ -202,7 +202,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
             <Button
                 text={"Confirmar"}
                 action={handleConfirm}
-                addStyles={{ alignSelf: "center", marginTop: 50 }}
+                addStyles={{ alignSelf: "center", marginTop: 50, marginBottom: 50 }}
             />
         </ScrollView>
     )

@@ -23,7 +23,7 @@ export const Security = ({ navigation }) => {
             <View style={styles.content}>
                 <View style={styles.contentField}>
                     <Text style={styles.text}>
-                        Lembrar meu email e senha
+                        Próximo acesso automático
                     </Text>
                     <Pressable
                         style={styles.button}

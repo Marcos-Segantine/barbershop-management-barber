@@ -10,7 +10,6 @@ import { LinkProfile } from "../components/LinkProfile"
 import { Menu } from "../components/Menu"
 
 import { ProfileIcon } from "../assets/icons/ProfileIcon"
-import { NotificationIcon } from "../assets/icons/NotificationIcon"
 import { CheckIcon } from "../assets/icons/CheckIcon"
 import { PadlockIcon } from "../assets/icons/PadlockIcon"
 import { LogOutIcon } from "../assets/icons/LogOutIcon"
@@ -64,10 +63,6 @@ export const Profile = ({ navigation }) => {
             text={"Editar Perfil"}
             icon={<ProfileIcon />}
             action={handleEditProfile}
-          />
-          <LinkProfile
-            text={"Notificação"}
-            icon={<NotificationIcon />}
           />
           <LinkProfile
             text={"Segurança"}

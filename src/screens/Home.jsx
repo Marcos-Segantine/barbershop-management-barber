@@ -107,7 +107,7 @@ export const Home = ({ navigation }) => {
                         <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
                 }
 
-                <Text style={styles.clientName}>{scheduleEarlier && scheduleEarlier.name.split(" ").splice(0, 2).join(" ")}</Text>
+                <Text style={styles.clientName}>{scheduleEarlier?.name && scheduleEarlier.name.split(" ").splice(0, 2).join(" ")}</Text>
 
                 <View style={{ alignItems: 'flex-start', marginTop: 20, width: "100%" }}>
                     <Text style={styles.description}>Dia: <Text style={styles.info}>{getDayOfWeek(scheduleEarlier.day)}</Text></Text>

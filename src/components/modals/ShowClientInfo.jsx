@@ -24,7 +24,7 @@ export const ShowClientInfo = ({ isToClearScheduleContext }) => {
             return
         }
         else {
-            setSchedule({ ...schedule, client: null })
+            // setSchedule({ ...schedule})
             navigation.navigate("AddSchedule", { headerText: "Novo Agendamento", scheduleToUpdate: null, isToUpdateSchedule: false, isToClearScheduleContext, })
         }
     }

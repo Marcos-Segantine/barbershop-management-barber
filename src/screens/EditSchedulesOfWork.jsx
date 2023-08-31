@@ -176,7 +176,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                             (
                                 currentTimes[dayOfWeek].map((time, index) => (
                                     <View
-                                        style={{ alignItems: "flex-end", }}
+                                        style={{ alignItems: "flex-end", width: "30%", marginTop: 10 }}
                                         key={index}
                                     >
 
@@ -202,7 +202,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
             <Button
                 text={"Confirmar"}
                 action={handleConfirm}
-                addStyles={{ alignSelf: "center", marginTop: 50, marginBottom: 50 }}
+                addStyles={{ alignSelf: "center", marginTop: 50 }}
             />
         </ScrollView>
     )
@@ -236,12 +236,16 @@ const styles = StyleSheet.create({
         marginTop: 50,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         width: "100%",
+        paddingBottom: 10,
+        paddingHorizontal: 10,
+        backgroundColor: globalStyles.champagneColor,
+        borderRadius: 15
     },
 
     schedule: {
-        width: 100,
+        width: "100%",
         height: 35,
         justifyContent: 'center',
         alignItems: 'center',
@@ -249,7 +253,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: globalStyles.orangeColor,
         backgroundColor: globalStyles.orangeColor,
-        margin: 2,
     },
 
     time: {

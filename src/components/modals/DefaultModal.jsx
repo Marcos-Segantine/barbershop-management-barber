@@ -1,4 +1,4 @@
-import { Modal, View, StyleSheet, Text } from "react-native"
+import { Modal, View, StyleSheet, Text, Image } from "react-native"
 
 import { globalStyles } from "../../assets/globalStyles"
 
@@ -15,7 +15,11 @@ export const DefaultModal = ({ modalContent }) => {
         >
             <View style={styles.container}>
                 <View style={styles.content}>
-                    {modalContent.image}
+                    {
+                        typeof(modalContent.image) === "object" ?
+                        modalContent.image :
+                        <Image source={modalContent.image} style={{ width: "100%", height: 220 }} />
+                    }
 
                     <View style={{ width: "100%", alignItems: "center" }}>
                         <Text style={styles.mainMessage}>{modalContent.mainMessage && modalContent.mainMessage}</Text>

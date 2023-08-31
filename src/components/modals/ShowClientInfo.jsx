@@ -12,26 +12,26 @@ import { formatPhoneNumber } from "../../utils/formatPhoneNumber"
 
 import { Button } from "../Button"
 
-export const ShowClientInfo = ({ modalShowUser, setModalShowUser, isToClearScheduleContext }) => {
+export const ShowClientInfo = ({ isToClearScheduleContext }) => {
     const navigation = useNavigation()
 
-    const { schedule } = useContext(ScheduleContext)
+    const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(ScheduleContext)
 
     const handleAction = (action = "confirm") => {
         if (action === 'cancel') {
-            setModalShowUser(false)
+            setSchedule({ ...schedule, client: null })
             return
         }
         else {
-            setModalShowUser(false)
+            setSchedule({ ...schedule, client: null })
             navigation.navigate("AddSchedule", { headerText: "Novo Agendamento", scheduleToUpdate: null, isToUpdateSchedule: false, isToClearScheduleContext, })
         }
     }
 
     return (
         <Modal
-            visible={modalShowUser}
+            visible={!!schedule?.client?.name}
             transparent={true}
             animationType="fade"
         >

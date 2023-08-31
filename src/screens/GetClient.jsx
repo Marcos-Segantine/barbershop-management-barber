@@ -8,7 +8,7 @@ import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { Button } from "../components/Button"
 import { Menu } from "../components/Menu"
 import { ShowClientInfo } from "../components/modals/ShowClientInfo"
-import { UserNotFound } from "../components/modals/UserNotFound"
+import { DefaultModal } from "../components/modals/DefaultModal"
 
 import { EmailForgotPasswordIcon } from "../assets/icons/EmailForgotPasswordIcon"
 import { SMSIcon } from "../assets/icons/SMSIcon"
@@ -21,8 +21,7 @@ export const GetClient = ({ navigation, route }) => {
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
 
-    const [modalShowUser, setModalShowUser] = useState(false)
-    const [notFoundUserVisible, setNotFoundUserVisible] = useState(false)
+    const [modalShowUser, setModalShowUser] = useState(null)
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -34,12 +33,12 @@ export const GetClient = ({ navigation, route }) => {
         const clientData = await getUserDataByEmailOrPhone(
             email.trim(),
             phone.trim(),
-            setNotFoundUserVisible,
             setModalShowUser,
             setSomethingWrong
         )
 
-        if (notFoundUserVisible) return
+        if (!clientData) return
+
         setSchedule({ ...schedule, client: { ...clientData } })
     }
 
@@ -52,13 +51,11 @@ export const GetClient = ({ navigation, route }) => {
         <>
             <ScrollView contentContainerStyle={globalStyles.container}>
                 <ShowClientInfo
-                    modalShowUser={modalShowUser}
-                    setModalShowUser={setModalShowUser}
+                    modalShowUser={schedule.client?.name}
                     isToClearScheduleContext={isToClearScheduleContext}
                 />
-                <UserNotFound
-                    notFoundUserVisible={notFoundUserVisible}
-                    setNotFoundUserVisible={setNotFoundUserVisible}
+                <DefaultModal
+                    modalContent={modalShowUser}
                 />
 
                 <HeaderScreensMenu screenName={"Agendar horário para um cliente"} />

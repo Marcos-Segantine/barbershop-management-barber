@@ -54,7 +54,7 @@ export const Profile = ({ navigation }) => {
             }
           </View>
 
-          <Text style={styles.userName}>{userData && userData.name}</Text>
+          <Text style={styles.userName}>{userData && userData.name.split(" ").splice(0, 2).join(" ")}</Text>
           <Text style={styles.userEmail}>{userData && userData.email}</Text>
         </View>
 

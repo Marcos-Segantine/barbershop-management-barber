@@ -114,7 +114,7 @@ export const Home = ({ navigation }) => {
                     <Text style={styles.description}>Hora: <Text style={styles.info}>{scheduleEarlier && scheduleEarlier.schedule}</Text></Text>
                     <Text style={styles.description}>Celular: <Text style={styles.info}>{scheduleEarlier && formatPhoneNumber(scheduleEarlier.phone, setSomethingWrong)}</Text></Text>
                     <View style={styles.servicesList}>
-                        <Text style={styles.description}>Serviços:</Text>
+                        <Text style={styles.description}>Serviço(s):</Text>
                         {
                             scheduleEarlier?.services && scheduleEarlier.services.map((service, index) => {
                                 return (
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     serviceContentList: {
         fontSize: globalStyles.fontSizeSmall,
         marginVertical: 5,
+        marginLeft: 15,
         maxWidth: "80%",
         flexDirection: "row",
         alignItems: "center",

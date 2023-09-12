@@ -80,6 +80,6 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: 'wrap',
     width: '100%',
-    marginTop: 20,
+    marginTop: 10,
   },
 });

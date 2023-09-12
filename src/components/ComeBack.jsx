@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: "95  %",
-        paddingRight: 10,
+        width: "100%",
+        paddingRight: 25,
     },
 
     text: {

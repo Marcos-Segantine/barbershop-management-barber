@@ -22,6 +22,7 @@ export const GetClient = ({ navigation, route }) => {
     const [phone, setPhone] = useState("")
 
     const [modalShowUser, setModalShowUser] = useState(null)
+    const [isToShowModalShowUser, setIsToShowModalShowUser] = useState(false)
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -37,6 +38,8 @@ export const GetClient = ({ navigation, route }) => {
             setSomethingWrong
         )
 
+        setModalShowUser(clientData);
+
         if (!clientData) return
 
         setSchedule({ ...schedule, client: { ...clientData } })
@@ -51,12 +54,13 @@ export const GetClient = ({ navigation, route }) => {
         <>
             <ScrollView contentContainerStyle={globalStyles.container}>
                 <ShowClientInfo
-                    modalShowUser={schedule.client?.name}
+                    modalShowUser={modalShowUser}
+                    setModalShowUser={setModalShowUser}
                     isToClearScheduleContext={isToClearScheduleContext}
                 />
-                <DefaultModal
+                {/* <DefaultModal
                     modalContent={modalShowUser}
-                />
+                /> */}
 
                 <HeaderScreensMenu screenName={"Agendar horário para um cliente"} />
 
@@ -125,6 +129,7 @@ export const GetClient = ({ navigation, route }) => {
         </>
     )
 }
+
 const styles = StyleSheet.create({
     contentContact: {
         marginTop: 30,

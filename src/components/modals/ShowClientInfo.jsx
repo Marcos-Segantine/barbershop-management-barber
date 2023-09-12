@@ -12,7 +12,13 @@ import { formatPhoneNumber } from "../../utils/formatPhoneNumber"
 
 import { Button } from "../Button"
 
-export const ShowClientInfo = ({ isToClearScheduleContext }) => {
+export const ShowClientInfo = ({
+    modalShowUser,
+    setModalShowUser,
+    isToClearScheduleContext
+}) => {
+    if (modalShowUser === null) return
+
     const navigation = useNavigation()
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
@@ -20,18 +26,19 @@ export const ShowClientInfo = ({ isToClearScheduleContext }) => {
 
     const handleAction = (action = "confirm") => {
         if (action === 'cancel') {
+            setModalShowUser(null)
             setSchedule({ ...schedule, client: null })
             return
         }
         else {
-            // setSchedule({ ...schedule})
+            setModalShowUser(null)
             navigation.navigate("AddSchedule", { headerText: "Novo Agendamento", scheduleToUpdate: null, isToUpdateSchedule: false, isToClearScheduleContext, })
         }
     }
 
     return (
         <Modal
-            visible={!!schedule?.client?.name}
+            visible={!!modalShowUser}
             transparent={true}
             animationType="fade"
         >
@@ -51,11 +58,11 @@ export const ShowClientInfo = ({ isToClearScheduleContext }) => {
 
                     </View>
 
-                    <Text style={styles.clientName}>{schedule.client && schedule.client.name}</Text>
+                    <Text style={styles.clientName}>{modalShowUser.name}</Text>
 
                     <View style={{ alignItems: 'flex-start', marginTop: 25 }}>
-                        <Text style={styles.description}>Email: <Text style={styles.info}>{schedule.client && schedule.client.email}</Text></Text>
-                        <Text style={styles.description}>Celular: <Text style={styles.info}>{schedule.client && formatPhoneNumber(schedule.client.phone, setSomethingWrong)}</Text></Text>
+                        <Text style={styles.description}>Email: <Text style={styles.info}>{modalShowUser.email}</Text></Text>
+                        <Text style={styles.description}>Celular: <Text style={styles.info}>{formatPhoneNumber(modalShowUser.phone, setSomethingWrong)}</Text></Text>
                     </View>
 
                     <View style={styles.contentButtons}>

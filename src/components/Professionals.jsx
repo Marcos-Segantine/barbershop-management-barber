@@ -10,6 +10,7 @@ import { Loading } from "./Loading"
 
 import { getAvailableProfessional } from "../services/schedules/getAvailableProfessional"
 import { getAllProfessionals } from "../services/schedules/getAllProfessionals"
+import { getNameLastName } from "../utils/getNameLastName"
 
 export const Professionals = ({ preferProfessional }) => {
     const [availableProfessional, setAvailableProfessional] = useState([])
@@ -57,25 +58,29 @@ export const Professionals = ({ preferProfessional }) => {
 
             {
                 availableProfessional && (
-                    availableProfessional.map((professional, index) => (
+                    availableProfessional.map((professional, index) => {
 
-                        <Pressable
-                            style={schedule.professional === professional.name ? professionalSelected : styles.professional}
-                            activeOpacity={.8}
-                            onPress={() => handleProfessionalSelected(professional.name, professional.professionalUid)}
-                            key={index}
-                        >
-                            <Text style={styles.professionalName}>{professional.name}</Text>
+                        const name = getNameLastName(professional.name)
 
-                            {
-                                professional?.profilePicture ?
-                                    <Image source={{ uri: professional.profilePicture }} style={styles.img} /> :
-                                    <Image source={DefaultPicture} style={styles.img} />
-                            }
+                        return (
+                            <Pressable
+                                style={schedule.professional === professional.name ? professionalSelected : styles.professional}
+                                activeOpacity={.8}
+                                onPress={() => handleProfessionalSelected(professional.name, professional.professionalUid)}
+                                key={index}
+                            >
+                                <Text style={styles.professionalName}>{name.length > 15 ? `${name.slice(0, 15)}...` : name}</Text>
 
-                        </Pressable>
+                                {
+                                    professional?.profilePicture ?
+                                        <Image source={{ uri: professional.profilePicture }} style={styles.img} /> :
+                                        <Image source={DefaultPicture} style={styles.img} />
+                                }
 
-                    )
+                            </Pressable>
+                        )
+
+                    }
                     )
                 )
             }
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 15,
         borderColor: "#00000010",
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingVertical: 5,
     },
 

@@ -36,8 +36,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
     const isFocused = useIsFocused();
 
     useEffect(() => {
-        const servicesNameForScheduleUid = schedule.services && schedule.services.map(service => service.name).join("")
-        schedule.scheduleUid = schedule.client && `${schedule.client.uid}-${schedule.day}-${schedule.professionalUid}-${schedule.schedule}-${servicesNameForScheduleUid}`;
+        schedule.scheduleUid = schedule.client && `${schedule.client.uid}-${schedule.day}-${schedule.professionalUid}-${schedule.schedule}`;
 
     }, [isFocused]);
 

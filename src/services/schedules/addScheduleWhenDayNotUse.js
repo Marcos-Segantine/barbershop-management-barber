@@ -93,7 +93,7 @@ export const addScheduleWhenDayNotUse = async (
       message: "Infelizmente alguém acabou de fazer um agendamento no mesmo horário e dia do que voc. Você terá que refazer o processo.",
       firstButtonText: "Entendi",
       firstButtonAction: () => {
-        navigation.navigate("NewSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null });
+        navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext : true });
       }
     })
 

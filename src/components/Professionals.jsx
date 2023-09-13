@@ -39,6 +39,11 @@ export const Professionals = ({ preferProfessional }) => {
 
     }, [schedule.day, schedule.schedule])
 
+    useEffect(() => {
+        if (availableProfessional.length === 1) setSchedule({ ...schedule, professional: availableProfessional[0].name, professionalUid: availableProfessional[0].professionalUid })
+
+    }, [availableProfessional])
+
     if (!preferProfessional && isLoading) return <Loading />
 
     return (

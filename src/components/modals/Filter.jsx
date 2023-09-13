@@ -5,8 +5,15 @@ import { globalStyles } from "../../assets/globalStyles"
 
 import { Button } from "../Button"
 
+import { getMonthName } from "../../utils/getMonthName"
+
 export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFilter }) => {
     const [dateToFilterTemp, setDateToFilterTemp] = useState(dateToFilter)
+
+    const currentYear = +new Date().getFullYear()
+
+    const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    const years = [String(currentYear), String(currentYear + 1), String(currentYear + 2)]
 
     const handleYear = (newYear) => {
         if (newYear === dateToFilterTemp[0]) {
@@ -41,124 +48,38 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                     <Text style={styles.description}>Ano</Text>
 
                     <View style={styles.contentYear}>
-                        <Pressable
-                            style={dateToFilterTemp[0] === "2023" ? [styles.item, { backgroundColor: globalStyles.orangeColor }] : styles.item}
-                            onPress={() => handleYear("2023")}
-                        >
-                            <Text style={dateToFilterTemp[0] === "2023" ? [styles.itemText, { color: "white" }] : styles.itemText}>2023</Text>
-                        </Pressable>
+                        {
+                            years.map(year => {
+                                return (
+                                    <Pressable
+                                        style={dateToFilterTemp[0] === year ? [styles.item, { backgroundColor: globalStyles.orangeColor }] : styles.item}
+                                        onPress={() => handleYear(year)}
+                                    >
+                                        <Text style={dateToFilterTemp[0] === year ? [styles.itemText, { color: "white" }] : styles.itemText}>{year}</Text>
+                                    </Pressable>
+                                )
+                            })
+                        }
 
-                        <Pressable
-                            style={dateToFilterTemp[0] === "2024" ? [styles.item, { backgroundColor: globalStyles.orangeColor }] : styles.item}
-                            onPress={() => handleYear("2024")}
-                        >
-                            <Text style={dateToFilterTemp[0] === "2024" ? [styles.itemText, { color: "white" }] : styles.itemText}>2024</Text>
-                        </Pressable>
-
-                        <Pressable
-                            style={dateToFilterTemp[0] === "2025" ? [styles.item, { backgroundColor: globalStyles.orangeColor }] : styles.item}
-                            onPress={() => handleYear("2025")}
-                        >
-                            <Text style={dateToFilterTemp[0] === "2025" ? [styles.itemText, { color: "white" }] : styles.itemText}>2025</Text>
-                        </Pressable>
                     </View>
 
                     <Text style={[styles.description, { marginTop: 30 }]}>Mês</Text>
 
                     <View style={[styles.contentMonth, {}]}>
-                        <Pressable style={dateToFilterTemp[1] === "01" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "01" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("01")}
-                            >
-                                Jan</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "02" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "02" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("02")}
-                            >
-                                Fev</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "03" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "03" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("03")}
-                            >
-                                Mar</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "04" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "04" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("04")}
-                            >
-                                Abr</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "05" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "05" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("05")}
-                            >
-                                Mai</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "06" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "06" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("06")}
-                            >
-                                Jun</Text>
-                        </Pressable>
-                        <Pressable style={dateToFilterTemp[1] === "07" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "07" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("07")}
-                            >
-                                Jul</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "08" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "08" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("08")}
-                            >
-                                Ago</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "09" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "09" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("09")}
-                            >
-                                Set</Text>
-                        </Pressable>
-                        <Pressable style={dateToFilterTemp[1] === "10" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "10" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("10")}
-                            >
-                                Out</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "11" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "11" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("11")}
-                            >
-                                Nov</Text>
-                        </Pressable>
-
-                        <Pressable style={dateToFilterTemp[1] === "12" ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
-                            <Text
-                                style={dateToFilterTemp[1] === "12" ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                onPress={() => handleMonth("12")}
-                            >
-                                Dez</Text>
-                        </Pressable>
+                        {
+                            months.map(month => {
+                                return (
+                                    <Pressable style={dateToFilterTemp[1] === month ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
+                                        <Text
+                                            style={dateToFilterTemp[1] === month ? [styles.itemText, { color: "white" }] : styles.itemText}
+                                            onPress={() => handleMonth(month)}
+                                        >
+                                            {getMonthName(month, true)}
+                                        </Text>
+                                    </Pressable>
+                                )
+                            })
+                        }
 
                     </View>
 

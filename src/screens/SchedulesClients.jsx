@@ -95,10 +95,10 @@ export const SchedulesClients = ({ navigation }) => {
       />
 
       {
-        data !== null && dataFiltered?.length === 0 &&
+        data !== null && dataFiltered === null &&
         (
           <>
-            <Text style={{ textAlign: "center" }}>Não há agendamentos para esse mês e/ou ano.</Text>
+            <Text style={{ color: "#00000090", textAlign: "center" }}>Não há agendamentos para esse mês e/ou ano.</Text>
             < FreeTimeImage width={"100%"} height={300} />
           </>
         )
@@ -126,7 +126,7 @@ const Top = ({ data, dateToFilter, setShowModalFilter, showModalFilter }) => {
         </View>
 
         <Pressable style={{ flexDirection: "row", alignItems: "center" }} onPress={() => setShowModalFilter(!showModalFilter)}>
-          <Text style={{ marginRight: 5, fontSize: globalStyles.fontSizeVerySmall }}>Aplicar Filtros</Text>
+          <Text style={{ color: "#000000", marginRight: 5, fontSize: globalStyles.fontSizeVerySmall }}>Aplicar Filtros</Text>
           <FilterIcon />
         </Pressable>
       </View>

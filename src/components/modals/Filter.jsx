@@ -49,9 +49,10 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
 
                     <View style={styles.contentYear}>
                         {
-                            years.map(year => {
+                            years.map((year) => {
                                 return (
                                     <Pressable
+                                        key={year}
                                         style={dateToFilterTemp[0] === year ? [styles.item, { backgroundColor: globalStyles.orangeColor }] : styles.item}
                                         onPress={() => handleYear(year)}
                                     >
@@ -69,7 +70,10 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                         {
                             months.map(month => {
                                 return (
-                                    <Pressable style={dateToFilterTemp[1] === month ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}>
+                                    <Pressable
+                                        key={month}
+                                        style={dateToFilterTemp[1] === month ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}
+                                    >
                                         <Text
                                             style={dateToFilterTemp[1] === month ? [styles.itemText, { color: "white" }] : styles.itemText}
                                             onPress={() => handleMonth(month)}

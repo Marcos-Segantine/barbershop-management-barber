@@ -8,6 +8,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import { globalStyles } from '../assets/globalStyles';
 import { FreeTimeImage } from '../assets/imgs/FreeTimeImage';
+import { FilterIcon } from '../assets/icons/FilterIcon';
 
 import { fetchDataSchedulesClients } from '../services/schedules/fetchDataSchedulesClients';
 import { filterSchedulesByDate } from '../services/schedules/filterSchedulesByDate';
@@ -17,11 +18,13 @@ import { Day } from '../components/Day';
 import { Menu } from '../components/Menu';
 import { Loading } from '../components/Loading';
 import { Button } from '../components/Button';
+import { Filter } from '../components/modals/Filter';
 
 export const SchedulesClients = ({ navigation }) => {
   const [data, setData] = useState(null);
   const [dataFiltered, setDataFiltered] = useState(null);
   const [dateToFilter, setDateToFilter] = useState([null, null]);
+  const [showModalFilter, setShowModalFilter] = useState(false);
 
   const { userData } = useContext(UserContext)
   const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -65,9 +68,15 @@ export const SchedulesClients = ({ navigation }) => {
 
   return (
     <>
+      <Filter
+        visible={showModalFilter}
+        showModalFilter={showModalFilter} 
+        setShowModalFilter={setShowModalFilter} 
+      />
+
       <FlatList
         contentContainerStyle={[globalStyles.container, { alignItems: "flex-start" }]}
-        ListHeaderComponent={<Top data={data} dateToFilter={dateToFilter} setDateToFilter={setDateToFilter} />}
+        ListHeaderComponent={<Top data={data} showModalFilter={showModalFilter} setShowModalFilter={setShowModalFilter} />}
         data={dateToFilter[0] === null && dateToFilter[1] === null ? data : dataFiltered}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
@@ -82,73 +91,25 @@ export const SchedulesClients = ({ navigation }) => {
   );
 };
 
-const Top = ({ data, setDateToFilter, dateToFilter }) => {
+const Top = ({ data, setShowModalFilter, showModalFilter }) => {
   return (
     <View>
       <HeaderScreensMenu screenName={!data?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
 
-      <View style={{ height: 90 }}>
-        <ScrollView
-          horizontal={true}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
-          showsHorizontalScrollIndicator={false}
-        >
-          <Pressable
-            style={dateToFilter[0] === "2023" ? [style.buttonFilter, { backgroundColor: globalStyles.orangeColor }] : style.buttonFilter}
-            onPress={() => setDateToFilter(["2023", dateToFilter[1]])}
-          >
-            <Text style={dateToFilter[0] === "2023" ? [style.buttonFilterText, { color: "white" }] : style.buttonFilterText}>
-              2023
-            </Text>
-          </Pressable>
-          <Pressable
-            style={dateToFilter[0] === "2024" ? [style.buttonFilter, { backgroundColor: globalStyles.orangeColor }] : style.buttonFilter}
-            onPress={() => setDateToFilter(["2024", dateToFilter[1]])}
-          >
-            <Text style={dateToFilter[0] === "2024" ? [style.buttonFilterText, { color: "white" }] : style.buttonFilterText}>
-              2024
-            </Text>
-          </Pressable>
-        </ScrollView>
+      <View style={style.contentFilterInfo}>
+        <View>
+          <Text style={style.contentFilterText}>Ano:
+            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}> 2023</Text>
+          </Text>
+          <Text style={style.contentFilterText}>Mês:
+            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}> Setembro</Text>
+          </Text>
+        </View>
 
-        <ScrollView
-          horizontal={true}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
-          showsHorizontalScrollIndicator={false}
-        >
-          <Pressable
-            style={dateToFilter[1] === "09" ? [style.buttonFilter, { backgroundColor: globalStyles.orangeColor }] : style.buttonFilter}
-            onPress={() => setDateToFilter([dateToFilter[0], "09"])}
-          >
-            <Text style={dateToFilter[1] === "09" ? [style.buttonFilterText, { color: "white" }] : style.buttonFilterText}>
-              Set
-            </Text>
-          </Pressable>
-          <Pressable
-            style={dateToFilter[1] === "10" ? [style.buttonFilter, { backgroundColor: globalStyles.orangeColor }] : style.buttonFilter}
-            onPress={() => setDateToFilter([dateToFilter[0], "10"])}
-          >
-            <Text style={dateToFilter[1] === "10" ? [style.buttonFilterText, { color: "white" }] : style.buttonFilterText}>
-              Out
-            </Text>
-          </Pressable>
-          <Pressable
-            style={dateToFilter[1] === "11" ? [style.buttonFilter, { backgroundColor: globalStyles.orangeColor }] : style.buttonFilter}
-            onPress={() => setDateToFilter([dateToFilter[0], "11"])}
-          >
-            <Text style={dateToFilter[1] === "11" ? [style.buttonFilterText, { color: "white" }] : style.buttonFilterText}>
-              Nov
-            </Text>
-          </Pressable>
-          <Pressable
-            style={dateToFilter[1] === "12" ? [style.buttonFilter, { backgroundColor: globalStyles.orangeColor }] : style.buttonFilter}
-            onPress={() => setDateToFilter([dateToFilter[0], "12"])}
-          >
-            <Text style={dateToFilter[1] === "12" ? [style.buttonFilterText, { color: "white" }] : style.buttonFilterText}>
-              Dez
-            </Text>
-          </Pressable>
-        </ScrollView>
+        <Pressable style={{ flexDirection: "row", alignItems: "center" }} onPress={() => setShowModalFilter(!showModalFilter)}>
+          <Text style={{ marginRight: 5, fontSize: globalStyles.fontSizeVerySmall }}>Aplicar Filtros</Text>
+          <FilterIcon />
+        </Pressable>
       </View>
 
     </View>
@@ -164,20 +125,17 @@ const style = StyleSheet.create({
     marginTop: 10,
   },
 
-  buttonFilter: {
-    width: 75,
-    height: 30,
-    marginHorizontal: 4,
-    borderColor: globalStyles.orangeColor,
-    borderWidth: 1,
-    borderRadius: 150,
-    justifyContent: "center"
+  contentFilterInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "87%",
+    marginBottom: 20
   },
 
-  buttonFilterText: {
-    color: globalStyles.orangeColor,
+  contentFilterText: {
     fontSize: globalStyles.fontSizeSmall,
-    fontFamily: globalStyles.fontFamilyBold,
-    textAlign: 'center'
+    fontFamily: globalStyles.fontFamilyMedium,
+    color: "#000000",
   }
 });

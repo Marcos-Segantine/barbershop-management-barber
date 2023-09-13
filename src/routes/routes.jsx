@@ -24,7 +24,7 @@ export const Routes = () => {
 
   return (
     <Navigator
-      initialRouteName='SchedulesClients'
+      initialRouteName='Welcome'
       screenOptions={{
         gestureEnabled: false,
         headerShown: false,

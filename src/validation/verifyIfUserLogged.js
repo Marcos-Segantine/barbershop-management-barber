@@ -6,7 +6,7 @@ export const verifyIfUserLogged = async (navigation, setSomethingWrong) => {
         if (await AsyncStorage.getItem("@barber_app__barber_email")) {
             setTimeout(() => {
                 navigation.navigate("Home")
-            }, 100)
+            }, 1000)
         }
         else {
             setTimeout(() => {

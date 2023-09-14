@@ -1,5 +1,5 @@
 import { SafeAreaView, Text, StyleSheet, View, Image } from "react-native"
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { globalStyles } from "../assets/globalStyles"
 
@@ -7,12 +7,34 @@ import { SomethingWrongContext } from "../context/SomethingWrongContext";
 
 import { verifyIfUserLogged } from "../validation/verifyIfUserLogged";
 
+import { CannotUseApp } from "../components/CannotUseApp";
+
 export const Welcome = ({ navigation }) => {
+    const [blockAccess, setBlockAccess] = useState(false);
+
     const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     useEffect(() => {
-        verifyIfUserLogged(navigation, setSomethingWrong)
-    }, [])
+        ((async () => {
+
+            const response = await fetch('https://southamerica-east1-barber-ddb8a.cloudfunctions.net/canUseApp');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+
+            if (data.response) {
+                verifyIfUserLogged(navigation, setSomethingWrong);
+            }
+            else {
+                setBlockAccess(true)
+            }
+
+        }))();
+
+    }, []);
+
+    if (blockAccess) return <CannotUseApp />
 
     return (
         <SafeAreaView style={styles.container}>
@@ -52,7 +74,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: globalStyles.fontSizeMedium,
         fontFamily: globalStyles.fontFamilyBold,
-        color: "#FFFFFF"
+        color: "#FFFFFF",
     },
 
     companyName: {

@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 
 import { globalStyles } from '../assets/globalStyles';
+import { FreeTimeImage } from '../assets/imgs/FreeTimeImage';
 
 import { ComeBack } from '../components/ComeBack';
 import { Loading } from '../components/Loading';
@@ -16,10 +17,11 @@ import { SomethingWrongContext } from '../context/SomethingWrongContext';
 import { UserContext } from '../context/UserContext';
 
 import { formatDate } from '../utils/formatDate';
-import { getMonth, getYear } from '../utils/dateHelper';
+import { getMonth, getYear, getDay } from '../utils/dateHelper';
 
 export const SchedulesInDay = ({ route }) => {
   const [data, setData] = useState(null);
+  const [filter, setFilter] = useState(true)
 
   const { userData } = useContext(UserContext)
   const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -40,25 +42,32 @@ export const SchedulesInDay = ({ route }) => {
 
     const workingHoursRef = firestore().collection("working_hours")
     const unsubscribe = workingHoursRef.onSnapshot(() => {
-      getSchedulesInDay(dateFormatted, day, weekday, { name: userData.name, uid: userData.uid }, setData, setSomethingWrong)
+      getSchedulesInDay(dateFormatted, day, weekday, { name: userData.name, uid: userData.uid }, setData, filter, setSomethingWrong)
 
     })
 
-    return () => unsubscribe()
+    return () => unsubscribe(filter)
 
   }, [])
-
 
   // listener that update the data all the times that `unavailable_times` collection is updated
   useEffect(() => {
     const unavailableTimesRef = firestore().collection("unavailable_times")
     const unsubscribe = unavailableTimesRef.onSnapshot(() => {
-      getSchedulesInDay(dateFormatted, day, weekday, { name: userData.name, uid: userData.uid }, setData, setSomethingWrong)
+      getSchedulesInDay(dateFormatted, day, weekday, { name: userData.name, uid: userData.uid }, setData, filter, setSomethingWrong)
 
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [filter])
+
+  const handleFilter = () => {
+    setFilter(!filter)
+  }
+
+  const buttonFilterStyles = filter ?
+    { backgroundColor: '#FFFFFF', width: 40, height: "100%", borderRadius: 300, position: "absolute", right: 2, top: 2 } :
+    { backgroundColor: '#F2F2F2', width: 40, height: "100%", borderRadius: 300, position: "absolute", left: 2, top: 2 };
 
   const title = formatDate(day)
 
@@ -70,29 +79,47 @@ export const SchedulesInDay = ({ route }) => {
       <ComeBack text={title} />
 
       <View style={style.contentSchedules}>
+
         {
-          data
-          && data.map((data, index) => {
-            return (
-              <Pressable
-                key={index}
-                style={style.schedule}
-                onPress={() =>
-                  navigation.navigate('ScheduleDetails', {
-                    hour: data.hour,
-                    isScheduleFree: data.isScheduleFree,
-                    date: data.date
-                  })
-                }
-              >
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                  <Text style={style.scheduleText}>{data.hour}</Text>
-                  <View style={data.isScheduleFree ? [style.status, { backgroundColor: "green" }] : [style.status, { backgroundColor: "red" }]}></View>
-                </View>
-                <Text style={style.nameCLientText}>{data.isScheduleFree ? "Horário livre" : data.clientName}</Text>
-              </Pressable>
-            );
-          })
+          getDay(day) === getDay() &&
+          <View style={{ width: "100%", justifyContent: 'space-between', flexDirection: "row", alignItems: "center", marginVertical: 20 }}>
+            <Text style={{ color: "#000000", fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeMedium }}>Filtrar horários?</Text>
+
+            <Pressable
+              onPress={handleFilter}
+              style={{ width: 80, height: 35, borderRadius: 100, backgroundColor: filter ? globalStyles.orangeColor : "#B8B8B8", padding: 2 }}
+            >
+              <View style={buttonFilterStyles}></View>
+            </Pressable>
+          </View>
+        }
+        {
+          data.length ?
+            data.map((data, index) => {
+              return (
+                <Pressable
+                  key={index}
+                  style={style.schedule}
+                  onPress={() =>
+                    navigation.navigate('ScheduleDetails', {
+                      hour: data.hour,
+                      isScheduleFree: data.isScheduleFree,
+                      date: data.date
+                    })
+                  }
+                >
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                    <Text style={style.scheduleText}>{data.hour}</Text>
+                    <View style={data.isScheduleFree ? [style.status, { backgroundColor: "green" }] : [style.status, { backgroundColor: "red" }]}></View>
+                  </View>
+                  <Text style={style.nameCLientText}>{data.isScheduleFree ? "Horário livre" : data.clientName}</Text>
+                </Pressable>
+              );
+            }) :
+            <>
+              <Text style={{color: "#00000090", fontSize: globalStyles.fontSizeSmall, textAlign: "center", width: "100%", marginTop: 40 }}>Não há mais nenhum horário para hoje</Text>
+              <FreeTimeImage height={400} width={"100%"} />
+            </>
         }
 
       </View>

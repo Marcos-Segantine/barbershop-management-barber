@@ -1,5 +1,15 @@
 export const getDay = (scheduleInfo) => {
-  return scheduleInfo?.day?.slice(8) || scheduleInfo.slice(8)
+  try {
+
+    // If don't have scheduleInfo return the current day
+    if (typeof scheduleInfo === "undefined") return String(new Date().getDate())
+
+    if (scheduleInfo?.day !== undefined) return scheduleInfo.day.slice(8)
+    return scheduleInfo.split("").slice(8).join("")
+
+  } catch (error) {
+    // console.log(error);
+  }
 };
 
 export const getHour = (scheduleInfo) => {

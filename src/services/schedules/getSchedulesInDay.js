@@ -9,6 +9,7 @@ export const getSchedulesInDay = async (
   weekday,
   barberInfo,
   setData,
+  isToFilterByHour,
   setSomethingWrong
 ) => {
   try {
@@ -35,7 +36,7 @@ export const getSchedulesInDay = async (
     workingHoursData.forEach(workTime => {
       const workTimeToCompare = Number(workTime.split(":")[0])
 
-      if (workTimeToCompare < currentHour && currentDate) return
+      if (workTimeToCompare < currentHour && currentDate && isToFilterByHour) return
 
       if (schedulesOfProfessional.includes(workTime)) {
         data.push({

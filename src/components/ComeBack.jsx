@@ -28,8 +28,6 @@ export const ComeBack = ({ text }) => {
             previousScreen,
             lastScreen,
             navigation,
-            userData,
-            setSchedule
         )
     }
 

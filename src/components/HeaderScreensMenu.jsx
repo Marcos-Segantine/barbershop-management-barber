@@ -22,7 +22,7 @@ export const HeaderScreensMenu = ({ screenName }) => {
 
         BackHandler.addEventListener('hardwareBackPress', () => {
             const [previousScreen, lastScreen] = getPreviousScreensName(navigation)
-            return handleNavigation(previousScreen, lastScreen, navigation, userData, setSchedule)
+            return handleNavigation(previousScreen, lastScreen, navigation)
         })
 
     }, [])

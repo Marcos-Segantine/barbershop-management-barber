@@ -64,80 +64,75 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
   if (data === null) return <Loading flexSize={1} />
 
-  return (
-    <ScrollView contentContainerStyle={globalStyles.container}>
-      <ComeBack text={!isScheduleFree ? `${hour}` : "Horário Livre"} />
-      {
-        data &&
-        (
-          <DefaultModal
-            modalContent={confirmCancelScheduleVisible}
-          />
-        )
-      }
+  if (isScheduleFree === true && data === undefined) {
+    return (
+      <View style={[globalStyles.container, { flex: 1, justifyContent: "space-around" }]}>
+        <ComeBack text={"Horário livre"} />
+        <FreeTimeImage height={"70%"} width={"100%"} />
 
-      {
-        !isScheduleFree && data ?
-          (
-            <>
-              <View style={styles.content}>
-                <View style={{ width: "100%", alignItems: "center" }}>
-                  <View>
-                    {
-                      data?.profilePicture ?
-                        <Image
-                          src={data.profilePicture}
-                          style={{ borderRadius: 200, width: 200, height: 200, alignSelf: "center" }}
-                        /> :
-                        <Image source={DefaultPicture} style={{ width: 200, height: 200, alignSelf: "center" }} />
-                    }
+        <Button
+          text={'Agendar cliente'}
+          action={handleNewSchedule}
+        />
+      </View>
+    )
+  }
 
-                  </View>
+  if (data) {
+    return (
+      <ScrollView contentContainerStyle={globalStyles.container}>
+        <ComeBack text={hour} />
+        <DefaultModal
+          modalContent={confirmCancelScheduleVisible}
+        />
 
-                  <Text style={styles.clientName}>{data && getNameLastName(data.name)}</Text>
+        <View style={styles.content}>
+          <View style={{ width: "100%", alignItems: "center" }}>
+            <View>
+              {
+                data.profilePicture ?
+                  <Image
+                    src={data.profilePicture}
+                    style={{ borderRadius: 200, width: 200, height: 200, alignSelf: "center" }}
+                  /> :
+                  <Image source={DefaultPicture} style={{ width: 200, height: 200, alignSelf: "center" }} />
+              }
 
-                  <View style={{ alignItems: 'flex-start', marginTop: 25, width: "100%" }}>
-                    <Text style={styles.description}>Email: <Text style={styles.info}>{data && data.email}</Text></Text>
-                    <Text style={styles.description}>Celular: <Text style={styles.info}>{data && formatPhoneNumber(data.phone, setSomethingWrong)}</Text></Text>
-                    <Text style={styles.description}>
-                      Serviço(s):
-                    </Text>
-                    <View style={styles.contentButtons}>
-                      {
-                        data?.services && data.services.map((service, index) => {
-                          return (
-                            <View key={index} style={styles.serviceContentList}>
-                              <View style={{ width: 8, height: 8, borderRadius: 150, backgroundColor: "black", marginRight: 10 }}></View>
-                              <Text style={[styles.info, { marginVertical: 0 }]}>{service.name}</Text>
-                            </View>
-
-                          )
-                        })
-                      }
-                    </View>
-                  </View>
-                </View>
-
-                <Button
-                  text={'Cancelar agendamento'}
-                  action={handleCancelSchedule}
-                />
-              </View>
-
-            </>
-          ) : (
-            <View style={styles.content}>
-              <FreeTimeImage height={"70%"} width={400} />
-
-              <Button
-                text={'Agendar cliente'}
-                action={handleNewSchedule}
-              />
             </View>
-          )
-      }
-    </ScrollView>
-  );
+
+            <Text style={styles.clientName}>{data && getNameLastName(data.name)}</Text>
+
+            <View style={{ alignItems: 'flex-start', marginTop: 25, width: "100%" }}>
+              <Text style={styles.description}>Email: <Text style={styles.info}>{data && data.email}</Text></Text>
+              <Text style={styles.description}>Celular: <Text style={styles.info}>{data && formatPhoneNumber(data.phone, setSomethingWrong)}</Text></Text>
+              <Text style={styles.description}>
+                Serviço(s):
+              </Text>
+              <View style={styles.contentButtons}>
+                {
+                  data.services && data.services.map((service, index) => {
+                    return (
+                      <View key={index} style={styles.serviceContentList}>
+                        <View style={{ width: 8, height: 8, borderRadius: 150, backgroundColor: "black", marginRight: 10 }}></View>
+                        <Text style={[styles.info, { marginVertical: 0 }]}>{service.name}</Text>
+                      </View>
+
+                    )
+                  })
+                }
+              </View>
+            </View>
+          </View>
+
+          <Button
+            text={'Cancelar agendamento'}
+            action={handleCancelSchedule}
+          />
+        </View>
+
+      </ScrollView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

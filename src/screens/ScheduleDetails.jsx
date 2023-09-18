@@ -1,8 +1,9 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 import { useContext, useEffect, useState } from 'react';
 
 import { UserContext } from '../context/UserContext';
 import { SomethingWrongContext } from '../context/SomethingWrongContext';
+import { ScheduleContext } from '../context/ScheduleContext';
 
 import { Button } from '../components/Button';
 import { ComeBack } from '../components/ComeBack';
@@ -18,7 +19,7 @@ import DefaultPicture from "../assets/icons/DefaultPicture.png"
 import { CancelSchedule } from '../assets/imgs/CancelSchedule';
 
 import { formatPhoneNumber } from '../utils/formatPhoneNumber';
-import { ScheduleContext } from '../context/ScheduleContext';
+import { getNameLastName } from '../utils/getNameLastName';
 
 export const ScheduleDetails = ({ route, navigation }) => {
   const [data, setData] = useState(null)
@@ -61,15 +62,10 @@ export const ScheduleDetails = ({ route, navigation }) => {
     setSchedule({ ...schedule, day: date, professionalUid: userData.uid, professional: userData.name })
   }
 
-  const services = data && data.services.map((service, index) => {
-    if (index === data.services.length - 1) return service.name
-    return ',' + service.name
-  }).join('')
-
   if (data === null) return <Loading flexSize={1} />
 
   return (
-    <View style={globalStyles.container}>
+    <ScrollView contentContainerStyle={globalStyles.container}>
       <ComeBack text={!isScheduleFree ? `${hour}` : "Horário Livre"} />
       {
         data &&
@@ -98,12 +94,27 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
                   </View>
 
-                  <Text style={styles.clientName}>{data && data.name}</Text>
+                  <Text style={styles.clientName}>{data && getNameLastName(data.name)}</Text>
 
-                  <View style={{ alignItems: 'flex-start', marginTop: 25 }}>
+                  <View style={{ alignItems: 'flex-start', marginTop: 25, width: "100%" }}>
                     <Text style={styles.description}>Email: <Text style={styles.info}>{data && data.email}</Text></Text>
                     <Text style={styles.description}>Celular: <Text style={styles.info}>{data && formatPhoneNumber(data.phone, setSomethingWrong)}</Text></Text>
-                    <Text style={styles.description}>Serviço(s): <Text style={styles.info}>{services}</Text></Text>
+                    <Text style={styles.description}>
+                      Serviço(s):
+                    </Text>
+                    <View style={styles.contentButtons}>
+                      {
+                        data?.services && data.services.map((service, index) => {
+                          return (
+                            <View key={index} style={styles.serviceContentList}>
+                              <View style={{ width: 8, height: 8, borderRadius: 150, backgroundColor: "black", marginRight: 10 }}></View>
+                              <Text style={[styles.info, { marginVertical: 0 }]}>{service.name}</Text>
+                            </View>
+
+                          )
+                        })
+                      }
+                    </View>
                   </View>
                 </View>
 
@@ -125,14 +136,13 @@ export const ScheduleDetails = ({ route, navigation }) => {
             </View>
           )
       }
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   content: {
     width: '100%',
-    height: "80%",
     marginTop: 50,
     marginBottom: 25,
     alignItems: 'center',
@@ -173,5 +183,19 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     maxWidth: "100%",
     fontFamily: globalStyles.fontFamilyBold,
+  },
+
+  serviceContentList: {
+    fontSize: globalStyles.fontSizeSmall,
+    marginVertical: 5,
+    marginLeft: 15,
+    maxWidth: "80%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  contentButtons: {
+    marginTop: 5,
+    marginBottom: 20,
   }
 });

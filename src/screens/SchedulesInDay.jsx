@@ -18,6 +18,7 @@ import { UserContext } from '../context/UserContext';
 
 import { formatDate } from '../utils/formatDate';
 import { getMonth, getYear, getDay } from '../utils/dateHelper';
+import { getNameLastName } from '../utils/getNameLastName';
 
 export const SchedulesInDay = ({ route }) => {
   const [data, setData] = useState(null);
@@ -112,7 +113,7 @@ export const SchedulesInDay = ({ route }) => {
                     <Text style={style.scheduleText}>{data.hour}</Text>
                     <View style={data.isScheduleFree ? [style.status, { backgroundColor: "green" }] : [style.status, { backgroundColor: "red" }]}></View>
                   </View>
-                  <Text style={style.nameCLientText}>{data.isScheduleFree ? "Horário livre" : data.clientName}</Text>
+                  <Text style={style.nameCLientText}>{data.isScheduleFree ? "Horário livre" : getNameLastName(data.clientName)}</Text>
                 </Pressable>
               );
             }) :

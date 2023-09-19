@@ -33,6 +33,7 @@ export const getAvailableTimesByProfessional = async (
 
         // if professional or day selected don't have any schedule, return all times because he is free
         if (!unavailableTimesData) return workingHoursData
+        else if(unavailableTimesData[day] === undefined) return workingHoursData
         else if (!unavailableTimesData[day] && currentDate || unavailableTimesData[day] && currentDate) {
             return workingHoursData.filter(schedule => Number(schedule.split(":")[0]) > Number(currentHour) && !unavailableTimesData[day][professionalUid].includes(schedule))
         }

@@ -95,7 +95,7 @@ export const SchedulesClients = ({ navigation }) => {
       />
 
       {
-        data !== null && dataFiltered === null &&
+        data !== null && (dataFiltered === null || dataFiltered?.length === 0) &&
         (
           <>
             <Text style={{ color: "#00000090", textAlign: "center" }}>Não há agendamentos para esse mês e/ou ano.</Text>

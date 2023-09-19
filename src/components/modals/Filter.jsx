@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Modal, Pressable } from "react-native"
 import { useState } from "react"
 
 import { globalStyles } from "../../assets/globalStyles"
+import { CloseIcon } from "../../assets/icons/CloseIcon"
 
 import { Button } from "../Button"
 
@@ -50,13 +51,29 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                     <View style={styles.contentYear}>
                         {
                             years.map((year) => {
+                                if (dateToFilterTemp[0] === year) {
+                                    return (
+                                        <Pressable
+                                            key={year}
+                                            style={[styles.item, { backgroundColor: globalStyles.orangeColor }]}
+                                            onPress={() => handleYear(year)}
+                                        >
+                                            <View style={{ backgroundColor: "#e74c3c", width: 20, height: 20, borderRadius: 20, position: "absolute", top: -5, right: -5, justifyContent: "center", alignItems: "center" }}>
+                                                <CloseIcon width={16} height={16} color="white" />
+                                            </View>
+
+                                            <Text style={[styles.itemText, { color: "white" }]}>{year}</Text>
+                                        </Pressable>
+                                    )
+                                }
+
                                 return (
                                     <Pressable
                                         key={year}
-                                        style={dateToFilterTemp[0] === year ? [styles.item, { backgroundColor: globalStyles.orangeColor }] : styles.item}
+                                        style={styles.item}
                                         onPress={() => handleYear(year)}
                                     >
-                                        <Text style={dateToFilterTemp[0] === year ? [styles.itemText, { color: "white" }] : styles.itemText}>{year}</Text>
+                                        <Text style={styles.itemText}>{year}</Text>
                                     </Pressable>
                                 )
                             })
@@ -69,14 +86,34 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                     <View style={[styles.contentMonth, {}]}>
                         {
                             months.map(month => {
+                                if (dateToFilterTemp[1] === month) {
+                                    return (
+                                        <Pressable
+                                            key={month}
+                                            style={[styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }]}
+                                            onPress={() => handleMonth(month)}
+                                        >
+                                            <View style={{ backgroundColor: "#e74c3c", width: 20, height: 20, borderRadius: 20, position: "absolute", top: -5, right: -5, justifyContent: "center", alignItems: "center" }}>
+                                                <CloseIcon width={16} height={16} color="white" />
+                                            </View>
+
+                                            <Text
+                                                style={[styles.itemText, { color: "white" }]}
+                                            >
+                                                {getMonthName(month, true)}
+                                            </Text>
+                                        </Pressable>
+                                    )
+                                }
+
                                 return (
                                     <Pressable
                                         key={month}
-                                        style={dateToFilterTemp[1] === month ? [styles.item, { backgroundColor: globalStyles.orangeColor, marginBottom: 5 }] : [styles.item, { marginBottom: 5 }]}
+                                        style={[styles.item, { marginBottom: 5 }]}
+                                        onPress={() => handleMonth(month)}
                                     >
                                         <Text
-                                            style={dateToFilterTemp[1] === month ? [styles.itemText, { color: "white" }] : styles.itemText}
-                                            onPress={() => handleMonth(month)}
+                                            style={styles.itemText}
                                         >
                                             {getMonthName(month, true)}
                                         </Text>

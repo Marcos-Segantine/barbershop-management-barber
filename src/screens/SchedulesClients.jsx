@@ -65,7 +65,7 @@ export const SchedulesClients = ({ navigation }) => {
 
         <Button
           text={"Agendar horário"}
-          action={() => navigation.navigate("GetClient")}
+          action={() => navigation.navigate("GetClient", { isToClearScheduleContext: true })}
         />
       </View>
 

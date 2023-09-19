@@ -8,7 +8,6 @@ import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { Button } from "../components/Button"
 import { Menu } from "../components/Menu"
 import { ShowClientInfo } from "../components/modals/ShowClientInfo"
-import { DefaultModal } from "../components/modals/DefaultModal"
 
 import { EmailForgotPasswordIcon } from "../assets/icons/EmailForgotPasswordIcon"
 import { SMSIcon } from "../assets/icons/SMSIcon"
@@ -22,7 +21,6 @@ export const GetClient = ({ navigation, route }) => {
     const [phone, setPhone] = useState("")
 
     const [modalShowUser, setModalShowUser] = useState(null)
-    const [isToShowModalShowUser, setIsToShowModalShowUser] = useState(false)
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -58,9 +56,6 @@ export const GetClient = ({ navigation, route }) => {
                     setModalShowUser={setModalShowUser}
                     isToClearScheduleContext={isToClearScheduleContext}
                 />
-                {/* <DefaultModal
-                    modalContent={modalShowUser}
-                /> */}
 
                 <HeaderScreensMenu screenName={"Agendar horário para um cliente"} />
 

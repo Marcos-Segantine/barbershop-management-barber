@@ -36,13 +36,7 @@ export const fetchDataSchedulesClients = async (
       });
     });
 
-    setDataFiltered(
-      dataTemp.sort((a, b) => {
-        const dateA = new Date(a.day);
-        const dateB = new Date(b.day);
-        return dateA - dateB;
-      })
-    );
+    setDataFiltered(dataTemp);
 
   } catch (error) {
     console.error(error);

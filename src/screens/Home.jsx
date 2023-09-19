@@ -22,9 +22,8 @@ import { formatDate } from "../utils/formatDate"
 import { getDayOfWeek } from "../utils/getDayOfWeek"
 import { formatPhoneNumber } from "../utils/formatPhoneNumber"
 
-import { handleScheduleDoneHome } from "../handlers/handleScheduleDoneHome"
-
 import firestore from '@react-native-firebase/firestore';
+import { cancelSchedule } from "../services/schedules/cancelSchedule"
 
 export const Home = ({ navigation }) => {
     const [schedulesOfProfessional, setSchedulesOfProfessional] = useState(null)
@@ -57,12 +56,10 @@ export const Home = ({ navigation }) => {
             mainMessage: "Ateção",
             message: "Caso você confirme o agendamento será completamente apagado.",
             firstButtonAction: () => {
-                handleScheduleDoneHome(
-                    setScheduleEarlier,
+                cancelSchedule(
+                    scheduleEarlier.clientUid,
                     scheduleEarlier,
                     setSomethingWrong,
-                    setSchedulesOfProfessional,
-                    userData,
                 )
                 setModalContent(null)
             },

@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getMonth, getYear } from '../../utils/dateHelper';
 import { getCurrentHour } from '../../utils/getCurrentHour';
+import { sortByHour } from '../../utils/sortByHour';
 
 export const getSchedulesInDay = async (
   dateFormatted,
@@ -57,7 +58,7 @@ export const getSchedulesInDay = async (
       }
     });
 
-    setData(data)
+    setData(sortByHour(data))
 
   } catch (error) {
     console.error(error);

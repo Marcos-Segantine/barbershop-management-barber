@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native"
-import {  ScheduleContext } from "../context/ScheduleContext"
+import { ScheduleContext } from "../context/ScheduleContext"
+import { UserContext } from "../context/UserContext"
 
 import { globalStyles } from "../assets/globalStyles"
 
 import { getAvailableTimesByProfessional } from "../services/schedules/getAvailableTimesByProfessional"
 import { getAllTimes } from "../services/schedules/getAllTimes"
+
 import { getDay } from "../utils/dateHelper"
+import { sortByHour } from "../utils/sortByHour"
 
 import { Loading } from "./Loading"
-import { UserContext } from "../context/UserContext"
 
 export const Schedules = ({ preferProfessional }) => {
     const [availableTimes, setAvailableTimes] = useState(null)
@@ -26,12 +28,14 @@ export const Schedules = ({ preferProfessional }) => {
         (async () => {
 
             if (!!(schedule.professional && schedule.day) && preferProfessional) {
-                setAvailableTimes(await getAvailableTimesByProfessional(userData.uid ,schedule, setIsLoading))
+                const data = await getAvailableTimesByProfessional(userData.uid, schedule, setIsLoading)
+                setAvailableTimes(sortByHour(data))
                 setIsLoading(false)
 
             }
             else if (!preferProfessional) {
-                setAllTimes(await getAllTimes())
+                const data = await getAllTimes()
+                setAllTimes(sortByHour(data))
                 setIsLoading(false)
             }
 

@@ -72,6 +72,8 @@ export const SchedulesInDay = ({ route }) => {
 
   const title = formatDate(day)
 
+  // console.log(data);
+
   if (data === null) return <Loading flexSize={1} />
 
   return (

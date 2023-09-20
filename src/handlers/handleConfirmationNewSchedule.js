@@ -32,15 +32,15 @@ export const handleConfirmationNewSchedule = async (
         setModalContent,
         setSomethingWrong,
         setIsLoading,
-        navigation
+        navigation,
+        setIsLoading
     )
     else await confirmNewSchedule(
         allData,
         schedule.client.uid,
         setModalContent,
         setSomethingWrong,
-        navigation
+        navigation,
+        setIsLoading
     )
-
-    setIsLoading(false)
 }

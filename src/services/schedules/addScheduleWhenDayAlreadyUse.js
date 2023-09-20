@@ -17,7 +17,8 @@ export const addScheduleWhenDayAlreadyUse = async (
   clientUid,
   scheduleInfo,
   setModalContent,
-  navigation
+  navigation,
+  setIsLoading
 ) => {
   console.log('addScheduleWhenDayAlreadyUse CALLED');
 
@@ -107,6 +108,8 @@ export const addScheduleWhenDayAlreadyUse = async (
         }
       })
 
+      setIsLoading(false)
+
       return
     }
 
@@ -119,6 +122,8 @@ export const addScheduleWhenDayAlreadyUse = async (
         navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext : true });
       }
     })
+
+    setIsLoading(false)
 
   } catch (error) {
     console.error(error);

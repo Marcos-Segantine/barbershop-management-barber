@@ -17,7 +17,8 @@ export const addScheduleWhenMonthIsNotUse = async (
   clientUid,
   scheduleInfo,
   setModalContent,
-  navigation
+  navigation,
+  setIsLoading
 ) => {
   console.log('addScheduleWhenMonthIsNotUse CALLED');
 
@@ -71,6 +72,8 @@ export const addScheduleWhenMonthIsNotUse = async (
         }
       })
 
+      setIsLoading(false)
+
       return
     }
 
@@ -83,6 +86,8 @@ export const addScheduleWhenMonthIsNotUse = async (
         navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext : true });
       }
     })
+
+    setIsLoading(false)
 
   } catch (error) {
     console.log(error);

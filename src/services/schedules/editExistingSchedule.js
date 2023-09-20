@@ -7,7 +7,8 @@ export const editExistingSchedule = async (
     newSchedule,
     setModalContent,
     setSomethingWrong,
-    navigation
+    navigation,
+    setIsLoading
 ) => {
     try {
         await cancelSchedule(
@@ -18,7 +19,8 @@ export const editExistingSchedule = async (
             newSchedule,
             newSchedule.clientUid,
             setModalContent,
-            navigation
+            navigation,
+            setIsLoading
         )
 
     } catch (error) {

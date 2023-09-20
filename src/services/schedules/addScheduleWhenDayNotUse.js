@@ -18,6 +18,7 @@ export const addScheduleWhenDayNotUse = async (
   scheduleInfo,
   setModalContent,
   navigation,
+  setIsLoading
 ) => {
   console.log('addScheduleWhenDayNotUse CALLED');
   try {
@@ -84,6 +85,8 @@ export const addScheduleWhenDayNotUse = async (
         }
       })
 
+      setIsLoading(false)
+
       return
     }
 
@@ -96,6 +99,8 @@ export const addScheduleWhenDayNotUse = async (
         navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext : true });
       }
     })
+
+    setIsLoading(false)
 
   } catch (error) {
     console.error('Error adding schedule:', error);

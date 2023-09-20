@@ -11,7 +11,8 @@ export const confirmNewSchedule = async (
     clientUid,
     setModalContent,
     setSomethingWrong,
-    navigation
+    navigation,
+    setIsLoading
 ) => {
 
     try {
@@ -30,7 +31,8 @@ export const confirmNewSchedule = async (
                 clientUid,
                 scheduleInfo,
                 setModalContent,
-                navigation
+                navigation,
+                setIsLoading
             );
             return;
         }
@@ -42,13 +44,15 @@ export const confirmNewSchedule = async (
                 clientUid,
                 scheduleInfo,
                 setModalContent,
-                navigation
+                navigation,
+                setIsLoading
             )
             : addScheduleWhenDayNotUse(
                 clientUid,
                 scheduleInfo,
                 setModalContent,
-                navigation
+                navigation,
+                setIsLoading
             );
 
     } catch (error) {

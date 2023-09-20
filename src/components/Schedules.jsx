@@ -43,6 +43,8 @@ export const Schedules = ({ preferProfessional }) => {
 
     }, [schedule.professional, schedule.day])
 
+    console.log(schedule.schedule, schedule.day);
+
     if (isLoading) return <Loading />
 
     return (

@@ -17,6 +17,7 @@ import { formatDate } from "../utils/formatDate"
 import { formatPhoneNumber } from "../utils/formatPhoneNumber"
 import { formatPrice } from "../utils/formatPrice"
 import { getDayOfWeek } from "../utils/getDayOfWeek"
+import { getNameLastName } from "../utils/getNameLastName"
 
 import { handleConfirmationNewSchedule } from "../handlers/handleConfirmationNewSchedule"
 
@@ -86,7 +87,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         <Text style={styles.describe}>Profissional</Text>
-                        <Text style={styles.info}>{schedule.professional}</Text>
+                        <Text style={styles.info}>{getNameLastName(schedule.professional)}</Text>
                     </View>
                 </View>
 

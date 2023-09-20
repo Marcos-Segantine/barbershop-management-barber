@@ -59,7 +59,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
   const handleNewSchedule = () => {
     navigation.navigate('GetClient', { isToClearScheduleContext: false })
-    setSchedule({ ...schedule, day: date, professionalUid: userData.uid, professional: userData.name })
+    setSchedule({ ...schedule, day: date, professionalUid: userData.uid, professional: userData.name, schedule: hour })
   }
 
   if (data === null) return <Loading flexSize={1} />

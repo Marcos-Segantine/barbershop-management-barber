@@ -71,8 +71,8 @@ export const Login = ({ navigation, route }) => {
     return (
         <ScrollView contentContainerStyle={globalStyles.container}>
             <ComeBack />
-            
-            <DefaultModal 
+
+            <DefaultModal
                 modalContent={modalInfo}
             />
 
@@ -85,7 +85,7 @@ export const Login = ({ navigation, route }) => {
                     <EmailIcon />
 
                     <TextInput
-                        style={{ color: "#000000", width: "100%" }}
+                        style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall }}
                         placeholder={"Email"}
                         value={email}
                         placeholderTextColor={"#00000050"}
@@ -99,7 +99,7 @@ export const Login = ({ navigation, route }) => {
                     <PadlockIcon />
 
                     <TextInput
-                        style={{ color: "#000000", width: "100%" }}
+                        style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall }}
                         placeholder={"Senha"}
                         value={password}
                         placeholderTextColor={"#00000050"}
@@ -134,7 +134,7 @@ export const Login = ({ navigation, route }) => {
 }
 const styles = StyleSheet.create({
     title: {
-        fontSize: 52,
+        fontSize: globalStyles.fontSizeMedium,
         color: "#000000",
         fontFamily: globalStyles.fontFamilyBold,
         marginLeft: 25,
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
         color: "#000000",
         flexDirection: 'row',
         alignItems: 'center',
+        fontSize: globalStyles.fontSizeSmall
     },
 
     inputFocused: {
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     linksAuth: {
         color: globalStyles.orangeColor,
         fontFamily: globalStyles.fontFamilyBold,
-        fontSize: 16,
         marginTop: 20,
+        fontSize: globalStyles.fontSizeSmall,
     },
 })

@@ -24,5 +24,6 @@ const styles = StyleSheet.create({
     text: {
         color: "#FFFFFF",
         fontFamily: globalStyles.fontFamilyBold,
+        fontSize: globalStyles.fontSizeSmall,   
     }
 })

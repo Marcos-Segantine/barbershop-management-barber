@@ -10,6 +10,7 @@ import { GoogleIcon } from "../assets/icons/GoogleIcon"
 import { signInWithGoogle } from "../services/auth/signInWithGoogle"
 
 import { useNavigation } from "@react-navigation/native"
+import { globalStyles } from "../assets/globalStyles"
 
 export const LoginWithMedia = ({ isToShowJustIcon }) => {
     const navigation = useNavigation()
@@ -89,7 +90,9 @@ const styles = StyleSheet.create({
 
     text: {
         color: '#000000',
-        marginLeft: 10
+        marginLeft: 10,
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium
     },
 
     contentIcons: {

@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
 
     serviceName: {
         fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyBold,
         color: '#000000'
     },
 

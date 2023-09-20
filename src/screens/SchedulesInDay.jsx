@@ -72,8 +72,6 @@ export const SchedulesInDay = ({ route }) => {
 
   const title = formatDate(day)
 
-  // console.log(data);
-
   if (data === null) return <Loading flexSize={1} />
 
   return (
@@ -120,7 +118,7 @@ export const SchedulesInDay = ({ route }) => {
               );
             }) :
             <>
-              <Text style={{color: "#00000090", fontSize: globalStyles.fontSizeSmall, textAlign: "center", width: "100%", marginTop: 40 }}>Não há mais nenhum horário para hoje</Text>
+              <Text style={{color: "#00000090", fontFamily: globalStyles.fontFamilyMedium, fontSize: globalStyles.fontSizeSmall, textAlign: "center", width: "100%", marginTop: 40 }}>Não há mais nenhum horário para hoje</Text>
               <FreeTimeImage height={400} width={"100%"} />
             </>
         }
@@ -170,5 +168,6 @@ const style = StyleSheet.create({
     color: '#000000',
     marginTop: 10,
     fontSize: globalStyles.fontSizeVerySmall,
+    fontFamily: globalStyles.fontFamilyBold
   },
 });

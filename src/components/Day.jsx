@@ -43,12 +43,12 @@ export const Day = ({ day }) => {
       <View style={{ marginTop: 20 }}>
         <View style={{ flexDirection: "row" }}>
           <Image source={groupIcon} style={styles.icon} />
-          <Text style={{ color: "#00000090", marginLeft: 8, fontSize: globalStyles.fontSizeVerySmall }}>{numberOfSchedules}</Text>
+          <Text style={{ color: "#00000090", marginLeft: 8, fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeVerySmall }}>{numberOfSchedules}</Text>
         </View>
 
         <View style={{ flexDirection: "row", marginTop: 10 }}>
           <DayWeek width={15} height={15} />
-          <Text style={{ color: "#00000090", marginLeft: 8, fontSize: globalStyles.fontSizeVerySmall }}>{dayOfWeek}</Text>
+          <Text style={{ color: "#00000090", marginLeft: 8, fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeVerySmall }}>{dayOfWeek}</Text>
         </View>
 
       </View>
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontFamily: globalStyles.fontFamilyBold,
+    fontSize: globalStyles.fontSizeVerySmall,
     textAlign: 'center',
     color: '#000000',
   },

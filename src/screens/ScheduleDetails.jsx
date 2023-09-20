@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontSize: globalStyles.fontSizeSmall,
     marginVertical: 15,
     maxWidth: "100%",
-    fontFamily: globalStyles.fontFamilyBold,
+    fontFamily: globalStyles.fontFamilyMedium,
   },
 
   serviceContentList: {

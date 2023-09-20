@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 
     clientName: {
         color: "#000000",
-        fontSize: 24,
+        fontSize: globalStyles.fontSizeMedium,
         marginTop: 30,
         fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 
     description: {
         color: "#000000",
-        fontSize: 16,
+        fontSize: globalStyles.fontSizeSmall,
         marginVertical: 8,
         fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "80%",
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 
     info: {
         color: "#000000",
-        fontSize: 16,
+        fontSize: globalStyles.fontSizeSmall,
         marginVertical: 15,
         maxWidth: "80%",
         textAlign: 'center',

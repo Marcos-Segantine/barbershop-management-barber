@@ -10,16 +10,8 @@ import { getPreviousScreensName } from "../utils/getPreviousScreensName"
 
 import { handleNavigation } from "../handlers/handleNavigation"
 
-import { useContext } from "react"
-
-import { ScheduleContext } from "../context/ScheduleContext"
-import { UserContext } from "../context/UserContext"
-
 export const ComeBack = ({ text }) => {
     const navigation = useNavigation()
-
-    const { setSchedule } = useContext(ScheduleContext)
-    const { userData } = useContext(UserContext)
 
     const handleComeBack = () => {
         const [previousScreen, lastScreen] = getPreviousScreensName(navigation)
@@ -53,6 +45,7 @@ const styles = StyleSheet.create({
 
     text: {
         color: '#000000',
-        fontSize: globalStyles.fontSizeLarger,
+        fontSize: globalStyles.fontSizeMedium,
+        fontFamily: globalStyles.fontFamilyBold
     }
 })

@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         fontSize: globalStyles.fontSizeMedium,
         color: "#000000",
         marginTop: 12,
-        fontFamily: "800",
+        fontFamily: globalStyles.fontFamilyBold,
         textAlign: "center"
     },
 

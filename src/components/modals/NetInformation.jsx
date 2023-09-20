@@ -44,10 +44,13 @@ const styles = StyleSheet.create({
     title: {
         color: globalStyles.orangeColor,
         fontSize: globalStyles.fontSizeLarger,
+        fontFamily: globalStyles.fontFamilyBold,
         textAlign: "center"
     },
 
     text: {
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium,
         color: "#000000",
         textAlign: 'center',
         maxWidth: "80%",

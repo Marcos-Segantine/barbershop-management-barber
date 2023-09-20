@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     text: {
         marginLeft: 10,
         fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium,
         color: '#000000'
     }
 })

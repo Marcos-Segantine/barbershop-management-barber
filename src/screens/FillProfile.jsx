@@ -82,7 +82,7 @@ export const FillProfile = ({ navigation, route }) => {
             {
                 isToUpdateProfessionalData &&
                 <Text style={{ color: "#000000", fontFamily: globalStyles.fontFamilyBold, marginVertical: 20, fontSize: globalStyles.fontSizeSmall }}>
-                    AVISO: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontFamily: "normal" }}>As informações dos campos vazios não serão atualizadas</Text>
+                    AVISO: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}>As informações dos campos vazios não serão atualizadas</Text>
                 </Text>
             }
 
@@ -200,6 +200,8 @@ const styles = StyleSheet.create({
         color: "#000000",
         flexDirection: 'row',
         alignItems: 'center',
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium
     },
 
     contentEditPicture: {

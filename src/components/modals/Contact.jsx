@@ -20,33 +20,33 @@ export const Contact = ({ modalContact, setModalVisible }) => {
 
                     <View style={styles.contact}>
                         <Text style={styles.info}>
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Nome: </Text>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Nome: </Text>
                             Contato 1
                         </Text>
                         <Text style={styles.info}>
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Número: </Text>
-                            Contato 1
-                        </Text>
-                    </View>
-
-                    <View style={styles.contact}>
-                        <Text style={styles.info}>
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Nome: </Text>
-                            Contato 1
-                        </Text>
-                        <Text style={styles.info}>
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Número: </Text>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Número: </Text>
                             Contato 1
                         </Text>
                     </View>
 
                     <View style={styles.contact}>
                         <Text style={styles.info}>
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Nome: </Text>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Nome: </Text>
                             Contato 1
                         </Text>
                         <Text style={styles.info}>
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Número: </Text>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Número: </Text>
+                            Contato 1
+                        </Text>
+                    </View>
+
+                    <View style={styles.contact}>
+                        <Text style={styles.info}>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Nome: </Text>
+                            Contato 1
+                        </Text>
+                        <Text style={styles.info}>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Número: </Text>
                             Contato 1
                         </Text>
                     </View>

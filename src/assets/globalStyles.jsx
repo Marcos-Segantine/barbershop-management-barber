@@ -9,7 +9,6 @@ export const globalStyles = StyleSheet.create({
     champagneColor: "#fff8ef",
     fontFamilyMedium: "Satoshi-Medium",
     fontFamilyBold: "Satoshi-Bold",
-    fontFamilyRegular: "Satoshi-Regular",
     fontFamilyLight: "Satoshi-Light",
     fontSizeVerySmall: getFontSize(12),
     fontSizeSmall: getFontSize(16),

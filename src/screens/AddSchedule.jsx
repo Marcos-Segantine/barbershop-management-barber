@@ -44,11 +44,11 @@ export const AddSchedule = ({ navigation, route }) => {
       <Text style={styles.text}>Voce tem preferência por profissional?</Text>
       <View style={{ width: "100%", flexDirection: 'row', justifyContent: 'space-around' }}>
         <TouchableOpacity style={preferProfessionalStyle__Yes} activeOpacity={.8} onPress={() => setPreferProfessional(true)}>
-          <Text style={preferProfessional ? { fontFamily: globalStyles.fontFamilyBold, color: '#FFFFFF' } : { fontFamily: globalStyles.fontFamilyBold, color: '#000000' }}>Sim</Text>
+          <Text style={preferProfessional ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#FFFFFF' } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#000000' }}>Sim</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={preferProfessionalStyle__No} activeOpacity={.8} onPress={() => setPreferProfessional(false)}>
-          <Text style={!preferProfessional ? { fontFamily: globalStyles.fontFamilyBold, color: '#FFFFFF' } : { fontFamily: globalStyles.fontFamilyBold, color: '#000000' }}>Nao</Text>
+          <Text style={!preferProfessional ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#FFFFFF' } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#000000' }}>Nao</Text>
         </TouchableOpacity>
       </View>
 

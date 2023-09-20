@@ -98,7 +98,7 @@ export const SchedulesClients = ({ navigation }) => {
         data !== null && (dataFiltered === null || dataFiltered?.length === 0) &&
         (
           <>
-            <Text style={{ color: "#00000090", textAlign: "center" }}>Não há agendamentos para esse mês e/ou ano.</Text>
+            <Text style={{ color: "#00000090", textAlign: "center", fontSize: globalStyles.fontSizeSmall }}>Não há agendamentos para esse mês e/ou ano.</Text>
             < FreeTimeImage width={"100%"} height={300} />
           </>
         )
@@ -118,10 +118,10 @@ const Top = ({ data, dateToFilter, setShowModalFilter, showModalFilter }) => {
         <View>
           <Text style={{ color: "#00000070", fontSize: globalStyles.fontSizeVerySmall, marginBottom: 5 }}>Filtros atual</Text>
           <Text style={style.contentFilterText}>Ano:
-            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}> {dateToFilter[0] || "---"}</Text>
+            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}> {dateToFilter[0] || "---"}</Text>
           </Text>
           <Text style={style.contentFilterText}>Mês:
-            <Text style={{ fontFamily: globalStyles.fontFamilyBold }}> {dateToFilter && getMonthName(dateToFilter[1])}</Text>
+            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}> {dateToFilter && getMonthName(dateToFilter[1])}</Text>
           </Text>
         </View>
 

@@ -47,7 +47,7 @@ export const Welcome = ({ navigation }) => {
             <View style={styles.content}>
                 <Text style={styles.title}>Seja Bem-Vindo a</Text>
                 <Text style={styles.companyName}>WD3 Barbearia</Text>
-                <Text style={{ color: "#FFFFFF" }}>The best app for barbers in Nova Ponte</Text>
+                <Text style={{ color: "#FFFFFF", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyLight }}>The best app for barbers in Nova Ponte</Text>
             </View>
         </SafeAreaView>
     )

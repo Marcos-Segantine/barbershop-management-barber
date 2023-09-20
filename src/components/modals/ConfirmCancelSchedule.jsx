@@ -34,7 +34,7 @@ export const ConfirmCancelSchedule = ({ confirmCancelScheduleVisible, setConfirm
                             activeOpacity={.8}
                             onPress={() => setConfirmCancelSchedule(false)}
                         >
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, color: '#FFFFFF' }}>Não</Text>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#FFFFFF' }}>Não</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
@@ -42,7 +42,7 @@ export const ConfirmCancelSchedule = ({ confirmCancelScheduleVisible, setConfirm
                             activeOpacity={.8}
                             onPress={handleCancelSchedule}
                         >
-                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, color: globalStyles.orangeColor }}>Sim, cancelar horário</Text>
+                            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: globalStyles.orangeColor }}>Sim, cancelar horário</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
         fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeMedium,
     },
-
+    
     middleMessage: {
-        fontFamily: "bold",
+        fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
         color: "#000000",
         width: "80%",

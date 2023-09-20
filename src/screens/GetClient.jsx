@@ -59,7 +59,7 @@ export const GetClient = ({ navigation, route }) => {
 
                 <HeaderScreensMenu screenName={"Agendar horário para um cliente"} />
 
-                <Text style={{ color: "#000000", fontSize: globalStyles.fontSizeSmall, marginTop: 30 }}>Por favor, preencha um dos campos abaixo com os dados do cliente que deseja agendar um horário.</Text>
+                <Text style={{ color: "#000000", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium, marginTop: 30 }}>Por favor, preencha um dos campos abaixo com os dados do cliente que deseja agendar um horário.</Text>
 
                 <View style={styles.contentContact}>
                     <View
@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF80",
         borderRadius: 15,
         paddingLeft: 15,
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium
     },
 
     lineOr: {

@@ -126,8 +126,8 @@ export const EditServices = ({ navigation }) => {
                                         <Pressable style={styles.removeIcon} onPress={() => handleRemoveService(service.name)}>
                                             <CloseIcon width={35} height={35} />
                                         </Pressable>
-                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Serviço:</Text> {service.name}</Text>
-                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold }}>Preço:</Text> {formatPrice(service.price)}</Text>
+                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Serviço:</Text> {service.name}</Text>
+                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Preço:</Text> {formatPrice(service.price)}</Text>
                                     </View>
                                 )
                             })
@@ -159,6 +159,8 @@ const styles = StyleSheet.create({
     text: {
         color: "#000000",
         marginVertical: 5,
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium,
     },
 
     input: {
@@ -171,6 +173,8 @@ const styles = StyleSheet.create({
         color: "#000000",
         flexDirection: 'row',
         alignItems: 'center',
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyMedium,
     },
 
     contentServices: {
@@ -193,7 +197,9 @@ const styles = StyleSheet.create({
 
     serviceText: {
         color: "#000000",
-        marginVertical: 5
+        marginVertical: 5,
+        fontFamily: globalStyles.fontFamilyMedium,
+        fontSize: globalStyles.fontSizeMedium,
     },
 
     removeIcon: {

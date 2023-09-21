@@ -134,7 +134,7 @@ export const Login = ({ navigation, route }) => {
 }
 const styles = StyleSheet.create({
     title: {
-        fontSize: globalStyles.fontSizeMedium,
+        fontSize: globalStyles.fontSizeVeryLarger,
         color: "#000000",
         fontFamily: globalStyles.fontFamilyBold,
         marginLeft: 25,

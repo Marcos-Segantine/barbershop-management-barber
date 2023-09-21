@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         color: "#000000",
         marginVertical: 5,
         fontFamily: globalStyles.fontFamilyMedium,
-        fontSize: globalStyles.fontSizeMedium,
+        fontSize: globalStyles.fontSizeSmall,
     },
 
     removeIcon: {

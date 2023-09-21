@@ -1,11 +1,11 @@
 import { Circle, Path, Svg } from "react-native-svg"
 
-export const SMSIcon = () => {
+export const SMSIcon = ({ width = 40, height = 40 }) => {
     return (
         <Svg
             xmlns="http://www.w3.org/2000/svg"
-            width={40}
-            height={40}
+            width={width}
+            height={height}
             viewBox="0 0 24 24"
             fill="#fc9501"
         >

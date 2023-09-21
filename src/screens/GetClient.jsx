@@ -9,7 +9,7 @@ import { Button } from "../components/Button"
 import { Menu } from "../components/Menu"
 import { ShowClientInfo } from "../components/modals/ShowClientInfo"
 
-import { EmailForgotPasswordIcon } from "../assets/icons/EmailForgotPasswordIcon"
+import { EmailIcon } from "../assets/icons/EmailIcon"
 import { SMSIcon } from "../assets/icons/SMSIcon"
 import { globalStyles } from "../assets/globalStyles"
 
@@ -67,7 +67,7 @@ export const GetClient = ({ navigation, route }) => {
                         activeOpacity={.7}
                     >
                         <View style={styles.contentIcon}>
-                            <EmailForgotPasswordIcon />
+                            <EmailIcon width={40} height={40} color={globalStyles.orangeColor} />
                         </View>
                         <View style={{ marginLeft: 10, width: "70%", }}>
                             <Text style={styles.serviceContact}>Email</Text>

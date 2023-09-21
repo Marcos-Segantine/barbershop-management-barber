@@ -69,11 +69,13 @@ export const FillProfile = ({ navigation, route }) => {
 
     }, [isFocused])
 
+    const headerText = !!createNewPerson.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Preencha seu perfil"
+
     if (isLoading) return <Loading flexSize={1} />
 
     return (
         <ScrollView contentContainerStyle={globalStyles.container}>
-            <ComeBack text={"Preencha seu perfil"} />
+            <ComeBack text={headerText} />
 
             <DefaultModal
                 modalContent={modalContent}

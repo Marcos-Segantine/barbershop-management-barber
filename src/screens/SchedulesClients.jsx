@@ -111,7 +111,7 @@ export const SchedulesClients = ({ navigation }) => {
 
 const Top = ({ data, dateToFilter, setShowModalFilter, showModalFilter }) => {
   return (
-    <View>
+    <View style={{ width: "100%" }}>
       <HeaderScreensMenu screenName={!data?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
 
       <View style={style.contentFilterInfo}>
@@ -148,8 +148,8 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "82%",
-    marginBottom: 20
+    width: "100%",
+    marginBottom: 20,
   },
 
   contentFilterText: {

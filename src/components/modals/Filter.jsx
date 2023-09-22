@@ -12,6 +12,7 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
     const [dateToFilterTemp, setDateToFilterTemp] = useState(dateToFilter)
 
     const currentYear = +new Date().getFullYear()
+    const currentMonth = new Date().getMonth() + 1
 
     const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     const years = [String(currentYear), String(currentYear + 1), String(currentYear + 2)]
@@ -99,6 +100,21 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
 
                                             <Text
                                                 style={[styles.itemText, { color: "white" }]}
+                                            >
+                                                {getMonthName(month, true)}
+                                            </Text>
+                                        </Pressable>
+                                    )
+                                }
+
+                                else if(Number(month) < currentMonth) {
+                                    return (
+                                        <Pressable
+                                            key={month}
+                                            style={[styles.item, { marginBottom: 5, backgroundColor: "#D9DDDC", borderColor: "#D9DDDC" }]}
+                                        >
+                                            <Text
+                                                style={[styles.itemText, { color: "#808080" }]}
                                             >
                                                 {getMonthName(month, true)}
                                             </Text>

@@ -8,7 +8,9 @@ export const handleNavigation = (
     if (
         previousScreen === 'Welcome' && lastScreen === "Home" ||
         previousScreen === 'Profile' && lastScreen === "Login" ||
-        previousScreen === 'Welcome'
+        previousScreen === 'Welcome' ||
+        previousScreen === 'Login' && lastScreen === "Home"
+        
     ) {
         return true
 

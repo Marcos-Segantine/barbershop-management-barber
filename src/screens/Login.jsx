@@ -18,7 +18,7 @@ import { signInWithEmailAndPassword } from "../services/auth/signInWithEmailAndP
 import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
 export const Login = ({ navigation, route }) => {
-    const { emailProfessionalCreated, passwordProfessionalCreated } = route.params
+    const { emailProfessionalCreated, passwordProfessionalCreated } = route?.params ? route?.params : {}
 
     const [inputSelected, setInputSelected] = useState("")
     const [email, setEmail] = useState(emailProfessionalCreated || "")
@@ -71,11 +71,9 @@ export const Login = ({ navigation, route }) => {
     return (
         <ScrollView contentContainerStyle={globalStyles.container}>
             <ComeBack />
-
             <DefaultModal
                 modalContent={modalInfo}
             />
-
             <Text style={styles.title}>
                 Login
             </Text>

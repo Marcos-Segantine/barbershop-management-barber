@@ -10,11 +10,15 @@ export const getUserDataByEmailOrPhone = async (
   email,
   phone,
   setModalShowUser,
-  setSomethingWrong
+  setSomethingWrong,
+  userType = "users",
 ) => {
   try {
 
-    if (email) {
+    email = email.trim()
+    phone = phone.trim()
+
+    if (email !== "") {
       const isValid = isValidEmail(email)
 
       if (!isValid) {
@@ -30,7 +34,7 @@ export const getUserDataByEmailOrPhone = async (
       }
     }
 
-    else if (phone) {
+    else if (phone !== "") {
       const isValid = isValidPhoneNumber(phone)
 
       if (!isValid) {
@@ -46,12 +50,11 @@ export const getUserDataByEmailOrPhone = async (
       }
     }
 
-
     const usersRef = email ?
-      await firestore().collection("users").where("email", "==", email).get() :
-      await firestore().collection("users").where("phone", "==", phone).get()
+      await firestore().collection(userType).where("email", "==", email).get() :
+      await firestore().collection(userType).where("phone", "==", phone).get()
 
-    if (usersRef.docs.length === 0) {
+    if (usersRef.docs.length === 0 && userType === "users") {
       setModalShowUser({
         image: UserNotFoundImage,
         mainMessage: "Usuário não encontrado",
@@ -61,6 +64,19 @@ export const getUserDataByEmailOrPhone = async (
       })
 
       return
+    }
+
+    else if (usersRef.docs.length === 0 && userType === "barbers") {
+      setModalShowUser({
+        image: UserNotFoundImage,
+        mainMessage: "Profissional não encontrado",
+        message: "Não há nenhum profissional que tenha este email e/ou telefone. Por favor confira os campos e tente novamente.",
+        firstButtonText: "Ok",
+        firstButtonAction: () => setModalShowUser(null)
+      })
+
+      return
+
     }
 
     if (email) {

@@ -35,10 +35,8 @@ export const Services = ({ modalVisible, setModalVisible }) => {
       });
   }, []);
 
-  const handleComfirmButton = () => {
-    schedule.service
-      ? (navigation.navigate('ConfirmNewSchedule'), setModalVisible(false))
-      : console.log('NAO SELECIONOU UM SERVIÇO');
+  const handleConfirmButton = () => {
+    schedule.service && (navigation.navigate('ConfirmNewSchedule'), setModalVisible(false))
   };
 
   return (
@@ -73,7 +71,7 @@ export const Services = ({ modalVisible, setModalVisible }) => {
         </ScrollView>
         <Button
           text="Confirmar"
-          action={handleComfirmButton}
+          action={handleConfirmButton}
           waitingData={schedule ? !!schedule.service : false}
         />
       </View>

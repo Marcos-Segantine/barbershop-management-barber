@@ -3,24 +3,28 @@ import { useContext, useState } from "react"
 
 import { ScheduleContext } from "../context/ScheduleContext"
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
+import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
 import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { Button } from "../components/Button"
 import { Menu } from "../components/Menu"
 import { ShowClientInfo } from "../components/modals/ShowClientInfo"
+import { DefaultModal } from "../components/modals/DefaultModal"
 
 import { EmailIcon } from "../assets/icons/EmailIcon"
 import { SMSIcon } from "../assets/icons/SMSIcon"
 import { globalStyles } from "../assets/globalStyles"
+import UserNotFoundImage from "../assets/imgs/UserNotFoundImage.jpg"
 
 import { getUserDataByEmailOrPhone } from "../services/user/getUserDataByEmailOrPhone"
-import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
 export const GetClient = ({ navigation, route }) => {
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
 
-    const [modalShowUser, setModalShowUser] = useState(null)
+    const [inputSelected, setInputSelected] = useState(null)
+    const [modalContent, setModalContent] = useState(null)
+    const [clientData, setClientData] = useState(null)
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -29,16 +33,28 @@ export const GetClient = ({ navigation, route }) => {
     const { isToClearScheduleContext } = route.params || {}
 
     const handleConfirm = async () => {
+        setInputSelected(null)
+
         const clientData = await getUserDataByEmailOrPhone(
             email.trim(),
             phone.trim(),
-            setModalShowUser,
+            setClientData,
             setSomethingWrong
         )
 
-        setModalShowUser(clientData);
+        setClientData(clientData);
 
-        if (!clientData) return
+        if (clientData === undefined) {
+            setModalContent({
+                image: UserNotFoundImage,
+                mainMessage: "Cliente não foi encontrado",
+                message: "Não há nenhum cliente cadastrado com esse email e/ou telefone, Por favor corrija-os e tente novamente.",
+                firstButtonText: "Entendido",
+                firstButtonAction: () => setModalContent(null)
+            })
+
+            return
+        }
 
         setSchedule({ ...schedule, client: { ...clientData } })
     }
@@ -48,13 +64,19 @@ export const GetClient = ({ navigation, route }) => {
         navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
     }
 
+    const styleEmail = inputSelected === 'email' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
+    const stylePhone = inputSelected === 'phone' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
+
     return (
         <>
             <ScrollView contentContainerStyle={globalStyles.container}>
                 <ShowClientInfo
-                    modalShowUser={modalShowUser}
-                    setModalShowUser={setModalShowUser}
+                    modalShowUser={clientData}
+                    setModalShowUser={setClientData}
                     isToClearScheduleContext={isToClearScheduleContext}
+                />
+                <DefaultModal
+                    modalContent={modalContent}
                 />
 
                 <HeaderScreensMenu screenName={"Agendar horário para um cliente"} />
@@ -72,11 +94,12 @@ export const GetClient = ({ navigation, route }) => {
                         <View style={{ marginLeft: 10, width: "70%", }}>
                             <Text style={styles.serviceContact}>Email</Text>
                             <TextInput
-                                style={styles.input}
+                                style={styleEmail}
                                 placeholder={"Insira o email do cliente"}
                                 placeholderTextColor={"#00000050"}
                                 onChangeText={text => setEmail(text)}
                                 keyboardType={"email-address"}
+                                onFocus={() => setInputSelected("email")}
                             />
                         </View>
                     </View>
@@ -101,11 +124,12 @@ export const GetClient = ({ navigation, route }) => {
                         <TouchableOpacity style={{ marginLeft: 10, width: "70%", }}>
                             <Text style={styles.serviceContact}>Celular</Text>
                             <TextInput
-                                style={styles.input}
+                                style={stylePhone}
                                 placeholder={"Insira o número do cliente"}
                                 placeholderTextColor={"#00000050"}
                                 onChangeText={text => setPhone(text)}
                                 keyboardType={"number-pad"}
+                                onFocus={() => setInputSelected("phone")}
                             />
                         </TouchableOpacity>
                     </View>

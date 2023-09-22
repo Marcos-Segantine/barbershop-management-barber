@@ -17,7 +17,7 @@ export const ShowClientInfo = ({
     setModalShowUser,
     isToClearScheduleContext
 }) => {
-    if (modalShowUser === null) return
+    if (!modalShowUser) return
 
     const navigation = useNavigation()
 

@@ -11,16 +11,22 @@ export const Service = ({
     removeServiceSelected }) => {
 
     const handleSelectServices = (service) => {
-        if (servicesSelected.length >= 4) return
+        let isServiceSelected = null;
 
-        if (servicesSelected.includes(service)) {
-            removeServiceSelected(service.name)
-
-            return
+        for (const currentService of servicesSelected) {
+            if (currentService.name === service.name) isServiceSelected = true;
         }
 
-        setServicesSelected(prev => [...prev, service])
-    }
+        if (servicesSelected.length >= 4 && isServiceSelected === null) return;
+
+        if (isServiceSelected) {
+            removeServiceSelected(service.name);
+
+            return;
+        }
+
+        setServicesSelected([...servicesSelected, service]);
+    };
 
     const style = servicesSelected.includes(service) ? [styles.container, { borderColor: globalStyles.orangeColor, }] : styles.container
 

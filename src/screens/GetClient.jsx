@@ -38,25 +38,15 @@ export const GetClient = ({ navigation, route }) => {
         const clientData = await getUserDataByEmailOrPhone(
             email.trim(),
             phone.trim(),
-            setClientData,
+            setModalContent,
             setSomethingWrong
         )
 
-        setClientData(clientData);
+        if (clientData !== undefined) {
+            setClientData(clientData)
+            setSchedule({ ...schedule, client: { ...clientData } })
 
-        if (clientData === undefined) {
-            setModalContent({
-                image: UserNotFoundImage,
-                mainMessage: "Cliente não foi encontrado",
-                message: "Não há nenhum cliente cadastrado com esse email e/ou telefone, Por favor corrija-os e tente novamente.",
-                firstButtonText: "Entendido",
-                firstButtonAction: () => setModalContent(null)
-            })
-
-            return
         }
-
-        setSchedule({ ...schedule, client: { ...clientData } })
     }
 
     const handleNewClient = () => {

@@ -16,7 +16,7 @@ import { globalStyles } from '../assets/globalStyles';
 
 export const Day = ({ day }) => {
   const [numberOfSchedules, setNumberOfSchedules] = useState(0)
-  const [dayOfWeek, setdayOfWeek] = useState("")
+  const [dayOfWeek, setDayOfWeek] = useState("")
   const navigation = useNavigation();
 
   const { schedule, setSchedule } = useContext(ScheduleContext);
@@ -29,8 +29,8 @@ export const Day = ({ day }) => {
   };
 
   (async () => {
-    setNumberOfSchedules(await getNumberOfSchedules(userData.uid, day))
-    setdayOfWeek(getDayOfWeek(day))
+    userData && setNumberOfSchedules(await getNumberOfSchedules(userData.uid, day))
+    setDayOfWeek(getDayOfWeek(day))
 
   })();
 

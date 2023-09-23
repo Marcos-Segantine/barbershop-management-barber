@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity, Image } from "react-native"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 import { UserContext } from "../context/UserContext"
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
@@ -17,8 +17,13 @@ import AddProfessional from "../assets/icons/addProfessionalIcon.png"
 import { globalStyles } from "../assets/globalStyles"
 import { logOut } from "../services/user/logOut"
 import DefaultPicture from "../assets/icons/DefaultPicture.png"
+import { DefaultModal } from "../components/modals/DefaultModal"
+
+import { LogOut } from "../assets/imgs/LogOut"
 
 export const Profile = ({ navigation }) => {
+  const [modalContent, setModalContent] = useState(null)
+
   const { userData } = useContext(UserContext)
   const { setSomethingWrong } = useContext(SomethingWrongContext)
 
@@ -39,10 +44,24 @@ export const Profile = ({ navigation }) => {
     navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
   }
 
+  const handleLogOut = () => {
+    setModalContent({
+      image: <LogOut />,
+      mainMessage: "Realmente deseja sair?",
+      firstButtonText: "Sim",
+      firstButtonAction: () => logOut(navigation, setSomethingWrong),
+      secondButtonText: "Não",
+      secondButtonAction: () => setModalContent(null)
+    })
+  }
+
   return (
     <>
       <ScrollView contentContainerStyle={globalStyles.container}>
         <HeaderScreensMenu screenName={"Perfil"} />
+        <DefaultModal
+          modalContent={modalContent}
+        />
 
         <View style={{ alignItems: 'center' }}>
           <View>
@@ -84,7 +103,7 @@ export const Profile = ({ navigation }) => {
             action={handleNewClient}
           />
 
-          <TouchableOpacity style={styles.logOutLink} onPress={() => logOut(navigation, setSomethingWrong)}>
+          <TouchableOpacity style={styles.logOutLink} onPress={handleLogOut}>
             <View style={{ flexDirection: 'row' }}>
               <LogOutIcon />
               <Text style={styles.logOutText}>Sair</Text>

@@ -69,7 +69,7 @@ export const FillProfile = ({ navigation, route }) => {
 
     }, [isFocused])
 
-    const headerText = !!createNewPerson.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Preencha seu perfil"
+    const headerText = !!createNewPerson.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Atualizar seu perfil"
 
     if (isLoading) return <Loading flexSize={1} />
 

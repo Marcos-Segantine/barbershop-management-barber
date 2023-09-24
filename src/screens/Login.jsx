@@ -45,7 +45,9 @@ export const Login = ({ navigation, route }) => {
             setIsLoading,
             setSomethingWrong,
             setModalInfo,
-            navigation
+            navigation,
+            createNewPerson,
+            setCreateNewPearson
         )
     }
 

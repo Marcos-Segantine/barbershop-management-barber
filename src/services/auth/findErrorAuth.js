@@ -10,6 +10,8 @@ export const findErrorAuth = async (
     setIsLoading,
     setError,
     navigation,
+    createNewPearson,
+    setCreateNewPearson
 ) => {
     try {
 
@@ -24,7 +26,8 @@ export const findErrorAuth = async (
                 secondButtonText: "Cadastrar",
                 firstButtonAction: () => setError(null),
                 secondButtonAction: () => {
-                    navigation.navigate("Register")
+                    setCreateNewPearson({ ...createNewPearson, person: "newPerson" })
+                    navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
                     setError(false)
                 }
             })
@@ -42,7 +45,8 @@ export const findErrorAuth = async (
                 secondButtonText: "Cadastrar",
                 firstButtonAction: () => setError(null),
                 secondButtonAction: () => {
-                    navigation.navigate("Register")
+                    setCreateNewPearson({ ...createNewPearson, person: "newPerson" })
+                    navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
                     setError(false)
                 }
             })
@@ -83,7 +87,8 @@ export const findErrorAuth = async (
                 secondButtonText: "Cadastrar",
                 firstButtonAction: () => setError(null),
                 secondButtonAction: () => {
-                    navigation.navigate("Register")
+                    setCreateNewPearson({ ...createNewPearson, person: "newPerson" })
+                    navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
                     setError(false)
                 }
             })

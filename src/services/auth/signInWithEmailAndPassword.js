@@ -15,7 +15,9 @@ export const signInWithEmailAndPassword = async (
   setIsLoading,
   setSomethingWrong,
   setModalInfo,
-  navigation
+  navigation,
+  createNewPearson,
+  setCreateNewPearson
 ) => {
   try {
 
@@ -25,7 +27,9 @@ export const signInWithEmailAndPassword = async (
       setSomethingWrong,
       setIsLoading,
       setModalInfo,
-      navigation
+      navigation,
+      createNewPearson,
+      setCreateNewPearson
     )
 
     if (!userData) return

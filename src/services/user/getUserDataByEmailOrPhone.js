@@ -29,15 +29,14 @@ export const getUserDataByEmailOrPhone = async (
           firstButtonText: "Ok",
           firstButtonAction: () => setModalContent(null)
         })
-        
+
         return
       }
     }
 
     else if (phone !== "") {
       const isValid = isValidPhoneNumber(phone)
-      console.log("phone", isValid);
-      
+
       if (!isValid) {
         setModalContent({
           image: <MessageErrorAuthImage height={300} width={300} />,
@@ -101,14 +100,17 @@ export const getUserDataByEmailOrPhone = async (
     else if (phone) {
       const user = usersRef.docs[0].data()
 
-      setModalContent({
-        image: UserNotFoundImage,
-        mainMessage: "Usuário não encontrado",
-        message: "Não encontramos nenhum cliente que tenha este email e/ou telefone. Por favor confira os campos e tente novamente.",
-        firstButtonText: "Ok",
-        firstButtonAction: () => setModalContent(null)
-      })
+      if (!user) {
+        setModalContent({
+          image: UserNotFoundImage,
+          mainMessage: "Usuário não encontrado",
+          message: "Não encontramos nenhum cliente que tenha este email e/ou telefone. Por favor confira os campos e tente novamente.",
+          firstButtonText: "Ok",
+          firstButtonAction: () => setModalContent(null)
+        })
 
+        return
+      }
       return user
     }
 

@@ -29,6 +29,7 @@ export const Home = ({ navigation }) => {
     const [schedulesOfProfessional, setSchedulesOfProfessional] = useState(null)
     const [scheduleEarlier, setScheduleEarlier] = useState(null)
     const [modalContent, setModalContent] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const { userData } = useContext(UserContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -44,7 +45,7 @@ export const Home = ({ navigation }) => {
     }, [userData])
 
     useEffect(() => {
-        !!schedulesOfProfessional && getCurrentSchedule(schedulesOfProfessional, setScheduleEarlier)
+        !!schedulesOfProfessional && getCurrentSchedule(schedulesOfProfessional, setScheduleEarlier, setIsLoading)
 
     }, [schedulesOfProfessional]);
 
@@ -56,6 +57,8 @@ export const Home = ({ navigation }) => {
             mainMessage: "Ateção",
             message: "Caso você confirme o agendamento será completamente apagado.",
             firstButtonAction: () => {
+                setIsLoading(true)
+
                 cancelSchedule(
                     scheduleEarlier.clientUid,
                     scheduleEarlier,
@@ -69,7 +72,7 @@ export const Home = ({ navigation }) => {
 
     }
 
-    if (schedulesOfProfessional === null || scheduleEarlier === null) return <Loading flexSize={1} />
+    if (isLoading || schedulesOfProfessional === null || scheduleEarlier === null) return <Loading flexSize={1} />
 
     if (!schedulesOfProfessional?.length) return (
         <>

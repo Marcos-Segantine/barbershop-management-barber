@@ -1,6 +1,6 @@
 import { getCurrentHour } from "../../utils/getCurrentHour";
 
-export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEarlier) => {
+export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEarlier, setIsLoading) => {
     try {
 
         let earliest = null;
@@ -25,6 +25,7 @@ export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEar
         }
 
         setScheduleEarlier(earliest ? earliest.schedule : [])
+        setIsLoading(false)
 
     } catch (error) {
         console.log(error);

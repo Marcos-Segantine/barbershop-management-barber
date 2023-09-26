@@ -73,7 +73,7 @@ export const OurServices = ({ navigation, route }) => {
             </View>
             <View style={[styles.contentScroll, { height: "45%" }]}>
 
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         services &&
                         (

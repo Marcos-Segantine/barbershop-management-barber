@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Modal, Pressable } from "react-native"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { globalStyles } from "../../assets/globalStyles"
 import { CloseIcon } from "../../assets/icons/CloseIcon"
@@ -16,6 +16,18 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
 
     const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     const years = [String(currentYear), String(currentYear + 1), String(currentYear + 2)]
+
+    useEffect(() => {
+        if (+dateToFilterTemp[0] === +currentYear) {
+            if (+dateToFilterTemp[1] < +currentMonth) {
+                const monthFormatted = currentMonth < 10 ? `0${currentMonth}` : currentMonth
+                const yearFormatted = String(currentYear)
+
+                setDateToFilterTemp([yearFormatted, monthFormatted])
+            }
+        }
+
+    }, [dateToFilterTemp[0]])
 
     const handleYear = (newYear) => {
         if (newYear === dateToFilterTemp[0]) {
@@ -107,7 +119,7 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                                     )
                                 }
 
-                                else if(Number(month) < currentMonth) {
+                                else if (Number(month) < currentMonth && +dateToFilterTemp[0] === +currentYear) {
                                     return (
                                         <Pressable
                                             key={month}

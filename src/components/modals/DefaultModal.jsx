@@ -16,9 +16,9 @@ export const DefaultModal = ({ modalContent }) => {
             <View style={styles.container}>
                 <View style={styles.content}>
                     {
-                        typeof(modalContent.image) === "object" ?
-                        modalContent.image :
-                        <Image source={modalContent.image} style={{ width: "100%", height: 220 }} />
+                        typeof (modalContent.image) === "object" ?
+                            modalContent.image :
+                            <Image source={modalContent.image} style={{ width: "100%", height: 220 }} />
                     }
 
                     <View style={{ width: "100%", alignItems: "center" }}>

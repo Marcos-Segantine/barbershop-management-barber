@@ -1,10 +1,14 @@
-import { StyleSheet, Text } from 'react-native';
-import { useContext } from 'react';
+import { Dimensions, StyleSheet, Text } from 'react-native';
+import { useContext, useEffect, useState } from 'react';
+
 import { ScheduleContext } from '../context/ScheduleContext';
+import { UserContext } from '../context/UserContext';
 
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
 import { globalStyles } from '../assets/globalStyles';
+
+import { daysBlocked } from '../services/schedules/daysBlocked';
 
 LocaleConfig.locales['pt-br'] = {
     monthNames: [
@@ -48,12 +52,24 @@ LocaleConfig.locales['pt-br'] = {
 };
 
 export const CalendarComponent = () => {
-    LocaleConfig.defaultLocale = 'pt-br';
+    const [deniedDays, setDeniedDays] = useState({})
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
+    const { userData } = useContext(UserContext)
 
-    const deniedDays = {}
+    LocaleConfig.defaultLocale = 'pt-br';
 
+    useEffect(() => {
+
+        (async () => {
+
+            setDeniedDays(await daysBlocked(userData.uid, false));
+
+        })();
+
+    }, [])
+
+    
     const markedDatesCalendar = {
         ...deniedDays,
         [schedule.day]: {
@@ -62,11 +78,11 @@ export const CalendarComponent = () => {
             selectedColor: globalStyles.orangeColor,
         },
     };
-
+    
     const themeCalendar = {
-        calendarBackground: '#fff8ef',
+        calendarBackground: globalStyles.champagneColor,
         dayTextColor: '#000000',
-        selectedDayTextColor: '#fff8ef',
+        selectedDayTextColor: globalStyles.champagneColor,
         selectedDayBackgroundColor: '#000000',
         textDisabledColor: '#00000040',
         textSectionTitleColor: '#000000',
@@ -75,8 +91,10 @@ export const CalendarComponent = () => {
         textDayHeaderFontWeight: '700',
     };
 
+    const { width } = Dimensions.get('screen')
+
     const styleCalendar = {
-        width: 350,
+        width: width - 20,
         padding: 5,
         borderRadius: 20,
     };

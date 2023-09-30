@@ -4,6 +4,7 @@ import { globalStyles } from "../assets/globalStyles"
 import { EditProfileImage } from "../assets/imgs/EditProfileImage"
 import { EditSchedulesImage } from "../assets/imgs/EditSchedulesImage"
 import { EditServicesImage } from "../assets/imgs/EditServicesImage"
+import { DaysBlocked } from "../assets/imgs/BlockedDays"
 
 import { ComeBack } from "../components/ComeBack"
 
@@ -25,6 +26,11 @@ export const ChoiceInformationToEdit = ({ navigation }) => {
             <TouchableOpacity style={styles.content} activeOpacity={0.6} onPress={() => navigation.navigate("EditServices")}>
                 <EditServicesImage height={250} width={250} />
                 <Text style={styles.text}>Editar Serviços</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.content} activeOpacity={0.6} onPress={() => navigation.navigate("BlockSpecificDays")}>
+                <DaysBlocked height={250} width={250} />
+                <Text style={styles.text}>Bloquear dias</Text>
             </TouchableOpacity>
         </ScrollView>
     )

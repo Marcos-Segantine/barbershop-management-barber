@@ -19,6 +19,7 @@ import { ChoiceInformationToEdit } from '../screens/ChoiceInformationToEdit';
 import { Security } from '../screens/Security';
 import { ForgotPassword } from '../screens/ForgotPassword';
 import { BlockSpecificDays } from '../screens/BlockSpecificDays';
+import { BlockSpecificTimes } from '../screens/BlockSpecificTimes';
 
 const { Screen, Navigator } = createNativeStackNavigator();
 
@@ -55,6 +56,7 @@ export const Routes = () => {
       <Screen name='Security' component={Security} />
       <Screen name='ForgotPassword' component={ForgotPassword} />
       <Screen name='BlockSpecificDays' component={BlockSpecificDays} />
+      <Screen name='BlockSpecificTimes' component={BlockSpecificTimes} />
 
     </Navigator>
   );

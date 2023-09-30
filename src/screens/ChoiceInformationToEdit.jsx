@@ -5,6 +5,7 @@ import { EditProfileImage } from "../assets/imgs/EditProfileImage"
 import { EditSchedulesImage } from "../assets/imgs/EditSchedulesImage"
 import { EditServicesImage } from "../assets/imgs/EditServicesImage"
 import { DaysBlocked } from "../assets/imgs/BlockedDays"
+import { BlockTime } from "../assets/imgs/BlockTime"
 
 import { ComeBack } from "../components/ComeBack"
 
@@ -31,6 +32,11 @@ export const ChoiceInformationToEdit = ({ navigation }) => {
             <TouchableOpacity style={styles.content} activeOpacity={0.6} onPress={() => navigation.navigate("BlockSpecificDays")}>
                 <DaysBlocked height={250} width={250} />
                 <Text style={styles.text}>Bloquear dias</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.content} activeOpacity={0.6} onPress={() => navigation.navigate("BlockSpecificTimes")}>
+                <BlockTime height={250} width={250} />
+                <Text style={styles.text}>Bloquear horarios</Text>
             </TouchableOpacity>
         </ScrollView>
     )

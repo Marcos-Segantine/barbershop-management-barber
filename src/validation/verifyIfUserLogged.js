@@ -3,7 +3,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const verifyIfUserLogged = async (navigation, setSomethingWrong) => {
     try {
 
-        if (await AsyncStorage.getItem("@barber_app__barber_email")) {
+        const accessAutomatically = await AsyncStorage.getItem("@barber_app__access_automatically")
+
+        if (await AsyncStorage.getItem("@barber_app__barber_email") && (accessAutomatically === 'true' || accessAutomatically === null)) {
+            if (accessAutomatically === null) {
+                AsyncStorage.setItem("@barber_app__access_automatically", "true")
+            }
+
             setTimeout(() => {
                 navigation.navigate("Home")
             }, 1000)

@@ -160,8 +160,6 @@ export const BlockSpecificTimes = ({ navigation }) => {
         setIsLoading(false)
     }
 
-    // console.log(timesBlockedFromEachDay);
-
     const daysWithBlockedTimes = {}
 
     for (const day in timesBlockedFromEachDay) {

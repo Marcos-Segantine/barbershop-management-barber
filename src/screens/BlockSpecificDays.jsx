@@ -15,6 +15,10 @@ import { daysBlocked } from "../services/schedules/daysBlocked";
 import { UserContext } from "../context/UserContext";
 
 import { DefaultModal } from "../components/modals/DefaultModal";
+import { SettingsContext } from "../context/SettingsContext";
+
+import { getWeekdayFromMonth } from "../utils/getWeekdayFromMonth";
+import { getMonth, getYear } from "../utils/dateHelper";
 
 LocaleConfig.locales['pt-br'] = {
     monthNames: [
@@ -61,22 +65,95 @@ export const BlockSpecificDays = ({ navigation }) => {
     const [days, setDays] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [modalContent, setModalContent] = useState(null)
+    const [weekdaysBlocked, setWeekdaysBlocked] = useState([])
+    const [lastMonthSelected, setLastMonthSelected] = useState(null)
 
     const { userData } = useContext(UserContext)
+    const { settings } = useContext(SettingsContext)
 
     LocaleConfig.defaultLocale = 'pt-br';
 
     useEffect(() => {
 
-        (async () => {
+        const deniedDays = async () => {
+            setDays(await daysBlocked(userData.uid, false));
+        }
 
-            if (userData) {
-                setDays(await daysBlocked(userData.uid, true))
+        if (deniedDays === null) deniedDays()
+
+        const settingsBlockedWeekdays = () => {
+            const formatDeniedDays = (data) => {
+                const result = {}
+
+                for (const day of data) {
+                    result[day] = {
+                        disableTouchEvent: true,
+                        disabled: true
+                    }
+                }
+
+                return result
             }
 
-        })();
+            if (lastMonthSelected === null) {
+                const date = new Date()
+                const currentYear = date.getFullYear()
+                const currentMonth = date.getMonth() + 1
+                const monthFormatted = currentMonth < 10 ? `0${currentMonth}` : currentMonth
 
-    }, [userData])
+                const data = []
+
+                for (const weekday of settings.blockedWeekdays) {
+                    data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear))
+
+                    const result = []
+
+                    for (const dates of data) {
+
+                        for (const day of dates) {
+                            const dayFormatted = day < 10 ? `0${day}` : day
+                            result.push(`${currentYear}-${monthFormatted}-${dayFormatted}`)
+
+                        }
+                    }
+
+                    setWeekdaysBlocked(formatDeniedDays(result));
+                }
+
+                return
+            }
+            else {
+
+                const data = []
+
+                for (const weekday of settings.blockedWeekdays) {
+                    data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected), getYear(lastMonthSelected)))
+
+                    const result = []
+
+                    for (const dates of data) {
+
+                        for (const day of dates) {
+                            const currentYear = getYear(lastMonthSelected)
+                            const currentMonth = getMonth(lastMonthSelected)
+                            const dayFormatted = day < 10 ? `0${day}` : day
+
+                            result.push(`${currentYear}-${currentMonth}-${dayFormatted}`)
+                        }
+                    }
+
+                    setWeekdaysBlocked(formatDeniedDays(result));
+                }
+
+                return
+            }
+
+        }
+
+        settingsBlockedWeekdays()
+        setIsLoading(false)
+
+    }, [lastMonthSelected, userData])
 
     const themeCalendar = {
         calendarBackground: globalStyles.champagneColor,
@@ -153,8 +230,9 @@ export const BlockSpecificDays = ({ navigation }) => {
                 context={{ date: '' }}
                 minDate={date.toString()}
                 maxDate={`${year}-${month}-${day}`}
-                markedDates={days}
+                markedDates={{ ...days, ...weekdaysBlocked }}
                 onDayPress={day => handleDays(day.dateString)}
+                onMonthChange={(data) => setLastMonthSelected(data.dateString)}
                 style={styleCalendar}
                 theme={themeCalendar}
             />

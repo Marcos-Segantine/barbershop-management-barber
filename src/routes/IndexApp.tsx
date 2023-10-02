@@ -5,6 +5,7 @@ import { ScheduleProvider } from '../context/ScheduleContext';
 import { MenuItemProvider } from '../context/MenuItemSelected';
 import { SomethingWrongProvider } from '../context/SomethingWrongContext';
 import { CreateNewPersonProvider } from '../context/CreateNewPerson';
+import { SettingsProvider } from '../context/SettingsContext';
 
 import { StatusBarComponent } from '../components/StatusBarComponent';
 import { NetInformation } from '../components/modals/NetInformation';
@@ -20,9 +21,12 @@ export const IndexApp = () => {
           <MenuItemProvider>
             <SomethingWrongProvider>
               <CreateNewPersonProvider>
-                <NetInformation />
+                <SettingsProvider>
 
-                <Routes />
+                  <NetInformation />
+                  <Routes />
+
+                </SettingsProvider>
               </CreateNewPersonProvider>
             </SomethingWrongProvider>
           </MenuItemProvider>

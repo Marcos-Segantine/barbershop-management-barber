@@ -10,6 +10,7 @@ import { CreateNewPasswordImage } from "../assets/imgs/CreateNewPasswordImage"
 import { PadlockIcon } from "../assets/icons/PadlockIcon"
 import passwordVisionIcon from "../assets/icons/passwordVisionIcon.png"
 import passwordVisionBlockIcon from "../assets/icons/passwordVisionBlockIcon.png"
+import { PasswordUpdated } from "../assets/imgs/PasswordUpdated"
 import { globalStyles } from "../assets/globalStyles"
 
 import { CreateNewPersonContext } from "../context/CreateNewPerson"
@@ -63,9 +64,18 @@ export const CreateNewPassword = ({ navigation, route }) => {
         setSomethingWrong
       )
 
-      setIsLoading(false)
-      navigation.navigate("Security")
+      setModalContent({
+        image: <PasswordUpdated />,
+        mainMessage: "Senha atualizada com suscesso",
+        firstButtonText: "Continuar",
+        firstButtonAction: () => {
+          setModalContent(null)
+          navigation.navigate("Security")
 
+        }
+      })
+
+      setIsLoading(false)
       return
     }
 
@@ -134,7 +144,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
         </View>
       </View>
 
-      <Button text={"Continue"} action={handleContinue} />
+      <Button text={"Confirmar"} action={handleContinue} />
     </ScrollView>
   )
 }

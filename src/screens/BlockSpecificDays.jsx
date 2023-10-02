@@ -98,6 +98,11 @@ export const BlockSpecificDays = ({ navigation }) => {
         borderRadius: 20,
     };
 
+    const date = new Date();
+    const year = date.getFullYear() + 1
+    const month = 12
+    const day = 25
+
     const handleDays = (day) => {
         if (days[day] !== undefined) {
             // Day is already selected, unselect it
@@ -146,7 +151,8 @@ export const BlockSpecificDays = ({ navigation }) => {
 
             <Calendar
                 context={{ date: '' }}
-                minDate={String(new Date())}
+                minDate={date.toString()}
+                maxDate={`${year}-${month}-${day}`}
                 markedDates={days}
                 onDayPress={day => handleDays(day.dateString)}
                 style={styleCalendar}

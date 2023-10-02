@@ -80,6 +80,7 @@ export const ForgotPassword = ({ navigation }) => {
             <TextInput
                 style={styleEmail}
                 placeholder="Email"
+                placeholderTextColor="#00000050"
                 keyboardType="email-address"
                 onFocus={() => handleFocusInput("email")}
                 onChangeText={text => setEmail(text)}
@@ -88,6 +89,7 @@ export const ForgotPassword = ({ navigation }) => {
             <TextInput
                 style={stylePhone}
                 placeholder="Número de telefone"
+                placeholderTextColor="#00000050"
                 keyboardType="number-pad"
                 onFocus={() => handleFocusInput("phone")}
                 onChangeText={text => setPhone(text)}

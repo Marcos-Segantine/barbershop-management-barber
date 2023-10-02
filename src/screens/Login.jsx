@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native"
+import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Pressable, Image } from "react-native"
 
 import { UserContext } from "../context/UserContext"
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
@@ -8,6 +8,8 @@ import { EmailIcon } from "../assets/icons/EmailIcon"
 import { PadlockIcon } from "../assets/icons/PadlockIcon"
 import { globalStyles } from "../assets/globalStyles"
 import { LoginImage } from "../assets/imgs/LoginImage"
+import passwordVisionIcon from "../assets/icons/passwordVisionIcon.png"
+import passwordVisionBlockIcon from "../assets/icons/passwordVisionBlockIcon.png"
 
 import { Button } from "../components/Button"
 import { ComeBack } from "../components/ComeBack"
@@ -26,6 +28,7 @@ export const Login = ({ navigation, route }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [modalInfo, setModalInfo] = useState(null)
+    const [showPassword, setShowPassword] = useState(true)
 
     const { setUserData } = useContext(UserContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -103,10 +106,14 @@ export const Login = ({ navigation, route }) => {
                         placeholder={"Senha"}
                         value={password}
                         placeholderTextColor={"#00000050"}
-                        secureTextEntry={true}
+                        secureTextEntry={showPassword}
                         onFocus={() => handleFocusInput("password")}
                         onChangeText={text => setPassword(text)}
                     />
+
+                    <Pressable style={styles.iconPasswordVisibility} onPress={() => setShowPassword(!showPassword)}>
+                        <Image source={showPassword ? passwordVisionBlockIcon : passwordVisionIcon} style={{ width: 25, height: 25 }} />
+                    </Pressable>
                 </View>
             </View>
 
@@ -170,5 +177,13 @@ const styles = StyleSheet.create({
         fontFamily: globalStyles.fontFamilyBold,
         marginTop: 20,
         fontSize: globalStyles.fontSizeSmall,
+    },
+
+    iconPasswordVisibility: {
+        position: 'absolute',
+        right: 5,
+        height: "100%",
+        paddingHorizontal: 5,
+        justifyContent: "center",
     },
 })

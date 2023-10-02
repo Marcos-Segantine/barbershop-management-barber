@@ -1,4 +1,4 @@
-import { Modal, View, StyleSheet, Text, Image } from "react-native"
+import { Modal, View, StyleSheet, Text } from "react-native"
 
 import { globalStyles } from "../../assets/globalStyles"
 
@@ -15,18 +15,14 @@ export const DefaultModal = ({ modalContent }) => {
         >
             <View style={styles.container}>
                 <View style={styles.content}>
-                    {
-                        typeof (modalContent.image) === "object" ?
-                            modalContent.image :
-                            <Image source={modalContent.image} style={{ width: "100%", height: 220 }} />
-                    }
+                    {modalContent.image}
 
                     <View style={{ width: "100%", alignItems: "center" }}>
                         <Text style={styles.mainMessage}>{modalContent.mainMessage && modalContent.mainMessage}</Text>
                         <Text style={styles.message}>{modalContent.message && modalContent.message}</Text>
                     </View>
 
-                    <View style={{ width: "100%", alignItems: "center" }}>
+                    <View style={{ width: "100%", alignItems: "center", ...modalContent?.contentButtonsStyles }}>
                         <Button
                             text={modalContent.firstButtonText && modalContent.firstButtonText}
                             addStyles={modalContent.firstButtonStyles && modalContent.firstButtonStyles}
@@ -40,12 +36,8 @@ export const DefaultModal = ({ modalContent }) => {
                                     text={modalContent.secondButtonText && modalContent.secondButtonText}
                                     addStyles={modalContent.secondButtonStyles ?
                                         { ...modalContent.secondButtonStyles, marginTop: 10, backgroundColor: globalStyles.champagneColor, color: globalStyles.orangeColor } :
-                                        { marginTop: 10, backgroundColor: globalStyles.champagneColor, color: globalStyles.orangeColor }
-                                    }
-                                    addStylesText={modalContent.secondButtonTextStyles ?
-                                        { ...modalContent.secondButtonTextStyles, color: globalStyles.orangeColor } :
-                                        { ...modalContent.secondButtonTextStyles, color: globalStyles.orangeColor }
-                                    }
+                                        { marginTop: 10, backgroundColor: globalStyles.champagneColor, color: globalStyles.orangeColor }}
+                                    addStylesText={modalContent.secondButtonTextStyles ? modalContent.secondButtonTextStyles : { color: globalStyles.orangeColor }}
                                     action={modalContent.secondButtonAction && modalContent.secondButtonAction}
                                 />
                             )
@@ -69,21 +61,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
         alignItems: 'center',
-        width: "85%",
+        width: "90%",
         justifyContent: "space-around",
-        paddingVertical: 20
+        paddingBottom: 20,
+        paddingHorizontal: 5,
     },
 
     mainMessage: {
         color: globalStyles.orangeColor,
         fontSize: globalStyles.fontSizeMedium,
         fontFamily: globalStyles.fontFamilyBold,
+        textAlign: 'center',
     },
 
     message: {
         color: "#000000",
         fontSize: globalStyles.fontSizeSmall,
-        marginVertical: 15,
+        marginVertical: 20,
         fontFamily: globalStyles.fontFamilyBold,
         maxWidth: "90%",
         textAlign: 'center',

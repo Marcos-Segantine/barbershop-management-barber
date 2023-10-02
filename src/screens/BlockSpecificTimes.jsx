@@ -109,6 +109,11 @@ export const BlockSpecificTimes = ({ navigation }) => {
         marginBottom: 20
     };
 
+    const date = new Date();
+    const year = date.getFullYear() + 1
+    const month = 12
+    const maxDay = 25
+
     const handleDay = (day) => {
         setDay((prevDays) => ({
             [day]: {
@@ -186,7 +191,8 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
             <Calendar
                 context={{ date: '' }}
-                minDate={String(new Date())}
+                minDate={date.toString()}
+                maxDate={`${year}-${month}-${maxDay}`}
                 markedDates={markedDays}
                 onDayPress={day => handleDay(day.dateString)}
                 style={styleCalendar}

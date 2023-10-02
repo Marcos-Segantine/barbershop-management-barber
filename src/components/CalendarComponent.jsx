@@ -69,7 +69,7 @@ export const CalendarComponent = () => {
 
     }, [])
 
-    
+
     const markedDatesCalendar = {
         ...deniedDays,
         [schedule.day]: {
@@ -78,7 +78,7 @@ export const CalendarComponent = () => {
             selectedColor: globalStyles.orangeColor,
         },
     };
-    
+
     const themeCalendar = {
         calendarBackground: globalStyles.champagneColor,
         dayTextColor: '#000000',
@@ -99,13 +99,19 @@ export const CalendarComponent = () => {
         borderRadius: 20,
     };
 
+    const date = new Date();
+    const year = date.getFullYear() + 1
+    const month = 12
+    const day = 25
+
     return (
         <>
             <Text style={styles.text}>Escolha um dia</Text>
 
             <Calendar
                 context={{ date: '' }}
-                minDate={String(new Date())}
+                minDate={date.toString()}
+                maxDate={`${year}-${month}-${day}`}
                 markedDates={markedDatesCalendar}
                 onDayPress={day =>
                     setSchedule({ ...schedule, day: day.dateString })

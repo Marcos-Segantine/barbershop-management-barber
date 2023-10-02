@@ -2,6 +2,7 @@ import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage";
 
 export const verifyPasswordToUpdate = (
     currentPassword,
+    currentPasswordUserInput,
     newPassword,
     confirmNewPassword,
     setModalContent,
@@ -10,7 +11,7 @@ export const verifyPasswordToUpdate = (
 ) => {
 
     try {
-        if (confirmNewPassword.length === 0 || newPassword.length === 0) {
+        if (confirmNewPassword.length === 0 || newPassword.length === 0 || currentPasswordUserInput.length === 0) {
             setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Campo(s) vazio(s)",
@@ -27,6 +28,18 @@ export const verifyPasswordToUpdate = (
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Senhas diferentes",
                 message: "As senhas devem ser iguais",
+                firstButtonText: "Entendi",
+                firstButtonAction: () => setModalContent(null)
+            })
+
+            setIsLoading(false)
+            return false
+        }
+        else if (currentPasswordUserInput !== currentPassword) {
+            setModalContent({
+                image: <MessageErrorAuthImage />,
+                mainMessage: "Senha incorreta",
+                message: "A senha que você inseriu está incorreta",
                 firstButtonText: "Entendi",
                 firstButtonAction: () => setModalContent(null)
             })

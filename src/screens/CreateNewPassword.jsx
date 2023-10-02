@@ -24,11 +24,14 @@ import { UserContext } from "../context/UserContext"
 import { verifyPasswordToUpdate } from "../validation/verifyPasswordToUpdate"
 
 export const CreateNewPassword = ({ navigation, route }) => {
+  const [currentPassword, setCurrentPassword] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [inputSelected, setInputSelected] = useState("")
 
+  const [hiddenCurrentPassword, setHiddenCurrentPassword] = useState(true)
   const [hiddenPassword, setHiddenPassword] = useState(true)
+  const [hiddenConfirmPassword, setHiddenConfirmPassword] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [modalContent, setModalContent] = useState(null)
 
@@ -41,6 +44,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
   const handleFocusInput = (field) => setInputSelected(field)
 
+  const styleCurrentPassword = inputSelected === 'currentPassword' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
   const stylePassword = inputSelected === 'password' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
   const styleConfirmPassword = inputSelected === 'confirmPassword' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
 
@@ -50,6 +54,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
       if (verifyPasswordToUpdate(
         userData.password,
+        currentPassword,
         password,
         confirmPassword,
         setModalContent,
@@ -67,7 +72,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
       setModalContent({
         image: <PasswordUpdated />,
         mainMessage: "Senha atualizada com suscesso",
-        firstButtonText: "Continuar",
+        firstButtonText: "Ok",
         firstButtonAction: () => {
           setModalContent(null)
           navigation.navigate("Security")
@@ -94,7 +99,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
   return (
     <ScrollView contentContainerStyle={globalStyles.container}>
-      <ComeBack text={"Crie uma nova senha"} />
+      <ComeBack text={isToUpdateUserPassword ? "Atualizar Senha" : "Criar senha"} />
 
       <DefaultModal
         modalContent={modalContent}
@@ -102,8 +107,34 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
       <CreateNewPasswordImage width={350} height={350} />
 
+      {
+        isToUpdateUserPassword &&
+        (
+          <>
+            <Text style={styles.text}>Digite sua senha atual</Text>
+            <View style={styleCurrentPassword}>
+              <PadlockIcon />
+
+              <TextInput
+                style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
+                placeholder={"Nova senha"}
+                value={currentPassword}
+                placeholderTextColor={"#00000050"}
+                secureTextEntry={hiddenCurrentPassword}
+                onFocus={() => handleFocusInput("currentPassword")}
+                onChangeText={text => setCurrentPassword(text.trim(""))}
+              />
+
+              <Pressable style={styles.iconPasswordVisibility} onPress={() => setHiddenCurrentPassword(!hiddenCurrentPassword)}>
+                <Image source={hiddenCurrentPassword ? passwordVisionBlockIcon : passwordVisionIcon} style={{ width: 25, height: 25 }} />
+              </Pressable>
+            </View>
+          </>
+        )
+      }
+
       <Text style={styles.text}>
-        Crie uma nova senha
+        {isToUpdateUserPassword ? "Insira sua nova senha no campo abaixo." : "Insira a senha no campo abaixo."}
       </Text>
 
       <View style={styles.contentInput}>
@@ -112,14 +143,14 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
           <TextInput
             style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
-            placeholder={"Senha"}
+            placeholder={"Nova senha"}
             value={password}
             placeholderTextColor={"#00000050"}
             secureTextEntry={hiddenPassword}
             onFocus={() => handleFocusInput("password")}
             onChangeText={text => setPassword(text.trim(""))}
-
           />
+
           <Pressable style={styles.iconPasswordVisibility} onPress={() => setHiddenPassword(!hiddenPassword)}>
             <Image source={hiddenPassword ? passwordVisionBlockIcon : passwordVisionIcon} style={{ width: 25, height: 25 }} />
           </Pressable>
@@ -130,16 +161,16 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
           <TextInput
             style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
-            placeholder={"Senha"}
+            placeholder={"Confirmar Senha"}
             value={confirmPassword}
             placeholderTextColor={"#00000050"}
-            secureTextEntry={hiddenPassword}
+            secureTextEntry={hiddenConfirmPassword}
             onFocus={() => handleFocusInput("confirmPassword")}
             onChangeText={text => setConfirmPassword(text.trim(""))}
 
           />
-          <Pressable style={styles.iconPasswordVisibility} onPress={() => setHiddenPassword(!hiddenPassword)}>
-            <Image source={hiddenPassword ? passwordVisionBlockIcon : passwordVisionIcon} style={{ width: 25, height: 25 }} />
+          <Pressable style={styles.iconPasswordVisibility} onPress={() => setHiddenConfirmPassword(!hiddenConfirmPassword)}>
+            <Image source={hiddenConfirmPassword ? passwordVisionBlockIcon : passwordVisionIcon} style={{ width: 25, height: 25 }} />
           </Pressable>
         </View>
       </View>
@@ -156,7 +187,6 @@ const styles = StyleSheet.create({
   },
 
   contentInput: {
-    marginTop: "10%",
     marginBottom: "10%",
     width: "100%",
     alignItems: 'center',
@@ -187,7 +217,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: globalStyles.fontSizeSmall,
     fontFamily: globalStyles.fontFamilyMedium,
-    width: "85%",
+    width: "100%",
     marginTop: 20,
   },
 })

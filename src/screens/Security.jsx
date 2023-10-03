@@ -8,25 +8,26 @@ import { ComeBack } from "../components/ComeBack"
 import { UserContext } from "../context/UserContext"
 
 import { handleAccessAutomatically } from "../handlers/handleAccessAutomatically"
+import { handleAlertConcludeSchedule } from "../handlers/handleAlertConcludeSchedule"
+
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const Security = ({ navigation }) => {
     const [accessAutomatically, setAccessAutomatically] = useState(null)
+    const [alertConcludeSchedule, setAlertConcludeSchedule] = useState(null)
+
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        const getAccessAutomaticallyValue = async () => {
-            const result = await AsyncStorage.getItem("@barber_app__access_automatically")
-            setAccessAutomatically(result === "true" ? true : false)
+        const getAsyncValue = async (string, setter) => {
+            const result = await AsyncStorage.getItem(string)
+            setter(result === "true" ? true : false)
         }
 
-        getAccessAutomaticallyValue()
+        getAsyncValue("@barber_app__access_automatically", setAccessAutomatically)
+        getAsyncValue("@barber_app__alert_conclude_schedule", setAlertConcludeSchedule)
 
     }, [])
-
-    const buttonFilterStyles = accessAutomatically ?
-        { backgroundColor: '#FFFFFF', width: 35, height: "100%", borderRadius: 300, position: "absolute", right: 2, top: 2 } :
-        { backgroundColor: '#F2F2F2', width: 35, height: "100%", borderRadius: 300, position: "absolute", left: 2, top: 2 };
 
     return (
         <View style={globalStyles.container}>
@@ -41,7 +42,20 @@ export const Security = ({ navigation }) => {
                         onPress={() => handleAccessAutomatically(!accessAutomatically, setAccessAutomatically, userData?.email)}
                         style={{ width: 75, height: 30, borderRadius: 100, backgroundColor: accessAutomatically ? globalStyles.orangeColor : "#B8B8B8", padding: 2 }}
                     >
-                        <View style={buttonFilterStyles}></View>
+                        <View style={accessAutomatically ? styles.buttonCheck : [styles.buttonCheck, { backgroundColor: "#F2F2F2", left: 2 }]}></View>
+                    </Pressable>
+
+                </View>
+
+                <View style={styles.contentField}>
+                    <Text style={styles.text}>
+                        Alertar ao concluir agendamento
+                    </Text>
+                    <Pressable
+                        onPress={() => handleAlertConcludeSchedule(!alertConcludeSchedule, setAlertConcludeSchedule)}
+                        style={{ width: 75, height: 30, borderRadius: 100, backgroundColor: alertConcludeSchedule ? globalStyles.orangeColor : "#B8B8B8", padding: 2 }}
+                    >
+                        <View style={alertConcludeSchedule ? styles.buttonCheck : [styles.buttonCheck, { backgroundColor: "#F2F2F2", left: 2 }]}></View>
                     </Pressable>
 
                 </View>
@@ -71,6 +85,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignContent: "center",
         alignItems: "center",
+        marginTop: 15
     },
 
     text: {
@@ -96,5 +111,15 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingVertical: 15,
         marginTop: 30,
+    },
+
+    buttonCheck: {
+        backgroundColor: "#FFFFFF",
+        width: 35,
+        height: "100%",
+        borderRadius: 300,
+        position: "absolute",
+        right: 2,
+        top: 2
     }
 })

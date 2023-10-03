@@ -25,6 +25,8 @@ import { formatPhoneNumber } from "../utils/formatPhoneNumber"
 import firestore from '@react-native-firebase/firestore';
 import { cancelSchedule } from "../services/schedules/cancelSchedule"
 
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 export const Home = ({ navigation }) => {
     const [schedulesOfProfessional, setSchedulesOfProfessional] = useState(null)
     const [scheduleEarlier, setScheduleEarlier] = useState(null)
@@ -49,7 +51,23 @@ export const Home = ({ navigation }) => {
 
     }, [schedulesOfProfessional]);
 
-    const handleDone = () => {
+    const handleDone = async () => {
+
+        const isToShowModal = await AsyncStorage.getItem("@barber_app__alert_conclude_schedule")
+
+        if (isToShowModal === "false") {
+            setIsLoading(true)
+
+            await cancelSchedule(
+                scheduleEarlier.clientUid,
+                scheduleEarlier,
+                setSomethingWrong,
+            )
+
+            setModalContent(null)
+
+            return
+        }
         setModalContent({
             image: <ConfirmScheduleDone />,
             firstButtonText: "Confirmar",
@@ -57,7 +75,6 @@ export const Home = ({ navigation }) => {
             mainMessage: "Ateção",
             message: "Caso você confirme o agendamento será completamente apagado.",
             firstButtonAction: () => {
-                setIsLoading(true)
 
                 cancelSchedule(
                     scheduleEarlier.clientUid,

@@ -20,7 +20,7 @@ export const addScheduleWhenDayNotUse = async (
   navigation,
   setIsLoading
 ) => {
-  console.log('addScheduleWhenDayNotUse CALLED');
+
   try {
 
     const scheduleMonth = getMonth(scheduleInfo);
@@ -96,7 +96,7 @@ export const addScheduleWhenDayNotUse = async (
       message: "Infelizmente alguém acabou de fazer um agendamento no mesmo horário e dia do que voc. Você terá que refazer o processo.",
       firstButtonText: "Entendi",
       firstButtonAction: () => {
-        navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext : true });
+        navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext: true });
       }
     })
 

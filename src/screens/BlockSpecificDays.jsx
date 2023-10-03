@@ -62,7 +62,7 @@ LocaleConfig.locales['pt-br'] = {
 };
 
 export const BlockSpecificDays = ({ navigation }) => {
-    const [days, setDays] = useState({})
+    const [days, setDays] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [modalContent, setModalContent] = useState(null)
     const [weekdaysBlocked, setWeekdaysBlocked] = useState([])
@@ -76,10 +76,20 @@ export const BlockSpecificDays = ({ navigation }) => {
     useEffect(() => {
 
         const deniedDays = async () => {
-            setDays(await daysBlocked(userData.uid, false));
+            const data = await daysBlocked(userData.uid, false)
+
+            for (const date in data) {
+                data[date] = {
+                    selected: true,
+                    marked: true,
+                    selectedColor: globalStyles.orangeColor,
+                }
+            }
+
+            setDays(data);
         }
 
-        if (deniedDays === null) deniedDays()
+        if (days === null) deniedDays()
 
         const settingsBlockedWeekdays = () => {
             const formatDeniedDays = (data) => {
@@ -225,6 +235,7 @@ export const BlockSpecificDays = ({ navigation }) => {
             <DefaultModal modalContent={modalContent} />
 
             <Text style={styles.title}>Selecione no calendário os dias que ficarão indisponiveis para os seus clientes.</Text>
+            <Text style={styles.text}>Os dias marcados serão bloqueados.</Text>
 
             <Calendar
                 context={{ date: '' }}
@@ -254,5 +265,12 @@ const styles = StyleSheet.create({
         width: "100%",
         marginTop: 30,
         marginBottom: 20
-    }
+    },
+
+    text: {
+        fontSize: globalStyles.fontSizeSmall,
+        fontFamily: globalStyles.fontFamilyBold,
+        color: "#000000",
+        width: "100%"
+    },
 })

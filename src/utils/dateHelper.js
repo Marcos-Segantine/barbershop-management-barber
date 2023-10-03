@@ -8,7 +8,7 @@ export const getDay = (scheduleInfo) => {
     return scheduleInfo.split("").slice(8).join("")
 
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 

@@ -8,6 +8,7 @@ import { DefaultModal } from "../components/modals/DefaultModal"
 
 import { getAllTimesFromProfessional } from "../services/schedules/getAllTimesFromProfessional"
 import { blockedTimes } from "../services/schedules/blockedTimes"
+import { daysBlocked } from "../services/schedules/daysBlocked"
 
 import { Calendar, LocaleConfig } from "react-native-calendars"
 
@@ -17,6 +18,7 @@ import { DataUpdated } from "../assets/imgs/DataUpdated"
 import { UserContext } from "../context/UserContext"
 
 import { sortByHour } from "../utils/sortByHour"
+import { isDatePassed } from "../utils/isDatePassed"
 
 LocaleConfig.locales['pt-br'] = {
     monthNames: [
@@ -61,6 +63,7 @@ LocaleConfig.locales['pt-br'] = {
 
 export const BlockSpecificTimes = ({ navigation }) => {
     const [day, setDay] = useState(null)
+    const [blockedDays, setBlockedDays] = useState(null)
     const [timesFromDaySelected, setTimesFromDaySelected] = useState(null)
     const [timesBlockedFromEachDay, setTimesBlockedFromEachDay] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -71,7 +74,11 @@ export const BlockSpecificTimes = ({ navigation }) => {
     useEffect(() => {
 
         (async () => {
-            if (userData) setTimesBlockedFromEachDay(await blockedTimes(userData.uid))
+            if (userData && timesFromDaySelected === null) {
+                setTimesBlockedFromEachDay(await blockedTimes(userData.uid))
+
+                setBlockedDays(await daysBlocked(userData.uid, false))
+            }
 
             if (!!(!userData || day === null)) return
 
@@ -130,6 +137,12 @@ export const BlockSpecificTimes = ({ navigation }) => {
         const dataTemp = { ...timesBlockedFromEachDay }
 
         if (dataTemp[propName]) {
+            if (dataTemp[propName].length === 1) {
+                delete dataTemp[propName]
+                setTimesBlockedFromEachDay(dataTemp)
+                return
+            }
+
             if (dataTemp[propName].includes(time)) {
                 dataTemp[propName] = dataTemp[propName].filter(item => item !== time)
                 setTimesBlockedFromEachDay(dataTemp)
@@ -168,16 +181,17 @@ export const BlockSpecificTimes = ({ navigation }) => {
         daysWithBlockedTimes[day] = {
             selected: true,
             marked: true,
-            selectedColor: globalStyles.orangeColor,
+            selectedColor: "#00000050",
         }
     }
 
     const markedDays = {
+        ...daysWithBlockedTimes,
+        ...blockedDays,
         ...day,
-        ...daysWithBlockedTimes
     }
 
-    if(isLoading) return <Loading flexSize={1} />
+    if (isLoading) return <Loading flexSize={1} />
 
     return (
         <ScrollView contentContainerStyle={globalStyles.container}>

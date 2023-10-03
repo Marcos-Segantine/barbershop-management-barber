@@ -71,15 +71,25 @@ export const Home = ({ navigation }) => {
         else if (isToShowModal === null) {
             await AsyncStorage.setItem("@barber_app__alert_conclude_schedule", "true")
 
-            setIsLoading(true)
+            setModalContent({
+                image: <ConfirmScheduleDone />,
+                firstButtonText: "Confirmar",
+                secondButtonText: "Cancelar",
+                mainMessage: "Ateção",
+                message: "Caso você confirme o agendamento será completamente apagado.",
+                firstButtonAction: () => {
+                    setIsLoading(true)
 
-            await cancelSchedule(
-                scheduleEarlier.clientUid,
-                scheduleEarlier,
-                setSomethingWrong,
-            )
+                    cancelSchedule(
+                        scheduleEarlier.clientUid,
+                        scheduleEarlier,
+                        setSomethingWrong,
+                    )
+                    setModalContent(null)
+                },
 
-            setModalContent(null)
+                secondButtonAction: () => setModalContent(null)
+            })
 
             return
         }
@@ -91,6 +101,7 @@ export const Home = ({ navigation }) => {
             mainMessage: "Ateção",
             message: "Caso você confirme o agendamento será completamente apagado.",
             firstButtonAction: () => {
+                setIsLoading(true)
 
                 cancelSchedule(
                     scheduleEarlier.clientUid,

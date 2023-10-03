@@ -56,7 +56,7 @@ LocaleConfig.locales['pt-br'] = {
 };
 
 export const CalendarComponent = () => {
-    const [deniedDays, setDeniedDays] = useState(null)
+    const [deniedDaysData, setDeniedDaysData] = useState(null)
     const [weekdaysBlocked, setWeekdaysBlocked] = useState([])
     const [lastMonthSelected, setLastMonthSelected] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -70,10 +70,10 @@ export const CalendarComponent = () => {
     useEffect(() => {
 
         const deniedDays = async () => {
-            setDeniedDays(await daysBlocked(userData.uid, false));
+            setDeniedDaysData(await daysBlocked(userData.uid, false));
         }
 
-        if (deniedDays === null) deniedDays()
+        if (deniedDaysData === null) deniedDays()
 
         const settingsBlockedWeekdays = () => {
             const formatDeniedDays = (data) => {
@@ -150,7 +150,7 @@ export const CalendarComponent = () => {
     }, [lastMonthSelected])
 
     const markedDatesCalendar = {
-        ...deniedDays,
+        ...deniedDaysData,
         ...weekdaysBlocked,
         [schedule.day]: {
             selected: true,

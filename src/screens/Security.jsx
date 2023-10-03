@@ -19,13 +19,40 @@ export const Security = ({ navigation }) => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        const getAsyncValue = async (string, setter) => {
+        const getAsyncValue = async (string, setter, method = null) => {
             const result = await AsyncStorage.getItem(string)
-            setter(result === "true" ? true : false)
+
+            if (method !== null) {
+                method(result)
+
+                return
+            }
+
+            setter(result === "true" ? true : result)
         }
 
-        getAsyncValue("@barber_app__access_automatically", setAccessAutomatically)
-        getAsyncValue("@barber_app__alert_conclude_schedule", setAlertConcludeSchedule)
+        getAsyncValue("@barber_app__access_automatically", setAccessAutomatically, async (result) => {
+            if (result === null) {
+                await AsyncStorage.setItem("@barber_app__access_automatically", "true")
+                setAccessAutomatically(true)
+            } else {
+                await AsyncStorage.setItem("@barber_app__access_automatically", result)
+                setAccessAutomatically(result === "true" ? true : false)
+            }
+        })
+        getAsyncValue("@barber_app__alert_conclude_schedule", setAlertConcludeSchedule, async (result) => {
+            if (result === null) {
+                await AsyncStorage.setItem("@barber_app__alert_conclude_schedule", "true")
+                setAlertConcludeSchedule(true)
+            } else if (result === "true") {
+                await AsyncStorage.setItem("@barber_app__alert_conclude_schedule", "true")
+                setAlertConcludeSchedule(result)
+            }
+            else {
+                await AsyncStorage.setItem("@barber_app__alert_conclude_schedule", "false")
+                setAlertConcludeSchedule(false)
+            }
+        })
 
     }, [])
 

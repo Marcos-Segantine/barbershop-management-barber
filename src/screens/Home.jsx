@@ -68,6 +68,22 @@ export const Home = ({ navigation }) => {
 
             return
         }
+        else if (isToShowModal === null) {
+            await AsyncStorage.setItem("@barber_app__alert_conclude_schedule", "true")
+
+            setIsLoading(true)
+
+            await cancelSchedule(
+                scheduleEarlier.clientUid,
+                scheduleEarlier,
+                setSomethingWrong,
+            )
+
+            setModalContent(null)
+
+            return
+        }
+
         setModalContent({
             image: <ConfirmScheduleDone />,
             firstButtonText: "Confirmar",

@@ -121,7 +121,7 @@ export const Home = ({ navigation }) => {
     if (!schedulesOfProfessional?.length) return (
         <>
             <View style={[globalStyles.container, { flex: 1, justifyContent: "space-between" }]}>
-                <HeaderScreensMenu screenName={"No momento, sua agenda está vazia"} />
+                <HeaderScreensMenu screenName={"Agenda Vazia"} />
 
                 <FreeTimeImage width={"100%"} height={"60%"} />
 

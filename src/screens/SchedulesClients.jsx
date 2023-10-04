@@ -59,7 +59,7 @@ export const SchedulesClients = ({ navigation }) => {
   if (!data?.length) return (
     <>
       <View style={[globalStyles.container, { flex: 1, justifyContent: "space-between" }]}>
-        <HeaderScreensMenu screenName={!data?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />
+        <HeaderScreensMenu screenName={!data?.length ? "Agenda Vazia" : "Seus Agendamentos"} />
 
         <FreeTimeImage width={"100%"} height={"60%"} />
 

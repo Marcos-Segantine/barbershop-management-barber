@@ -7,8 +7,6 @@ import { Button } from "../Button"
 export const DefaultModal = ({ modalContent }) => {
     if (!modalContent) return
 
-    console.log(typeof modalContent.image);
-
     return (
         <Modal
             visible={!!modalContent}

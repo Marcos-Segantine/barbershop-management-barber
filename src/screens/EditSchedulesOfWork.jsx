@@ -204,14 +204,14 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                     currentTimes.sunday.length ||
                     currentTimes.saturday.length ||
                     currentTimes.weekday.length
-                ) &&
-                <Button
-                    text={"Confirmar"}
-                    action={handleConfirm}
-                    addStyles={{ alignSelf: "center", marginTop: 50 }}
-                />
+                ) ?
+                    <Button
+                        text={"Confirmar"}
+                        action={handleConfirm}
+                        addStyles={{ alignSelf: "center", marginTop: 50 }}
+                    /> :
+                    <Text style={styles.info}>É obrigatório informar pelo menos um horário de trabalho</Text>
             }
-
 
         </ScrollView>
     )
@@ -279,5 +279,15 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall,
+    },
+
+    info: {
+        color: "#00000090",
+        fontSize: globalStyles.fontSizeVerySmall,
+        fontFamily: globalStyles.fontFamilyMedium,
+        textAlign: "center",
+        width: "100%",
+        position: "absolute",
+        bottom: "7%"
     }
 })

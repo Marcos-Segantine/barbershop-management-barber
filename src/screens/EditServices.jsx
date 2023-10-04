@@ -20,11 +20,12 @@ import { updateProfessionalServices } from "../services/user/updateProfessionalS
 
 import { CloseIcon } from "../assets/icons/CloseIcon"
 import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage"
+import { AccountCreated } from "../assets/imgs/AccountCreated"
 
 export const EditServices = ({ navigation }) => {
     const [currentServices, setCurrentServices] = useState([])
     const [newService, setNewService] = useState({})
-    const [error, setError] = useState(null)
+    const [modalContent, setModalContent] = useState(null)
 
     const [isNewBarber, setIsNewBarber] = useState(null)
 
@@ -44,19 +45,19 @@ export const EditServices = ({ navigation }) => {
 
     const handleNewService = () => {
         if (!newService.name?.trim() || !newService.price?.trim()) {
-            setError({
+            setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Campos Vazios !",
                 message: "Por favor preencha todos os campos",
                 firstButtonText: "Entendido",
-                firstButtonAction: () => setError(null)
+                firstButtonAction: () => setModalContent(null)
             })
 
             return
         }
 
-        else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setError)) {
-            setError(null)
+        else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setModalContent)) {
+            setModalContent(null)
 
             setCurrentServices([...currentServices, newService].reverse())
             setNewService({ name: "", price: "" })
@@ -71,29 +72,55 @@ export const EditServices = ({ navigation }) => {
     const handleContinue = async () => {
 
         if (createNewPerson?.newPerson && userData === null) {
-            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
-            navigation.navigate("Login", { emailProfessionalCreated: createNewPerson.email, passwordProfessionalCreated: createNewPerson.password })
-            setCreateNewPearson(null)
+            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) }).then(() => {
+
+                setModalContent({
+                    image: <AccountCreated width={"100%"} height={300} />,
+                    mainMessage: "Conta criada com sucesso",
+                    message: "Agora você pode fazer login com sua nova conta.",
+                    firstButtonText: "Continuar",
+                    firstButtonAction: () => {
+                        navigation.navigate("Login", { emailProfessionalCreated: createNewPerson.email, passwordProfessionalCreated: createNewPerson.password })
+                        setCreateNewPearson(null)
+                        setModalContent(null)
+                    }
+                })
+            })
 
             return
+
         } else if (createNewPerson?.newPerson && userData !== null) {
-            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
-            navigation.navigate("Profile")
-            setCreateNewPearson(null)
+
+            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) }).then(() => {
+
+                setModalContent({
+                    image: <AccountCreated width={"100%"} height={300} />,
+                    mainMessage: "Conta criada com sucesso",
+                    message: "Agora você pode fazer login com sua nova conta.",
+                    firstButtonText: "Continuar",
+                    firstButtonAction: () => {
+                        navigation.navigate("Login", { emailProfessionalCreated: createNewPerson.email, passwordProfessionalCreated: createNewPerson.password })
+                        setCreateNewPearson(null)
+                        setModalContent(null)
+                    }
+                })
+            })
 
             return
-        }
 
-        updateProfessionalServices(userData.uid, currentServices, setSomethingWrong)
-        navigation.navigate("ChoiceInformationToEdit")
+        } else {
+
+            updateProfessionalServices(userData.uid, currentServices, setSomethingWrong)
+            navigation.navigate("ChoiceInformationToEdit")
+        }
     }
 
     if (isNewBarber === null) return <Loading flexSize={1} />
 
     return (
-        <ScrollView contentContainerStyle={globalStyles.container}>
+        <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
             <DefaultModal
-                modalContent={error}
+                modalContent={modalContent}
             />
             <ComeBack text={"Editar seus Serviços"} />
 
@@ -144,14 +171,13 @@ export const EditServices = ({ navigation }) => {
                 </View>
             </View>
             {
-                !!currentServices.length &&
-                (
+                !!currentServices.length ?
                     <Button
                         text={"Confirmar"}
                         addStyles={{ marginTop: 30, width: "100%" }}
                         action={handleContinue}
-                    />
-                )
+                    /> :
+                    <Text style={styles.info}>É obrigatório informar pelo menos um serviço</Text>
             }
         </ScrollView>
     )
@@ -161,6 +187,7 @@ const styles = StyleSheet.create({
     content: {
         width: "100%",
         marginTop: 50,
+        minHeight: "65%",
     },
 
     text: {
@@ -221,4 +248,14 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 15,
     },
+
+    info: {
+        color: "#00000090",
+        fontSize: globalStyles.fontSizeVerySmall,
+        fontFamily: globalStyles.fontFamilyMedium,
+        textAlign: "center",
+        width: "100%",
+        position: "absolute",
+        bottom: "7%"
+    }
 })

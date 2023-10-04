@@ -14,9 +14,10 @@ import { DefaultModal } from "../components/modals/DefaultModal"
 import { EmailIcon } from "../assets/icons/EmailIcon"
 import { SMSIcon } from "../assets/icons/SMSIcon"
 import { globalStyles } from "../assets/globalStyles"
-import UserNotFoundImage from "../assets/imgs/UserNotFoundImage.jpg"
 
 import { getUserDataByEmailOrPhone } from "../services/user/getUserDataByEmailOrPhone"
+
+import { formatInputPhoneNumber } from "../utils/formatInputPhoneNumber"
 
 export const GetClient = ({ navigation, route }) => {
     const [email, setEmail] = useState("")
@@ -118,6 +119,7 @@ export const GetClient = ({ navigation, route }) => {
                                 placeholder={"Insira o número do cliente"}
                                 placeholderTextColor={"#00000050"}
                                 onChangeText={text => setPhone(text)}
+                                value={formatInputPhoneNumber(phone)}
                                 keyboardType={"number-pad"}
                                 onFocus={() => setInputSelected("phone")}
                             />

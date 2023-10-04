@@ -18,6 +18,7 @@ import { handleConfirmFillProfile } from "../handlers/handleConfirmFillProfile"
 import { launchImageLibrary } from 'react-native-image-picker';
 
 import { generateNewUid } from "../utils/generateNewUid"
+import { formatInputPhoneNumber } from "../utils/formatInputPhoneNumber"
 
 import CheckBox from '@react-native-community/checkbox';
 import { useIsFocused } from "@react-navigation/native"
@@ -120,7 +121,7 @@ export const FillProfile = ({ navigation, route }) => {
                     style={styles.input}
                     placeholder="Número de celular"
                     placeholderTextColor={"#00000050"}
-                    value={createNewPerson.phone}
+                    value={formatInputPhoneNumber(createNewPerson.phone)}
                     onChangeText={text => setCreateNewPearson({ ...createNewPerson, phone: text })}
                     keyboardType="numeric"
                 />

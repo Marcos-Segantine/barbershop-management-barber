@@ -8,13 +8,15 @@ import { ResetPasswordEmailSend } from "../assets/imgs/ResetPasswordEmailSend"
 import { Button } from "../components/Button"
 import { ComeBack } from "../components/ComeBack"
 import { DefaultModal } from "../components/modals/DefaultModal"
+import { Loading } from "../components/Loading"
 
 import { getUserDataByEmailOrPhone } from "../services/user/getUserDataByEmailOrPhone"
 
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import auth from '@react-native-firebase/auth';
-import { Loading } from "../components/Loading"
+
+import { formatInputPhoneNumber } from "../utils/formatInputPhoneNumber"
 
 export const ForgotPassword = ({ navigation }) => {
     const [modalContent, setModalContent] = useState(null)
@@ -93,6 +95,7 @@ export const ForgotPassword = ({ navigation }) => {
                 keyboardType="number-pad"
                 onFocus={() => handleFocusInput("phone")}
                 onChangeText={text => setPhone(text)}
+                value={formatInputPhoneNumber(phone)}
             />
 
             <Button

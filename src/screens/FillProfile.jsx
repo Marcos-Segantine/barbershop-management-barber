@@ -67,7 +67,16 @@ export const FillProfile = ({ navigation, route }) => {
 
     }, [])
 
-    console.log(createNewPerson);
+    const handlePhoneNumber = (phone) => {
+        if (phone.length > 15) {
+            phone = phone.split("").slice(0, 15).join("")
+            setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone) })
+
+            return
+        }
+
+        setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone) })
+    }
 
     const headerText = !!createNewPerson?.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Atualizar seu perfil"
 
@@ -121,7 +130,7 @@ export const FillProfile = ({ navigation, route }) => {
                     placeholder="Número de celular"
                     placeholderTextColor={"#00000050"}
                     value={formatInputPhoneNumber(createNewPerson?.phone)}
-                    onChangeText={text => createNewPerson?.phone.length <= 14 && setCreateNewPearson({ ...createNewPerson, phone: text })}
+                    onChangeText={text => handlePhoneNumber(text)}
                     keyboardType="numeric"
                 />
 

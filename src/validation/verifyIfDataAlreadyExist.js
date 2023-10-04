@@ -1,6 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 
 export const verifyIfDataAlreadyExist = async (field, fieldData) => {
+    fieldData = fieldData.replace(/-/g, '')
+
     const usersRef = firestore().collection("users").where(field, "==", fieldData);
     const barbersRef = firestore().collection("barbers").where(field, "==", fieldData);
 

@@ -103,7 +103,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     if (currentTimes === null) return <Loading />
 
     return (
-        <ScrollView contentContainerStyle={[globalStyles.container, { paddingBottom: 150 }]}>
+        <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
             <DefaultModal
                 modalContent={error}
             />
@@ -176,7 +176,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                             (
                                 currentTimes[dayOfWeek].map((time, index) => (
                                     <View
-                                        style={{ alignItems: "flex-end", width: "30%", marginTop: 10 }}
+                                        style={{ alignItems: "flex-end", width: "30%", marginTop: 10, marginHorizontal: 5 }}
                                         key={index}
                                     >
 
@@ -199,11 +199,20 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                 </View>
             }
 
-            <Button
-                text={"Confirmar"}
-                action={handleConfirm}
-                addStyles={{ alignSelf: "center", marginTop: 50 }}
-            />
+            {
+                !!(
+                    currentTimes.sunday.length ||
+                    currentTimes.saturday.length ||
+                    currentTimes.weekday.length
+                ) &&
+                <Button
+                    text={"Confirmar"}
+                    action={handleConfirm}
+                    addStyles={{ alignSelf: "center", marginTop: 50 }}
+                />
+            }
+
+
         </ScrollView>
     )
 }
@@ -240,11 +249,10 @@ const styles = StyleSheet.create({
         marginTop: 50,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         width: "100%",
         paddingBottom: 10,
         paddingHorizontal: 10,
-        backgroundColor: globalStyles.champagneColor,
         borderRadius: 15
     },
 

@@ -68,19 +68,19 @@ export const EditServices = ({ navigation }) => {
         setCurrentServices(currentServices.filter(service => service.name !== serviceToRemove))
     }
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
 
         if (createNewPerson?.newPerson && userData === null) {
-            createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
+            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
             navigation.navigate("Login", { emailProfessionalCreated: createNewPerson.email, passwordProfessionalCreated: createNewPerson.password })
             setCreateNewPearson(null)
 
             return
-        }else if(createNewPerson?.newPerson && userData !== null) {
-            createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
+        } else if (createNewPerson?.newPerson && userData !== null) {
+            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
             navigation.navigate("Profile")
             setCreateNewPearson(null)
-            
+
             return
         }
 

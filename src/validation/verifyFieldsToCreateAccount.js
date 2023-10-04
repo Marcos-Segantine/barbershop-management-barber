@@ -9,7 +9,7 @@ export const verifyFieldsToCreateAccount = (
     setModalContent,
 ) => {
     for (const field of fields) {
-        if (!userInformation[field]) {
+        if (userInformation[field] === undefined || userInformation[field] === "") {
             setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Campo(s) vazio(s)",

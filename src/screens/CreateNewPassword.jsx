@@ -22,6 +22,7 @@ import { updateUserPassword } from "../services/user/updateUserPassword"
 import { UserContext } from "../context/UserContext"
 
 import { verifyPasswordToUpdate } from "../validation/verifyPasswordToUpdate"
+import { verifyPasswordToCreateUser } from "../validation/verifyPasswordToCreateUser"
 
 export const CreateNewPassword = ({ navigation, route }) => {
   const [currentPassword, setCurrentPassword] = useState("")
@@ -83,6 +84,10 @@ export const CreateNewPassword = ({ navigation, route }) => {
       setIsLoading(false)
       return
     }
+
+    const isPasswordValid = verifyPasswordToCreateUser(password, confirmPassword, setModalContent)
+
+    if (!isPasswordValid) return
 
     createNewPerson.newPerson === "client" ?
       (

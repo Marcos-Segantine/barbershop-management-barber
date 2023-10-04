@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Pressable, Image } from "react-native"
 
 import { UserContext } from "../context/UserContext"
@@ -20,11 +20,9 @@ import { signInWithEmailAndPassword } from "../services/auth/signInWithEmailAndP
 import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
 export const Login = ({ navigation, route }) => {
-    const { emailProfessionalCreated, passwordProfessionalCreated } = route?.params ? route?.params : {}
-
     const [inputSelected, setInputSelected] = useState("")
-    const [email, setEmail] = useState(emailProfessionalCreated || "")
-    const [password, setPassword] = useState(passwordProfessionalCreated || "")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const [isLoading, setIsLoading] = useState(false)
     const [modalInfo, setModalInfo] = useState(null)
@@ -33,6 +31,15 @@ export const Login = ({ navigation, route }) => {
     const { setUserData } = useContext(UserContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
     const { createNewPerson, setCreateNewPearson } = useContext(CreateNewPersonContext)
+
+    useEffect(() => {
+
+        if (route?.params?.emailProfessionalCreated && route?.params?.passwordProfessionalCreated) {
+            setEmail(route.params.emailProfessionalCreated)
+            setPassword(route.params.passwordProfessionalCreated)
+        }
+
+    }, [route.params])
 
     const handleFocusInput = (field) => setInputSelected(field)
 

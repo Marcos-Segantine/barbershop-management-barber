@@ -43,6 +43,11 @@ export const EditServices = ({ navigation }) => {
 
     }, [createNewPerson, userData])
 
+    const formatServicePrice = (service) => {
+        service.price = service.price.replace(/[^0-9]/g, '')
+        return service
+    }
+
     const handleNewService = () => {
         if (!newService.name?.trim() || !newService.price?.trim()) {
             setModalContent({
@@ -59,7 +64,7 @@ export const EditServices = ({ navigation }) => {
         else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setModalContent)) {
             setModalContent(null)
 
-            setCurrentServices([...currentServices, newService].reverse())
+            setCurrentServices([...currentServices, formatServicePrice(newService)].reverse())
             setNewService({ name: "", price: "" })
         }
 

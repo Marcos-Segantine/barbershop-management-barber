@@ -6,7 +6,7 @@ export const verifyFieldsOfNewService = (
     currentServices,
     setError
 ) => {
-    const pattern = /^[\d,.]+$/;
+    const pattern = /^\d+.*\d+$/;
 
     if (!pattern.test(servicePrice)) {
 

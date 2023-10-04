@@ -69,11 +69,18 @@ export const EditServices = ({ navigation }) => {
     }
 
     const handleContinue = () => {
-        if (isNewBarber) {
+
+        if (createNewPerson?.newPerson && userData === null) {
             createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
             navigation.navigate("Login", { emailProfessionalCreated: createNewPerson.email, passwordProfessionalCreated: createNewPerson.password })
             setCreateNewPearson(null)
 
+            return
+        }else if(createNewPerson?.newPerson && userData !== null) {
+            createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) })
+            navigation.navigate("Profile")
+            setCreateNewPearson(null)
+            
             return
         }
 

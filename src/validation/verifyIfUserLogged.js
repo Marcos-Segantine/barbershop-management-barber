@@ -12,12 +12,12 @@ export const verifyIfUserLogged = async (navigation, setSomethingWrong) => {
 
             setTimeout(() => {
                 navigation.navigate("Home")
-            }, 1000)
+            }, 500)
         }
         else {
             setTimeout(() => {
                 navigation.navigate("Login", { emailProfessionalCreated: null, passwordProfessionalCreated: null })
-            }, 2500)
+            }, 500)
         }
     } catch (error) {
         console.log(error);

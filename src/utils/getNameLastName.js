@@ -2,12 +2,7 @@ export const getNameLastName = (name) => {
 
     if (!name) return null
 
-    name = name.split(" ")
+    name = name.split("")
 
-    const firstName = name[0]
-    if (name.length === 1) return firstName
-
-    const lastName = name[1].length < 5 ? name[1] + " " + name[2] : name[1]
-
-    return firstName + " " + lastName
+    return name.length > 12 ? name.splice(0, 12).join("") + "..." : name.join("")
 }

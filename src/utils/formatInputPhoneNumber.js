@@ -1,9 +1,10 @@
 export const formatInputPhoneNumber = (input) => {
+    if (!input) return
+
     const cleanedInput = input.replace(/\D/g, '');
 
     if (cleanedInput.length > 11) {
-        const length = input.length > 16 ? 16 : input.length
-        return input.split("").splice(0, length - 1).join("");
+        return input;
     }
 
     if (cleanedInput.length <= 2) {

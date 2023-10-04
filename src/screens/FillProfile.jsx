@@ -21,7 +21,6 @@ import { generateNewUid } from "../utils/generateNewUid"
 import { formatInputPhoneNumber } from "../utils/formatInputPhoneNumber"
 
 import CheckBox from '@react-native-community/checkbox';
-import { useIsFocused } from "@react-navigation/native"
 
 export const FillProfile = ({ navigation, route }) => {
     const { userData, setUserData } = useContext(UserContext)
@@ -61,16 +60,16 @@ export const FillProfile = ({ navigation, route }) => {
         });
     }
 
-    const isFocused = useIsFocused()
-
     useEffect(() => {
         setCreateNewPearson({
             ...createNewPerson, name: "", email: "", phone: ""
         })
 
-    }, [isFocused])
+    }, [])
 
-    const headerText = !!createNewPerson.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Atualizar seu perfil"
+    console.log(createNewPerson);
+
+    const headerText = !!createNewPerson?.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Atualizar seu perfil"
 
     if (isLoading) return <Loading flexSize={1} />
 
@@ -105,14 +104,14 @@ export const FillProfile = ({ navigation, route }) => {
                 <TextInput
                     style={styles.input}
                     placeholder="Nome completo"
-                    value={createNewPerson.name}
+                    value={createNewPerson?.name}
                     placeholderTextColor={"#00000050"}
                     onChangeText={text => setCreateNewPearson({ ...createNewPerson, name: text })}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
-                    value={createNewPerson.email}
+                    value={createNewPerson?.email}
                     placeholderTextColor={"#00000050"}
                     onChangeText={text => setCreateNewPearson({ ...createNewPerson, email: text })}
                     keyboardType="email-address"
@@ -121,8 +120,8 @@ export const FillProfile = ({ navigation, route }) => {
                     style={styles.input}
                     placeholder="Número de celular"
                     placeholderTextColor={"#00000050"}
-                    value={formatInputPhoneNumber(createNewPerson.phone)}
-                    onChangeText={text => setCreateNewPearson({ ...createNewPerson, phone: text })}
+                    value={formatInputPhoneNumber(createNewPerson?.phone)}
+                    onChangeText={text => createNewPerson?.phone.length <= 14 && setCreateNewPearson({ ...createNewPerson, phone: text })}
                     keyboardType="numeric"
                 />
 

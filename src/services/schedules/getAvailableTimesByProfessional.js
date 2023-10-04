@@ -32,8 +32,8 @@ export const getAvailableTimesByProfessional = async (
         const currentHour = +date.getHours()
         const currentDate = +currentDay === +day && +currentMonth === +month
 
-        const daysWithTimesBlocked = Object.keys(blockedTimesData)
-        const currentDayHasBlockedTime = daysWithTimesBlocked.includes(scheduleInfo.day)
+        const daysWithTimesBlocked = blockedTimesData === undefined ? null : Object.keys(blockedTimesData)
+        const currentDayHasBlockedTime = daysWithTimesBlocked === null ? null : daysWithTimesBlocked.includes(scheduleInfo.day)
 
         const unavailableTimes = (time) => {
             // Returns `true` if the time is available

@@ -74,7 +74,7 @@ export const Professionals = ({ preferProfessional }) => {
                                 onPress={() => handleProfessionalSelected(professional.name, professional.professionalUid)}
                                 key={index}
                             >
-                                <Text style={styles.professionalName}>{name.length > 15 ? `${name.slice(0, 15)}...` : name}</Text>
+                                <Text style={styles.professionalName}>{name}</Text>
 
                                 {
                                     professional?.profilePicture ?

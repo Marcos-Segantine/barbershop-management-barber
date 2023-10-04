@@ -34,8 +34,8 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        if (!createNewPerson.newPerson) {
-            userData && getAllSchedulesOfProfessional(userData.uid, setCurrentTimes)
+        if (!createNewPerson?.newPerson && userData) {
+            getAllSchedulesOfProfessional(userData.uid, setCurrentTimes)
         }
 
     }, [userData, createNewPerson])
@@ -89,7 +89,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     }
 
     const handleConfirm = () => {
-        if (createNewPerson.newPerson) {
+        if (createNewPerson?.newPerson) {
             setCreateNewPearson({ ...createNewPerson, workHour: currentTimes })
 
             navigation.navigate("EditServices")

@@ -87,7 +87,7 @@ export const findErrorAuth = async (
                 secondButtonText: "Cadastrar",
                 firstButtonAction: () => setError(null),
                 secondButtonAction: () => {
-                    setCreateNewPearson({ ...createNewPearson, person: "newPerson" })
+                    setCreateNewPearson({ ...createNewPearson, person: "professional" })
                     navigation.navigate("FillProfile", { isToUpdateProfessionalData: false })
                     setError(false)
                 }

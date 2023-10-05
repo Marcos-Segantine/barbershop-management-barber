@@ -134,8 +134,8 @@ export const handleConfirmFillProfile = async (
         if (emailAlreadyExist) {
             setModalContent({
                 image: <MessageErrorAuthImage />,
-                mainMessage: "Email já cadastrado",
-                message: "Por favor, escolha outro email",
+                mainMessage: "Email indisponível",
+                message: "O email que você escolheu já está sendo utilizado por outro usuário",
                 firstButtonText: "Tentar Novamente",
                 firstButtonAction: () => setModalContent(null)
             })

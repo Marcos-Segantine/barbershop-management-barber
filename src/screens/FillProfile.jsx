@@ -60,13 +60,6 @@ export const FillProfile = ({ navigation, route }) => {
         });
     }
 
-    useEffect(() => {
-        setCreateNewPearson({
-            ...createNewPerson, name: "", email: "", phone: ""
-        })
-
-    }, [])
-
     const handlePhoneNumber = (phone) => {
         if (phone.length > 15) {
             phone = phone.split("").slice(0, 15).join("")

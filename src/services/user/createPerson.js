@@ -74,7 +74,6 @@ export const createPerson = async (newPerson, setSchedule, schedule) => {
         })
 
         batch.set(workingHoursRef, {
-            barberName: newPerson.name,
             saturday: newPerson.workHour.saturday,
             sunday: newPerson.workHour.sunday,
             weekday: newPerson.workHour.weekday,

@@ -6,23 +6,17 @@ export const updateProfessionalSchedules = async (professionalUid, newSchedules,
         const workingHoursRef = firestore().collection("working_hours").doc(professionalUid)
         const workingHoursDefaultRef = firestore().collection("working_hours").doc("default")
 
-        const workingHoursData = (await workingHoursRef.get()).data()
         const workingHoursDefaultData = (await workingHoursDefaultRef.get()).data()
-
-        const dataToUpdate = { ...workingHoursData, ...newSchedules }
 
         const defaultDataToUpdate = workingHoursDefaultData.times
 
-        for (const weekDay in dataToUpdate) {
-            if (weekDay === "barberName") continue
-
-            for (const schedule of dataToUpdate[weekDay]) {
-                if (defaultDataToUpdate.includes(schedule)) continue
-                else defaultDataToUpdate.push(schedule)
+        for (const weekDay in newSchedules) {
+            for (const time of newSchedules[weekDay]) {
+                if (!defaultDataToUpdate.includes(time)) defaultDataToUpdate.push(time)
             }
         }
 
-        await workingHoursRef.update(dataToUpdate)
+        await workingHoursRef.update(newSchedules)
         await workingHoursDefaultRef.update({ times: [...defaultDataToUpdate] })
 
     } catch (error) {

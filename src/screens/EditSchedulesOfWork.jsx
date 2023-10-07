@@ -18,6 +18,7 @@ import { UserContext } from "../context/UserContext"
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import { isTimeFormat } from "../utils/isTimeFormat"
+import { sortByHour } from "../utils/sortByHour"
 
 export const EditSchedulesOfWork = ({ navigation }) => {
     const [currentTimes, setCurrentTimes] = useState({
@@ -174,7 +175,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                         {
                             currentTimes[dayOfWeek] &&
                             (
-                                currentTimes[dayOfWeek].map((time, index) => (
+                                sortByHour(currentTimes[dayOfWeek]).map((time, index) => (
                                     <View
                                         style={{ alignItems: "flex-end", width: "30%", marginTop: 10, marginHorizontal: 5 }}
                                         key={index}

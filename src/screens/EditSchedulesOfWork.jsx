@@ -4,6 +4,7 @@ import { View, StyleSheet, TextInput, Text, ScrollView, TouchableOpacity, Pressa
 import { globalStyles } from "../assets/globalStyles"
 import { CloseIcon } from "../assets/icons/CloseIcon"
 import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage"
+import { DataUpdated } from "../assets/imgs/DataUpdated"
 
 import { ComeBack } from "../components/ComeBack"
 import { Loading } from "../components/Loading"
@@ -28,7 +29,8 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     })
     const [newSchedule, setNewSchedule] = useState("")
     const [dayOfWeek, setDayOfWeek] = useState("weekday")
-    const [error, setError] = useState(false)
+
+    const [modalContent, setModalContent] = useState(null)
 
     const { setSomethingWrong } = useContext(SomethingWrongContext)
     const { createNewPerson, setCreateNewPearson } = useContext(CreateNewPersonContext)
@@ -43,43 +45,43 @@ export const EditSchedulesOfWork = ({ navigation }) => {
 
     const handleNewSchedule = () => {
         if (!newSchedule.trim()) {
-            setError({
+            setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Campo Vazio !",
                 message: "Por favor preencha o campo para que seja possivel adicionar um novo horário",
                 firstButtonText: "Entendido",
-                firstButtonAction: () => setError(null)
+                firstButtonAction: () => setModalContent(null)
             })
 
             setNewSchedule("")
             return
         }
         else if (!isTimeFormat(newSchedule.trim())) {
-            setError({
+            setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Horário Inválido !",
                 message: "Por favor preencha o campo corretamente, siga o exemplo: 12:00, 13:30, 23:45...",
                 firstButtonText: "Entendido",
-                firstButtonAction: () => setError(null)
+                firstButtonAction: () => setModalContent(null)
             })
 
             setNewSchedule("")
             return
         }
         else if (currentTimes[dayOfWeek].includes(newSchedule)) {
-            setError({
+            setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Horário já cadastrado",
                 message: "O horário que você inseriu já foi registrado",
                 firstButtonText: "Entendido",
-                firstButtonAction: () => setError(null)
+                firstButtonAction: () => setModalContent(null)
             })
 
             setNewSchedule("")
             return
         }
 
-        setError(null)
+        setModalContent(null)
 
         setCurrentTimes({ ...currentTimes, [dayOfWeek]: [...currentTimes[dayOfWeek], newSchedule] })
         setNewSchedule("")
@@ -89,7 +91,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
         setCurrentTimes({ ...currentTimes, [dayOfWeek]: currentTimes[dayOfWeek].filter(schedule => schedule !== scheduleToRemove) })
     }
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (createNewPerson?.newPerson) {
             setCreateNewPearson({ ...createNewPerson, workHour: currentTimes })
 
@@ -97,8 +99,16 @@ export const EditSchedulesOfWork = ({ navigation }) => {
             return
         }
 
-        updateProfessionalSchedules(userData.uid, currentTimes, setSomethingWrong)
-        navigation.navigate("ChoiceInformationToEdit")
+        await updateProfessionalSchedules(userData.uid, currentTimes, setSomethingWrong)
+        setModalContent({
+            image: <DataUpdated />,
+            mainMessage: "Horários atualizados com sucesso!",
+            firstButtonText: "Continuar",
+            firstButtonAction: () => {
+                navigation.navigate("ChoiceInformationToEdit")
+            }
+        })
+
     }
 
     if (currentTimes === null) return <Loading />
@@ -106,7 +116,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
             <DefaultModal
-                modalContent={error}
+                modalContent={modalContent}
             />
             <ComeBack text={"Editar Horários de Trabalho"} />
 

@@ -78,7 +78,7 @@ export const Security = ({ navigation }) => {
                     style={styles.changePasswordButton}
                     onPress={() => navigation.navigate("CreateNewPassword", { isToUpdateUserPassword: true })}
                 >
-                    <Text style={[styles.text, { textAlign: "center", color: globalStyles.orangeColor }]}>
+                    <Text style={styles.text}>
                         Atualizar senha
                     </Text>
                 </Pressable>
@@ -111,4 +111,10 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginTop: 30,
     },
+
+    text: {
+        textAlign: "center",
+        color: globalStyles.orangeColor,
+        fontFamily: globalStyles.fontFamilyBold,
+    }
 })

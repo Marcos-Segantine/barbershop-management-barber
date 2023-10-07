@@ -21,6 +21,7 @@ import { updateProfessionalServices } from "../services/user/updateProfessionalS
 import { CloseIcon } from "../assets/icons/CloseIcon"
 import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage"
 import { AccountCreated } from "../assets/imgs/AccountCreated"
+import { DataUpdated } from "../assets/imgs/DataUpdated"
 
 export const EditServices = ({ navigation }) => {
     const [currentServices, setCurrentServices] = useState([])
@@ -115,8 +116,15 @@ export const EditServices = ({ navigation }) => {
 
         } else {
 
-            updateProfessionalServices(userData.uid, currentServices, setSomethingWrong)
-            navigation.navigate("ChoiceInformationToEdit")
+            await updateProfessionalServices(userData.uid, currentServices, setSomethingWrong)
+            setModalContent({
+                image: <DataUpdated />,
+                mainMessage: "Serviços atualizados com sucesso!",
+                firstButtonText: "Continuar",
+                firstButtonAction: () => {
+                    navigation.navigate("ChoiceInformationToEdit")
+                }
+            })
         }
     }
 

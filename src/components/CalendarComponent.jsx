@@ -149,6 +149,11 @@ export const CalendarComponent = () => {
 
     }, [lastMonthSelected])
 
+    useEffect(() => {
+        setSchedule({ ...schedule, schedule: null })
+
+    }, [schedule.day])
+
     const markedDatesCalendar = {
         ...deniedDaysData,
         ...weekdaysBlocked,

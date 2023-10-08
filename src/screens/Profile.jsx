@@ -95,10 +95,6 @@ export const Profile = ({ navigation }) => {
             action={() => navigation.navigate("Security")}
           />
           <LinkProfile
-            text={"Política de Privacidade"}
-            icon={<PadlockIcon />}
-          />
-          <LinkProfile
             text={"Cadastrar Profissional"}
             icon={<Image source={AddProfessional} style={{ width: 24, height: 24 }} />}
             action={handleNewProfessional}

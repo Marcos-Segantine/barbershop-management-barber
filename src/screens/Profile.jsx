@@ -8,6 +8,9 @@ import { CreateNewPersonContext } from "../context/CreateNewPerson"
 import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { LinkProfile } from "../components/LinkProfile"
 import { Menu } from "../components/Menu"
+import { DefaultModal } from "../components/modals/DefaultModal"
+
+import { logOut } from "../services/user/logOut"
 
 import { ProfileIcon } from "../assets/icons/ProfileIcon"
 import { CheckIcon } from "../assets/icons/CheckIcon"
@@ -15,11 +18,10 @@ import { PadlockIcon } from "../assets/icons/PadlockIcon"
 import { LogOutIcon } from "../assets/icons/LogOutIcon"
 import AddProfessional from "../assets/icons/addProfessionalIcon.png"
 import { globalStyles } from "../assets/globalStyles"
-import { logOut } from "../services/user/logOut"
 import DefaultPicture from "../assets/icons/DefaultPicture.png"
-import { DefaultModal } from "../components/modals/DefaultModal"
-
 import { LogOut } from "../assets/imgs/LogOut"
+
+import { getNameLastName } from "../utils/getNameLastName"
 
 export const Profile = ({ navigation }) => {
   const [modalContent, setModalContent] = useState(null)
@@ -58,10 +60,10 @@ export const Profile = ({ navigation }) => {
   return (
     <>
       <ScrollView
-            contentContainerStyle={globalStyles.container}
-            overScrollMode="never"
-            bounces={false}
-        >
+        contentContainerStyle={globalStyles.container}
+        overScrollMode="never"
+        bounces={false}
+      >
         <HeaderScreensMenu screenName={"Perfil"} />
         <DefaultModal
           modalContent={modalContent}
@@ -76,7 +78,7 @@ export const Profile = ({ navigation }) => {
             }
           </View>
 
-          <Text style={styles.userName}>{userData && userData.name.split(" ").splice(0, 2).join(" ")}</Text>
+          <Text style={styles.userName}>{userData && getNameLastName(userData.name, false)}</Text>
           <Text style={styles.userEmail}>{userData && userData.email}</Text>
         </View>
 

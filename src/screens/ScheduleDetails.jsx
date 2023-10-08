@@ -18,7 +18,6 @@ import { FreeTimeImage } from '../assets/imgs/FreeTimeImage';
 import DefaultPicture from "../assets/icons/DefaultPicture.png"
 import { CancelSchedule } from '../assets/imgs/CancelSchedule';
 
-import { formatPhoneNumber } from '../utils/formatPhoneNumber';
 import { getNameLastName } from '../utils/getNameLastName';
 
 export const ScheduleDetails = ({ route, navigation }) => {
@@ -108,7 +107,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
             <View style={{ alignItems: 'flex-start', marginTop: 25, width: "100%" }}>
               <Text style={styles.description}>Email: <Text style={styles.info}>{data && data.email}</Text></Text>
-              <Text style={styles.description}>Celular: <Text style={styles.info}>{data && formatPhoneNumber(data.phone, setSomethingWrong)}</Text></Text>
+              <Text style={styles.description}>Celular: <Text style={styles.info}>{data && data.phone}</Text></Text>
               <Text style={styles.description}>
                 Serviço(s):
               </Text>

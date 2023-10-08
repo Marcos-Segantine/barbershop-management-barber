@@ -20,7 +20,7 @@ import { getCurrentSchedule } from "../services/schedules/getCurrentSchedule"
 
 import { formatDate } from "../utils/formatDate"
 import { getDayOfWeek } from "../utils/getDayOfWeek"
-import { formatPhoneNumber } from "../utils/formatPhoneNumber"
+import { getNameLastName } from "../utils/getNameLastName"
 
 import firestore from '@react-native-firebase/firestore';
 import { cancelSchedule } from "../services/schedules/cancelSchedule"
@@ -155,12 +155,12 @@ export const Home = ({ navigation }) => {
                         <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
                 }
 
-                <Text style={styles.clientName}>{scheduleEarlier?.name && scheduleEarlier.name.split(" ").splice(0, 2).join(" ")}</Text>
+                <Text style={styles.clientName}>{scheduleEarlier?.name && getNameLastName(scheduleEarlier.name, false)}</Text>
 
                 <View style={{ alignItems: 'flex-start', marginTop: 20, width: "100%" }}>
                     <Text style={styles.description}>Dia: <Text style={styles.info}>{getDayOfWeek(scheduleEarlier.day)}</Text></Text>
                     <Text style={styles.description}>Hora: <Text style={styles.info}>{scheduleEarlier && scheduleEarlier.schedule}</Text></Text>
-                    <Text style={styles.description}>Celular: <Text style={styles.info}>{scheduleEarlier && formatPhoneNumber(scheduleEarlier.phone, setSomethingWrong)}</Text></Text>
+                    <Text style={styles.description}>Celular: <Text style={styles.info}>{scheduleEarlier && scheduleEarlier.phone}</Text></Text>
                     <View style={styles.servicesList}>
                         <Text style={styles.description}>Serviço(s):</Text>
                         {

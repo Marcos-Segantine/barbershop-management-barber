@@ -8,9 +8,9 @@ import DefaultPicture from "../../assets/icons/DefaultPicture.png"
 
 import { ScheduleContext } from "../../context/ScheduleContext"
 
-import { formatPhoneNumber } from "../../utils/formatPhoneNumber"
-
 import { Button } from "../Button"
+
+import { getNameLastName } from "../../utils/getNameLastName"
 
 export const ShowClientInfo = ({
     modalShowUser,
@@ -58,11 +58,11 @@ export const ShowClientInfo = ({
 
                     </View>
 
-                    <Text style={styles.clientName}>{modalShowUser.name}</Text>
+                    <Text style={styles.clientName}>{getNameLastName(modalShowUser.name, false)}</Text>
 
                     <View style={{ alignItems: 'flex-start', marginTop: 25 }}>
                         <Text style={styles.description}>Email: <Text style={styles.info}>{modalShowUser.email}</Text></Text>
-                        <Text style={styles.description}>Celular: <Text style={styles.info}>{formatPhoneNumber(modalShowUser.phone, setSomethingWrong)}</Text></Text>
+                        <Text style={styles.description}>Celular: <Text style={styles.info}>{modalShowUser.phone}</Text></Text>
                     </View>
 
                     <View style={styles.contentButtons}>

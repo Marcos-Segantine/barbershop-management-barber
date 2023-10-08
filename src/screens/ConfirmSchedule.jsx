@@ -14,7 +14,6 @@ import { SomethingWrongContext } from "../context/SomethingWrongContext"
 import { globalStyles } from "../assets/globalStyles"
 
 import { formatDate } from "../utils/formatDate"
-import { formatPhoneNumber } from "../utils/formatPhoneNumber"
 import { formatPrice } from "../utils/formatPrice"
 import { getDayOfWeek } from "../utils/getDayOfWeek"
 import { getNameLastName } from "../utils/getNameLastName"
@@ -32,7 +31,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
     const { scheduleToUpdate, isToUpdateSchedule } = route.params
 
     const dateFormatted = schedule && formatDate(schedule.day, setSomethingWrong)
-    const phoneFormatted = schedule.client?.phone && formatPhoneNumber(schedule.client.phone, setSomethingWrong)
+    const phoneFormatted = schedule.client?.phone && schedule.client.phone
 
     const isFocused = useIsFocused();
 

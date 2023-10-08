@@ -169,6 +169,11 @@ export const FillProfile = ({ navigation, route }) => {
                 </View>
             </View>
 
+            {
+                isToUpdateProfessionalData &&
+                <Text style={styles.alertBottom}>Não é recomendável alterar seus dados constantemente</Text>
+            }
+
             <Button
                 text={"Confirmar"}
                 action={() => handleConfirmFillProfile(
@@ -241,5 +246,14 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontFamily: globalStyles.fontFamilyBold,
         fontSize: globalStyles.fontSizeSmall
+    },
+
+    alertBottom: {
+        color: "#00000060",
+        fontSize: globalStyles.fontSizeVerySmall,
+        fontFamily: globalStyles.fontFamilyBold,
+        textAlign: "center",
+        marginBottom: 10,
+        width: "80%",
     }
 })

@@ -18,7 +18,9 @@ import { DataUpdated } from "../assets/imgs/DataUpdated"
 import { UserContext } from "../context/UserContext"
 
 import { sortByHour } from "../utils/sortByHour"
-import { isDatePassed } from "../utils/isDatePassed"
+import { SettingsContext } from "../context/SettingsContext"
+
+import { getBlockedDeniedWeekdays } from "../validation/getBlockedDeniedWeekdays"
 
 export const BlockSpecificTimes = ({ navigation }) => {
     const [day, setDay] = useState(null)
@@ -27,8 +29,11 @@ export const BlockSpecificTimes = ({ navigation }) => {
     const [timesBlockedFromEachDay, setTimesBlockedFromEachDay] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [modalContent, setModalContent] = useState(null)
+    const [weekdaysBlocked, setWeekdaysBlocked] = useState([])
+    const [lastMonthSelected, setLastMonthSelected] = useState(null)
 
     const { userData } = useContext(UserContext)
+    const { settings } = useContext(SettingsContext)
 
     useEffect(() => {
 
@@ -53,6 +58,13 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
     }, [day, userData])
 
+    useEffect(() => {
+
+        getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading)
+
+    }, [lastMonthSelected])
+
+
     LocaleConfig.defaultLocale = 'pt-br';
 
     const date = new Date();
@@ -61,7 +73,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
     const maxDay = 25
 
     const handleDay = (day) => {
-        setDay((prevDays) => ({
+        setDay(() => ({
             [day]: {
                 selected: true,
                 marked: true,
@@ -128,6 +140,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
         ...daysWithBlockedTimes,
         ...blockedDays,
         ...day,
+        ...weekdaysBlocked,
     }
 
     if (isLoading) return <Loading flexSize={1} />
@@ -150,6 +163,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
                 maxDate={`${year}-${month}-${maxDay}`}
                 markedDates={markedDays}
                 onDayPress={day => handleDay(day.dateString)}
+                onMonthChange={(data) => setLastMonthSelected(data.dateString)}
                 style={globalStyles.styleCalendar}
                 theme={globalStyles.themeCalendar}
             />

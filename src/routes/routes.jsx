@@ -27,7 +27,7 @@ export const Routes = () => {
 
   return (
     <Navigator
-      initialRouteName='BlockSpecificDays'
+      initialRouteName='Welcome'
       screenOptions={{
         gestureEnabled: false,
         headerShown: false,

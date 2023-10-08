@@ -46,7 +46,11 @@ export const ConfirmSchedule = ({ navigation, route }) => {
     if (isLoading) return <Loading flexSize={1} />
 
     return (
-        <ScrollView contentContainerStyle={[globalStyles.container, { paddingBottom: "20%" }]}>
+        <ScrollView
+            contentContainerStyle={[globalStyles.container, { paddingBottom: "20%" }]}
+            overScrollMode="never"
+            bounces={false}
+        >
             <DefaultModal
                 modalContent={modalContent}
             />

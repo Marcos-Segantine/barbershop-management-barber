@@ -103,7 +103,11 @@ export const CreateNewPassword = ({ navigation, route }) => {
   if (isLoading) return <Loading flexSize={1} />
 
   return (
-    <ScrollView contentContainerStyle={globalStyles.container}>
+    <ScrollView
+            contentContainerStyle={globalStyles.container}
+            overScrollMode="never"
+            bounces={false}
+        >
       <ComeBack text={isToUpdateUserPassword ? "Atualizar Senha" : "Criar senha"} />
 
       <DefaultModal

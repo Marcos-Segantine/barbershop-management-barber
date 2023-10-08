@@ -38,6 +38,8 @@ export const AddSchedule = ({ navigation, route }) => {
       ref={scrollViewRef}
       contentContainerStyle={[globalStyles.container, { paddingBottom: "20%" }]}
       onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+      overScrollMode="never"
+      bounces={false}
     >
       <ComeBack text={headerText} />
 

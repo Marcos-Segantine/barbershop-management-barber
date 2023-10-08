@@ -131,7 +131,11 @@ export const EditServices = ({ navigation }) => {
     if (isNewBarber === null) return <Loading flexSize={1} />
 
     return (
-        <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
+        <ScrollView
+            contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}
+            overScrollMode="never"
+            bounces={false}
+        >
             <DefaultModal
                 modalContent={modalContent}
             />

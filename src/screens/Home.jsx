@@ -139,7 +139,11 @@ export const Home = ({ navigation }) => {
 
     return (
         <>
-            <ScrollView contentContainerStyle={[globalStyles.container, { justifyContent: "space-between" }]}>
+            <ScrollView
+                contentContainerStyle={[globalStyles.container, { justifyContent: "space-between" }]}
+                overScrollMode="never"
+                bounces={false}
+            >
                 <DefaultModal
                     modalContent={modalContent}
                 />

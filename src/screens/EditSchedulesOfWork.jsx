@@ -114,7 +114,11 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     if (currentTimes === null) return <Loading />
 
     return (
-        <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
+        <ScrollView
+            contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}
+            overScrollMode="never"
+            bounces={false}
+        >
             <DefaultModal
                 modalContent={modalContent}
             />

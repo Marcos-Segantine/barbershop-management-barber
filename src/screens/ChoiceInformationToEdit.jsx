@@ -11,7 +11,11 @@ import { ComeBack } from "../components/ComeBack"
 
 export const ChoiceInformationToEdit = ({ navigation }) => {
     return (
-        <ScrollView contentContainerStyle={globalStyles.container}>
+        <ScrollView
+            contentContainerStyle={globalStyles.container}
+            overScrollMode="never"
+            bounces={false}
+        >
             <ComeBack text={"Editar Informações"} />
 
             <TouchableOpacity style={[styles.content, { marginTop: 50 }]} activeOpacity={0.6} onPress={() => navigation.navigate("FillProfile", { isToUpdateProfessionalData: true })}>

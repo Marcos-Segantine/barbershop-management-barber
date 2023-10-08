@@ -194,7 +194,11 @@ export const BlockSpecificTimes = ({ navigation }) => {
     if (isLoading) return <Loading flexSize={1} />
 
     return (
-        <ScrollView contentContainerStyle={globalStyles.container}>
+        <ScrollView
+            contentContainerStyle={globalStyles.container}
+            overScrollMode="never"
+            bounces={false}
+        >
             <ComeBack text={"Bloquear Horários"} />
             <DefaultModal modalContent={modalContent} />
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native"
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native"
 
 import { ComeBack } from "../components/ComeBack"
 import { Loading } from "../components/Loading"
@@ -19,47 +19,6 @@ import { UserContext } from "../context/UserContext"
 
 import { sortByHour } from "../utils/sortByHour"
 import { isDatePassed } from "../utils/isDatePassed"
-
-LocaleConfig.locales['pt-br'] = {
-    monthNames: [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-        'Agosto',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro',
-    ],
-    monthNamesShort: [
-        'jan',
-        'fev',
-        'mar',
-        'abr',
-        'maio',
-        'jun',
-        'jul',
-        'ago',
-        'set',
-        'out',
-        'nov',
-        'dez',
-    ],
-    dayNames: [
-        'Domingo',
-        'Segunda-feira',
-        'Terça-feira',
-        'Quarta-feira',
-        'Quinta-feira',
-        'Sexta-feira',
-        'Sábado',
-    ],
-    dayNamesShort: ['Dom', 'Seg', 'Terç', 'Qua', 'Qui', 'Sex', 'Sáb'],
-};
 
 export const BlockSpecificTimes = ({ navigation }) => {
     const [day, setDay] = useState(null)
@@ -95,26 +54,6 @@ export const BlockSpecificTimes = ({ navigation }) => {
     }, [day, userData])
 
     LocaleConfig.defaultLocale = 'pt-br';
-
-    const themeCalendar = {
-        calendarBackground: globalStyles.champagneColor,
-        dayTextColor: '#000000',
-        selectedDayTextColor: globalStyles.champagneColor,
-        selectedDayBackgroundColor: '#000000',
-        textDisabledColor: '#00000040',
-        textSectionTitleColor: '#000000',
-        arrowColor: '#000000',
-        monthTextColor: '#000000',
-        textDayHeaderFontWeight: '700',
-    };
-
-    const { width } = Dimensions.get('screen')
-    const styleCalendar = {
-        width: width - 20,
-        padding: 5,
-        borderRadius: 20,
-        marginBottom: 20
-    };
 
     const date = new Date();
     const year = date.getFullYear() + 1
@@ -211,8 +150,8 @@ export const BlockSpecificTimes = ({ navigation }) => {
                 maxDate={`${year}-${month}-${maxDay}`}
                 markedDates={markedDays}
                 onDayPress={day => handleDay(day.dateString)}
-                style={styleCalendar}
-                theme={themeCalendar}
+                style={globalStyles.styleCalendar}
+                theme={globalStyles.themeCalendar}
             />
 
             <View style={styles.content}>

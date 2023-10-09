@@ -25,6 +25,7 @@ export const BlockSpecificDays = ({ navigation }) => {
     const [modalContent, setModalContent] = useState(null)
     const [weekdaysBlocked, setWeekdaysBlocked] = useState([])
     const [lastMonthSelected, setLastMonthSelected] = useState(null)
+    const [calendarLoadingIndicator, setCalendarLoadingIndicator] = useState(true)
 
     const { userData } = useContext(UserContext)
     const { settings } = useContext(SettingsContext)
@@ -33,25 +34,29 @@ export const BlockSpecificDays = ({ navigation }) => {
 
     useEffect(() => {
 
-        if (!userData) return
+        (async () => {
 
-        const deniedDays = async () => {
-            const data = await daysBlocked(userData.uid, false)
+            if (!userData) return
 
-            for (const date in data) {
-                data[date] = {
-                    selected: true,
-                    marked: true,
-                    selectedColor: globalStyles.orangeColor,
+            const deniedDays = async () => {
+                const data = await daysBlocked(userData.uid, false)
+
+                for (const date in data) {
+                    data[date] = {
+                        selected: true,
+                        marked: true,
+                        selectedColor: globalStyles.orangeColor,
+                    }
                 }
+
+                setDays(data)
             }
 
-            setDays(data)
-        }
+            if (days === null) await deniedDays(userData)
 
-        if (days === null) deniedDays(userData)
-
-        getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading)
+            getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading)
+            setCalendarLoadingIndicator(false)
+        })();
 
     }, [lastMonthSelected, userData])
 
@@ -120,12 +125,14 @@ export const BlockSpecificDays = ({ navigation }) => {
                 onMonthChange={(data) => setLastMonthSelected(data.dateString)}
                 style={globalStyles.styleCalendar}
                 theme={globalStyles.themeCalendar}
+                displayLoadingIndicator={calendarLoadingIndicator}
             />
 
             <Button
                 text={'Confirmar'}
                 action={handleConfirm}
                 addStyles={{ marginTop: 20 }}
+                isToBlockButton={calendarLoadingIndicator === true}
             />
         </ScrollView>
     )

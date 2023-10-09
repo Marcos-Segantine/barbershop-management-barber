@@ -12,7 +12,6 @@ import passwordVisionIcon from "../assets/icons/passwordVisionIcon.png"
 import passwordVisionBlockIcon from "../assets/icons/passwordVisionBlockIcon.png"
 
 import { Button } from "../components/Button"
-import { ComeBack } from "../components/ComeBack"
 import { Loading } from "../components/Loading"
 import { DefaultModal } from "../components/modals/DefaultModal"
 
@@ -86,7 +85,6 @@ export const Login = ({ navigation, route }) => {
             overScrollMode="never"
             bounces={false}
         >
-            <ComeBack />
             <DefaultModal
                 modalContent={modalInfo}
             />

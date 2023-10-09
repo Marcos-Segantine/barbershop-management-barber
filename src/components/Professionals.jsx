@@ -44,7 +44,7 @@ export const Professionals = ({ preferProfessional }) => {
 
     }, [availableProfessional])
 
-    if (!preferProfessional && isLoading) return <Loading />
+    if ((!preferProfessional && isLoading) || availableProfessional.length === 0) return <Loading />
 
     return (
         <View style={styles.container}>

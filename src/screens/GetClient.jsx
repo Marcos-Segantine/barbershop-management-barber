@@ -10,6 +10,7 @@ import { Button } from "../components/Button"
 import { Menu } from "../components/Menu"
 import { ShowClientInfo } from "../components/modals/ShowClientInfo"
 import { DefaultModal } from "../components/modals/DefaultModal"
+import { Loading } from "../components/Loading"
 
 import { EmailIcon } from "../assets/icons/EmailIcon"
 import { SMSIcon } from "../assets/icons/SMSIcon"
@@ -26,6 +27,7 @@ export const GetClient = ({ navigation, route }) => {
     const [inputSelected, setInputSelected] = useState(null)
     const [modalContent, setModalContent] = useState(null)
     const [clientData, setClientData] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -35,6 +37,7 @@ export const GetClient = ({ navigation, route }) => {
 
     const handleConfirm = async () => {
         setInputSelected(null)
+        setIsLoading(true)
 
         const clientData = await getUserDataByEmailOrPhone(
             email.trim(),
@@ -48,6 +51,8 @@ export const GetClient = ({ navigation, route }) => {
             setSchedule({ ...schedule, client: { ...clientData } })
 
         }
+
+        setIsLoading(false)
     }
 
     const handleNewClient = () => {
@@ -57,6 +62,8 @@ export const GetClient = ({ navigation, route }) => {
 
     const styleEmail = inputSelected === 'email' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
     const stylePhone = inputSelected === 'phone' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
+
+    if (isLoading) return <Loading flexSize={1} />
 
     return (
         <>

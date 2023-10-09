@@ -58,13 +58,6 @@ export const Schedules = ({ preferProfessional }) => {
             }
 
             {
-                (preferProfessional && !availableTimes) &&
-                (
-                    <Text style={styles.text}>Por favor escolha um profissional e dia para que possamos conferir os horários disponíveis</Text>
-                )
-            }
-
-            {
                 (!preferProfessional) && <Text style={styles.text}>Escolha um horário</Text>
             }
 

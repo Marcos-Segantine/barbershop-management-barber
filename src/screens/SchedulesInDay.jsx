@@ -118,7 +118,7 @@ export const SchedulesInDay = ({ route }) => {
               );
             }) :
             <>
-              <Text style={{color: "#00000090", fontFamily: globalStyles.fontFamilyMedium, fontSize: globalStyles.fontSizeSmall, textAlign: "center", width: "100%", marginTop: 40 }}>Não há mais nenhum horário para hoje</Text>
+              <Text style={{color: "#00000090", fontFamily: globalStyles.fontFamilyMedium, fontSize: globalStyles.fontSizeSmall, textAlign: "center", width: "100%", marginTop: 40 }}>Não há mais nenhum horário hoje.</Text>
               <FreeTimeImage height={400} width={"100%"} />
             </>
         }

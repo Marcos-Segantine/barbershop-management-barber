@@ -54,7 +54,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
                 modalContent={modalContent}
             />
 
-            <ComeBack text={"Confirme as informações"} />
+            <ComeBack text={"Confirmar Agendamento"} />
 
             <View style={{ width: "100%", alignItems: 'center' }}>
                 <View style={styles.content}>
@@ -74,7 +74,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-                        <Text style={styles.describe}>Dia da semana</Text>
+                        <Text style={styles.describe}>Dia da Semana</Text>
                         <Text style={styles.info}>{getDayOfWeek(schedule.day)}</Text>
                     </View>
 

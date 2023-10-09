@@ -108,7 +108,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
             overScrollMode="never"
             bounces={false}
         >
-      <ComeBack text={isToUpdateUserPassword ? "Atualizar Senha" : "Criar senha"} />
+      <ComeBack text={isToUpdateUserPassword ? "Atualizar Senha" : "Criar Senha"} />
 
       <DefaultModal
         modalContent={modalContent}
@@ -126,7 +126,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
               <TextInput
                 style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
-                placeholder={"Nova senha"}
+                placeholder={"Nova Senha"}
                 value={currentPassword}
                 placeholderTextColor={"#00000050"}
                 secureTextEntry={hiddenCurrentPassword}

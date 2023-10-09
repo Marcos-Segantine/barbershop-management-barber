@@ -35,12 +35,12 @@ export const ChoiceInformationToEdit = ({ navigation }) => {
 
             <TouchableOpacity style={styles.content} activeOpacity={0.6} onPress={() => navigation.navigate("BlockSpecificDays")}>
                 <DaysBlocked height={250} width={250} />
-                <Text style={styles.text}>Bloquear dias</Text>
+                <Text style={styles.text}>Bloquear Dias</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.content} activeOpacity={0.6} onPress={() => navigation.navigate("BlockSpecificTimes")}>
                 <BlockTime height={250} width={250} />
-                <Text style={styles.text}>Bloquear horarios</Text>
+                <Text style={styles.text}>Bloquear Horários</Text>
             </TouchableOpacity>
         </ScrollView>
     )

@@ -45,7 +45,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
     setConfirmCancelSchedule({
       image: <CancelSchedule />,
       mainMessage: "Tem certeza disso?",
-      message: "Essa ação é IRREVERSÍVEL, depois de feita não é possível voltar atrás",
+      message: "Essa ação é irreversível, depois de feita não é possível voltar atrás",
       firstButtonText: "Estou ciente disso",
       firstButtonAction: () => {
         cancelSchedule(data.clientUid, data, setSomethingWrong);
@@ -66,11 +66,11 @@ export const ScheduleDetails = ({ route, navigation }) => {
   if (isScheduleFree === true && data === undefined) {
     return (
       <View style={[globalStyles.container, { flex: 1, justifyContent: "space-around" }]}>
-        <ComeBack text={"Horário livre"} />
+        <ComeBack text={"Horário Livre"} />
         <FreeTimeImage height={"70%"} width={"100%"} />
 
         <Button
-          text={'Agendar cliente'}
+          text={'Agendar Cliente'}
           action={handleNewSchedule}
         />
       </View>
@@ -128,7 +128,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
           </View>
 
           <Button
-            text={'Cancelar agendamento'}
+            text={'Cancelar Agendamento'}
             action={handleCancelSchedule}
           />
         </View>

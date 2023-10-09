@@ -142,7 +142,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
 
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
                         <Button
-                            text={"seg. á sex."}
+                            text={"Seg. á Sex."}
                             addStyles={dayOfWeek === "weekday" ?
                                 { width: "32%", backgroundColor: globalStyles.orangeColor }
                                 :
@@ -199,12 +199,11 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                                             <CloseIcon />
                                         </Pressable>
 
-                                        <TouchableOpacity
+                                        <View
                                             style={styles.schedule}
-                                            onPress={() => { }}
                                         >
                                             <Text style={styles.time}>{time}</Text>
-                                        </TouchableOpacity>
+                                        </View>
                                     </View>
                                 ))
                             )
@@ -225,7 +224,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                         action={handleConfirm}
                         addStyles={{ alignSelf: "center", marginTop: 50 }}
                     /> :
-                    <Text style={styles.info}>É obrigatório informar pelo menos um horário de trabalho</Text>
+                    <Text style={styles.info}>Pelo menos um horário de trabalho é obrigatório informar.</Text>
             }
 
         </ScrollView>

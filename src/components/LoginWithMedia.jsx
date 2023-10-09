@@ -50,7 +50,7 @@ export const LoginWithMedia = ({ isToShowJustIcon }) => {
 
                             <TouchableOpacity style={[styles.button, styles.buttonDisabled]} disabled={true}>
                                 <AppleIcon />
-                                <Text style={styles.text}>Continue com o Apple</Text>
+                                <Text style={styles.text}>Continue com a Apple</Text>
                             </TouchableOpacity>
                         </>
                     )

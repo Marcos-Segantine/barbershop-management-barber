@@ -71,7 +71,7 @@ export const FillProfile = ({ navigation, route }) => {
         setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone) })
     }
 
-    const headerText = !!createNewPerson?.newPerson ? createNewPerson.newPerson === "client" ? "Dados do cliente" : "Dados do profissional" : "Atualizar seu perfil"
+    const headerText = !!createNewPerson?.newPerson ? createNewPerson.newPerson === "client" ? "Dados do Cliente" : "Dados do Profissional" : "Atualizar Perfil"
 
     if (isLoading) return <Loading flexSize={1} />
 
@@ -90,7 +90,7 @@ export const FillProfile = ({ navigation, route }) => {
             {
                 isToUpdateProfessionalData &&
                 <Text style={{ color: "#000000", fontFamily: globalStyles.fontFamilyBold, marginVertical: 20, fontSize: globalStyles.fontSizeSmall }}>
-                    AVISO: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}>As informações dos campos vazios não serão atualizadas</Text>
+                    Atenção: <Text style={{ fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}>Os campos em branco permanecerão sem mudanças nas informações.</Text>
                 </Text>
             }
 
@@ -171,7 +171,7 @@ export const FillProfile = ({ navigation, route }) => {
 
             {
                 isToUpdateProfessionalData &&
-                <Text style={styles.alertBottom}>Não é recomendável alterar seus dados constantemente</Text>
+                <Text style={styles.alertBottom}>Não é aconselhável modificar constantemente suas informações.</Text>
             }
 
             <Button

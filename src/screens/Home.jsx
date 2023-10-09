@@ -76,7 +76,7 @@ export const Home = ({ navigation }) => {
                 firstButtonText: "Confirmar",
                 secondButtonText: "Cancelar",
                 mainMessage: "Ateção",
-                message: "Caso você confirme o agendamento será completamente apagado.",
+                message: "Se você confirmar o agendamento, ele será totalmente apagado.",
                 firstButtonAction: () => {
                     setIsLoading(true)
 
@@ -98,8 +98,8 @@ export const Home = ({ navigation }) => {
             image: <ConfirmScheduleDone />,
             firstButtonText: "Confirmar",
             secondButtonText: "Cancelar",
-            mainMessage: "Ateção",
-            message: "Caso você confirme o agendamento será completamente apagado.",
+            mainMessage: "Atenção",
+            message: "Se você confirmar o agendamento, ele será totalmente apagado.",
             firstButtonAction: () => {
                 setIsLoading(true)
 
@@ -126,7 +126,7 @@ export const Home = ({ navigation }) => {
                 <FreeTimeImage width={"100%"} height={"60%"} />
 
                 <Button
-                    text={"Agendar horário"}
+                    text={"Agendar Horário"}
                     action={() => navigation.navigate("GetClient")}
                 />
             </View>

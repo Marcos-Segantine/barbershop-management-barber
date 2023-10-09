@@ -43,7 +43,7 @@ export const AddSchedule = ({ navigation, route }) => {
     >
       <ComeBack text={headerText} />
 
-      <Text style={styles.text}>Voce tem preferência por profissional?</Text>
+      <Text style={styles.text}>Preferência por profissional?</Text>
       <View style={{ width: "100%", flexDirection: 'row', justifyContent: 'space-around' }}>
         <TouchableOpacity style={preferProfessionalStyle__Yes} activeOpacity={.8} onPress={() => setPreferProfessional(true)}>
           <Text style={preferProfessional ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#FFFFFF' } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: '#000000' }}>Sim</Text>

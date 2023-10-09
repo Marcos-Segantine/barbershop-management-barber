@@ -87,8 +87,8 @@ export const BlockSpecificDays = ({ navigation }) => {
         setIsLoading(false)
         setModalContent({
             image: <DataUpdated />,
-            mainMessage: "Atualizado com sucesso!",
-            message: "Agora não haverá mais agendamentos nos dias selecionados.",
+            mainMessage: "Atualizado com Sucesso!",
+            message: "Não estão mais disponíveis agendamentos para os dias escolhidos.",
             firstButtonText: "Continuar",
             firstButtonAction: () => {
                 navigation.goBack()
@@ -108,8 +108,8 @@ export const BlockSpecificDays = ({ navigation }) => {
             <ComeBack text={"Bloquear Dias"} />
             <DefaultModal modalContent={modalContent} />
 
-            <Text style={styles.title}>Selecione no calendário os dias que ficarão indisponiveis para os seus clientes.</Text>
-            <Text style={styles.text}>Os dias marcados serão bloqueados.</Text>
+            <Text style={styles.title}>Marque no calendário os dias que estarão indisponíveis para os clientes.</Text>
+            <Text style={styles.text}>Os dias que estiverem marcados serão bloqueados.</Text>
 
             <Calendar
                 context={{ date: '' }}

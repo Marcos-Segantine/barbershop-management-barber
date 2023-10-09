@@ -64,7 +64,7 @@ export const SchedulesClients = ({ navigation }) => {
         <FreeTimeImage width={"100%"} height={"60%"} />
 
         <Button
-          text={"Agendar horário"}
+          text={"Agendar Horário"}
           action={() => navigation.navigate("GetClient", { isToClearScheduleContext: true })}
         />
       </View>
@@ -116,7 +116,7 @@ const Top = ({ data, dateToFilter, setShowModalFilter, showModalFilter }) => {
 
       <View style={style.contentFilterInfo}>
         <View>
-          <Text style={{ color: "#00000070", fontSize: globalStyles.fontSizeVerySmall, marginBottom: 5 }}>Filtros atual</Text>
+          <Text style={{ color: "#00000070", fontSize: globalStyles.fontSizeVerySmall, marginBottom: 5 }}>Filtros Atual</Text>
           <Text style={style.contentFilterText}>Ano:
             <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}> {dateToFilter[0] || "---"}</Text>
           </Text>

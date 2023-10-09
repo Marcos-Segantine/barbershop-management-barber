@@ -8,7 +8,7 @@ import { globalStyles } from "../assets/globalStyles"
 import { getAvailableTimesByProfessional } from "../services/schedules/getAvailableTimesByProfessional"
 import { getAllTimes } from "../services/schedules/getAllTimes"
 
-import { getDay } from "../utils/dateHelper"
+import { getDay, getMonth } from "../utils/dateHelper"
 import { sortByHour } from "../utils/sortByHour"
 
 import { Loading } from "./Loading"
@@ -21,7 +21,7 @@ export const Schedules = ({ preferProfessional }) => {
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { userData } = useContext(UserContext)
 
-    const day = schedule.day && getDay(schedule)
+    const day = schedule.day && `${getDay(schedule.day)} de ${getMonth(schedule.day)}`
 
     useEffect(() => {
 
@@ -52,7 +52,7 @@ export const Schedules = ({ preferProfessional }) => {
                 (
                     availableTimes.length ?
                         <Text style={styles.text}>Escolha um horário</Text> :
-                        <Text style={styles.text}>Infelizmente o {schedule.professional} não tem nenhum horário vago no dia {day}</Text>
+                        <Text style={styles.text}>Infelizmente {schedule.gender === "female" ? "a" : "o"} {schedule.professional} não tem nenhum horário vago no dia {day}</Text>
                 )
 
             }

@@ -46,7 +46,7 @@ export const Menu = () => {
                         <NewScheduleIconSelected /> :
                         <NewScheduleIcon />
                 }
-                <Text style={itemSelected === 'GetClient' ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#fc9501" } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#000000" }}>Agendar horário</Text>
+                <Text style={itemSelected === 'GetClient' ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#fc9501" } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#000000" }}>Agendar Horário</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => handleNavigation('SchedulesClients')}>
@@ -55,7 +55,7 @@ export const Menu = () => {
                         <SchedulesIconSelected /> :
                         <SchedulesIcon />
                 }
-                <Text style={itemSelected === 'SchedulesClients' ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#fc9501" } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#000000" }}>Meus horários</Text>
+                <Text style={itemSelected === 'SchedulesClients' ? { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#fc9501" } : { fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall, color: "#000000" }}>Agendamentos</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => handleNavigation('Profile')}>

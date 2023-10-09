@@ -26,7 +26,6 @@ export const ConfirmCancelSchedule = ({ confirmCancelScheduleVisible, setConfirm
                 <View style={styles.content}>
                     <Text style={styles.mainMessage}>Cancelar Horário</Text>
                     <Text style={styles.middleMessage}>Você tem certeza que deseja cancelar seu horário?</Text>
-                    <Text>Essa ação não pode ser desfeita</Text>
 
                     <View style={{ width: "100%", flexDirection: 'row', justifyContent: 'space-around' }}>
                         <TouchableOpacity

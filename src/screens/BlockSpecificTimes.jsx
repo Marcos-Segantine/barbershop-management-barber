@@ -113,8 +113,8 @@ export const BlockSpecificTimes = ({ navigation }) => {
         await blockedTimes(userData.uid, timesBlockedFromEachDay)
         setModalContent({
             image: <DataUpdated />,
-            mainMessage: "Atualizado com sucesso!",
-            message: "Os horários selecionados foram bloqueados.",
+            mainMessage: "Atualizado com Sucesso!",
+            message: "Nos horários dos dias selecionados, não é mais permitido que os usuários agendem.",
             firstButtonText: "Continuar",
             firstButtonAction: () => {
                 navigation.goBack()
@@ -154,7 +154,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
             <ComeBack text={"Bloquear Horários"} />
             <DefaultModal modalContent={modalContent} />
 
-            <Text style={styles.title}>Selecione o dia no calendario e quais horários você quer bloquear.</Text>
+            <Text style={styles.title}>Selecione o dia no calendário e quais horários você quer bloquear.</Text>
             <Text style={styles.text}>Os dias que tiverem horários bloqueados ficarão marcados.</Text>
 
             <Calendar
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     description: {
         fontSize: globalStyles.fontSizeVerySmall,
         fontFamily: globalStyles.fontFamilyBold,
-        color: "#00000090",
+        color: "#00000080",
         textAlign: "center",
         width: "100%",
         marginBottom: 20

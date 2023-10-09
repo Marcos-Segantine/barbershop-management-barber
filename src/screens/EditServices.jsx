@@ -142,10 +142,10 @@ export const EditServices = ({ navigation }) => {
             <ComeBack text={"Editar seus Serviços"} />
 
             <View style={styles.content}>
-                <Text style={styles.text}>Insira os seus serviços no campo abaixo.</Text>
+                <Text style={styles.text}>Insira o um novo serviço preenchendo os campos abaixo.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder={"Insira um novo serviço"}
+                    placeholder={"Nome do serviço"}
                     placeholderTextColor={"#00000050"}
                     value={newService.name}
                     onChangeText={text => setNewService({ ...newService, name: text })}

@@ -9,14 +9,8 @@ import { handleNavigation } from "../handlers/handleNavigation";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { ScheduleContext } from "../context/ScheduleContext";
-import { UserContext } from "../context/UserContext";
-
 export const HeaderScreensMenu = ({ screenName }) => {
     const navigation = useNavigation();
-
-    const { setSchedule } = useContext(ScheduleContext)
-    const { userData } = useContext(UserContext)
 
     useEffect(() => {
 

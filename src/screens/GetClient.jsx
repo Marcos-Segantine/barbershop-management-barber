@@ -74,9 +74,9 @@ export const GetClient = ({ navigation, route }) => {
                     modalContent={modalContent}
                 />
 
-                <HeaderScreensMenu screenName={"Agendar horário para um cliente"} />
+                <HeaderScreensMenu screenName={"Agendar Horário"} />
 
-                <Text style={{ color: "#000000", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium, marginTop: 30 }}>Por favor, preencha um dos campos abaixo com os dados do cliente que deseja agendar um horário.</Text>
+                <Text style={{ color: "#000000", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium, marginTop: 30 }}>Preencha um dos campos abaixo com os dados do cliente que deseja agendar um horário.</Text>
 
                 <View style={styles.contentContact}>
                     <View

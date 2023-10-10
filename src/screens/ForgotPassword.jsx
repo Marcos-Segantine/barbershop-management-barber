@@ -32,6 +32,17 @@ export const ForgotPassword = ({ navigation }) => {
 
     const handleFocusInput = text => setInputSelected(text)
 
+    const handlePhoneNumber = (phone) => {
+        if (phone.length > 15) {
+            phone = phone.split("").slice(0, 15).join("")
+            setPhone(formatInputPhoneNumber(phone))
+
+            return
+        }
+
+        setPhone(formatInputPhoneNumber(phone))
+    }
+
     const handleConfirm = async () => {
         setIsLoading(true)
         setInputSelected(null)
@@ -98,15 +109,15 @@ export const ForgotPassword = ({ navigation }) => {
                 placeholderTextColor="#00000050"
                 keyboardType="number-pad"
                 onFocus={() => handleFocusInput("phone")}
-                onChangeText={text => setPhone(text)}
-                value={formatInputPhoneNumber(phone)}
+                onChangeText={text => handlePhoneNumber(text)}
+                value={phone}
             />
 
             <Button
                 action={handleConfirm}
                 text={"Confirmar"}
                 addStyles={{ marginTop: 20, marginBottom: 30 }}
-                isToBlockButton={email.trim() === "" && phone.trim() === ""}
+                isToBlockButton={email?.trim() === "" && phone?.trim() === ""}
             />
         </ScrollView>
     )

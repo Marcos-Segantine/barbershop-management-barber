@@ -35,6 +35,17 @@ export const GetClient = ({ navigation, route }) => {
 
     const { isToClearScheduleContext } = route.params || {}
 
+    const handlePhoneNumber = (phone) => {
+        if (phone.length > 15) {
+            phone = phone.split("").slice(0, 15).join("")
+            setPhone(formatInputPhoneNumber(phone))
+
+            return
+        }
+
+        setPhone(formatInputPhoneNumber(phone))
+    }
+
     const handleConfirm = async () => {
         setInputSelected(null)
         setIsLoading(true)
@@ -129,8 +140,8 @@ export const GetClient = ({ navigation, route }) => {
                                 style={stylePhone}
                                 placeholder={"Insira o número do cliente"}
                                 placeholderTextColor={"#00000050"}
-                                onChangeText={text => setPhone(text)}
-                                value={formatInputPhoneNumber(phone)}
+                                onChangeText={text => handlePhoneNumber(text)}
+                                value={phone}
                                 keyboardType={"number-pad"}
                                 onFocus={() => setInputSelected("phone")}
                             />

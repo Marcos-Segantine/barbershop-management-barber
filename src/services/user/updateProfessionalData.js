@@ -28,17 +28,25 @@ export const updateProfessionalData = async (
         const email = trimAndNormalizeSpaces(professionalData.email || userData.email)
         const phone = trimAndNormalizeSpaces(professionalData.phone || userData.phone)
 
+        const phoneChanged = !!professionalData.phone
+
         const dataUpdated = {
             name: name,
             email: email,
             phone: phone,
             profilePicture: url || userData.profilePicture,
             gender: professionalData.gender || userData.gender,
-            uid: professionalUid
+            uid: professionalUid,
+            phoneNumberValidated: phoneChanged ? false : professionalData.phoneNumberValidated
         }
 
         setUserData({ ...dataUpdated })
         await barbersRef.update({ ...dataUpdated })
+
+        if (phoneChanged) {
+            navigation.navigate("GetCode")
+            return
+        }
 
         setIsLoading(false)
         navigation.navigate("Profile")

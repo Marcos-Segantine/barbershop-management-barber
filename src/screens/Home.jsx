@@ -11,6 +11,7 @@ import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { Menu } from "../components/Menu"
 import { Loading } from "../components/Loading"
 import { DefaultModal } from "../components/modals/DefaultModal"
+import { AlertValidatePhoneNumber } from "../components/modals/AlertValidatePhoneNumber"
 
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 import { UserContext } from "../context/UserContext"
@@ -32,6 +33,7 @@ export const Home = ({ navigation }) => {
     const [scheduleEarlier, setScheduleEarlier] = useState(null)
     const [modalContent, setModalContent] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [showModalPhoneNotValidated, setShowModalPhoneNotValidated] = useState(false)
 
     const { userData } = useContext(UserContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -44,6 +46,13 @@ export const Home = ({ navigation }) => {
         });
 
         return () => unsubscribe();
+    }, [userData])
+
+    useEffect(() => {
+        if (!userData?.phoneNumberValidated) {
+            setShowModalPhoneNotValidated(true)
+        }
+
     }, [userData])
 
     useEffect(() => {
@@ -122,6 +131,10 @@ export const Home = ({ navigation }) => {
         <>
             <View style={[globalStyles.container, { flex: 1, justifyContent: "space-between" }]}>
                 <HeaderScreensMenu screenName={"Agenda Vazia"} />
+                <AlertValidatePhoneNumber
+                    visible={showModalPhoneNotValidated}
+                    setVisible={setShowModalPhoneNotValidated}
+                />
 
                 <FreeTimeImage width={"100%"} height={"60%"} />
 
@@ -146,6 +159,10 @@ export const Home = ({ navigation }) => {
             >
                 <DefaultModal
                     modalContent={modalContent}
+                />
+                <AlertValidatePhoneNumber
+                    visible={showModalPhoneNotValidated}
+                    setVisible={setShowModalPhoneNotValidated}
                 />
 
                 <HeaderScreensMenu screenName={dayFormatted} />

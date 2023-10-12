@@ -217,6 +217,16 @@ export const GetCode = ({ navigation }) => {
         inputRefs[0].current?.focus();
     }
 
+    const handleCannotResendVerification = () => {
+        setModalContent({
+            image: <MessageErrorAuthImage />,
+            mainMessage: "Aguarde um Momento",
+            message: "Por favor, espere 5 minutos antes de tentar novamente. Agradecemos sua compreensão.",
+            firstButtonText: "Entendido",
+            firstButtonAction: () => setModalContent(null)
+        })
+    }
+
     const phoneHidden = userData?.phone.replace(/[^0-9]/g, '').split('').map((number, index) => index < 8 ? "*" : number).join('')
 
     if (isLoading) return <Loading flexSize={1} text={"Este procedimento pode levar um tempo para ser concluído."} />
@@ -270,7 +280,7 @@ export const GetCode = ({ navigation }) => {
                     <TouchableOpacity onPress={() => setChangePhoneNumber(true)}>
                         <Text style={styles.helpersText}>Trocar de número</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={timer === 0 ? () => verifyPhoneNumber() : null}>
+                    <TouchableOpacity onPress={timer === 0 ? () => verifyPhoneNumber() : handleCannotResendVerification}>
                         <Text style={timer === 0 ? styles.helpersText : [styles.helpersText, { color: globalStyles.orangeColorDarker }]}>Não recebi o código</Text>
                     </TouchableOpacity>
                 </View>
@@ -332,6 +342,7 @@ const styles = StyleSheet.create({
         fontSize: globalStyles.fontSizeVerySmall,
         fontFamily: globalStyles.fontFamilyBold,
         width: "100%",
-        marginTop: 10
+        marginTop: 10,
+        textAlign: "right"
     }
 })

@@ -1,20 +1,79 @@
 import { View, Modal, StyleSheet, Text, TextInput } from "react-native"
 import { useState, useContext } from "react"
 
+import { UserContext } from "../../context/UserContext"
+
 import { globalStyles } from "../../assets/globalStyles"
 import { GetNewPhoneNumberImage } from "../../assets/imgs/GetNewPhoneNumberImage"
+import { MessageErrorAuthImage } from "../../assets/imgs/MessageErrorAuthImage"
 
 import { Button } from "../Button"
+import { DefaultModal } from "./DefaultModal"
+
+import { isValidPhoneNumber } from "../../validation/isValidPhoneNumber"
 
 import { formatInputPhoneNumber } from "../../utils/formatInputPhoneNumber"
-import { UserContext } from "../../context/UserContext"
+import { verifyIfDataAlreadyExist } from "../../validation/verifyIfDataAlreadyExist"
 
 export const GetNewPhoneNumber = ({ visible, setVisible, setTimer, setIsLoading }) => {
     const [newPhone, setNewPhone] = useState("")
+    const [modalContent, setModalContent] = useState(null)
 
     const { userData, setUserData } = useContext(UserContext)
 
     const handleConfirm = () => {
+        if (newPhone.trim().length === 0) {
+            setModalContent({
+                image: <MessageErrorAuthImage />,
+                mainMessage: "Campo Vazio !",
+                message: "Por favor preencha o campo para que seja possivel adicionar um novo telefone",
+                firstButtonText: "Entendido",
+                firstButtonAction: () => setModalContent(null),
+            })
+
+            return
+        }
+        else if (newPhone === userData.phone) {
+            setVisible(false)
+            setNewPhone("")
+
+            return
+        }
+
+        const isPhoneValid = isValidPhoneNumber(newPhone)
+
+        if (!isPhoneValid) {
+            setModalContent({
+                image: <MessageErrorAuthImage />,
+                mainMessage: "Número Inválido",
+                message: "O número de telefone inserido não é válido. Por favor, verifique o número de telefone que você inseriu. Lembre de colocar o DDD. Exemplo: (99) 99999-9999",
+                firstButtonText: "Tentar Novamente",
+                firstButtonAction: () => setModalContent(null),
+                secondButtonText: "Voltar",
+                secondButtonAction: () => {
+                    setModalContent(null)
+                    setNewPhone("")
+                    setVisible(false)
+                }
+            })
+
+            return
+        }
+
+        const phoneExist = verifyIfDataAlreadyExist("phone", newPhone)
+
+        if (phoneExist) {
+            setModalContent({
+                image: <MessageErrorAuthImage />,
+                mainMessage: "Telefone ja existente",
+                message: "O telefone que voce digitou ja existe. Por favor, utilize outro.",
+                firstButtonText: "Tentar Novamente",
+                firstButtonAction: () => setModalContent(null),
+            })
+
+            return
+        }
+
         setIsLoading(true)
         setVisible(false)
         setUserData({ ...userData, phone: newPhone })
@@ -40,6 +99,7 @@ export const GetNewPhoneNumber = ({ visible, setVisible, setTimer, setIsLoading 
             transparent={true}
         >
             <View style={styles.container}>
+                <DefaultModal modalContent={modalContent} />
                 <GetNewPhoneNumberImage width={"100%"} height={"55%"} />
 
                 <Text style={styles.text}>Por favor, digite o seu novo número de telefone</Text>

@@ -1,6 +1,6 @@
 import Svg, { Path, G } from "react-native-svg"
 
-export const ScheduleUnavailableNow = ({ width, height }) => {
+export const ScheduleUnavailableNow = ({ width = 300, height = 300 }) => {
     return (
         <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width={width} height={height}>
             <Path

@@ -27,6 +27,7 @@ import firestore from '@react-native-firebase/firestore';
 import { cancelSchedule } from "../services/schedules/cancelSchedule"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { getPreviousScreensName } from "../utils/getPreviousScreensName"
 
 export const Home = ({ navigation }) => {
     const [schedulesOfProfessional, setSchedulesOfProfessional] = useState(null)
@@ -49,9 +50,33 @@ export const Home = ({ navigation }) => {
     }, [userData])
 
     useEffect(() => {
-        if (!userData?.phoneNumberValidated) {
-            setShowModalPhoneNotValidated(true)
-        }
+        (async () => {
+
+            const [previousScreen, lastScreen] = getPreviousScreensName(navigation, setSomethingWrong)
+
+            const time = await AsyncStorage.getItem("@barber_app__phone_verification_time")
+            if (time) {
+
+                const hour = time.split(":").map(Number)[0]
+                const currentHour = +new Date().getHours()
+
+                if (
+                    !userData?.phoneNumberValidated &&
+                    previousScreen === "Welcome" && lastScreen === "Home" &&
+                    currentHour > (hour + 6)
+                ) {
+                    setShowModalPhoneNotValidated(true)
+                }
+            } else {
+                if (
+                    !userData?.phoneNumberValidated &&
+                    previousScreen === "Welcome" && lastScreen === "Home"
+                ) {
+                    setShowModalPhoneNotValidated(true)
+                }
+            }
+
+        })();
 
     }, [userData])
 

@@ -21,6 +21,7 @@ import auth from '@react-native-firebase/auth';
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import { userPhoneNumberValidated } from "../services/auth/userPhoneNumberValidated"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const GetCode = ({ navigation }) => {
     const [confirm, setConfirm] = useState(null)
@@ -45,6 +46,8 @@ export const GetCode = ({ navigation }) => {
             const confirmation = await auth().verifyPhoneNumber("+55" + phone).catch(({ code, message }) => {
                 if (code === "auth/too-many-requests") {
                     setIsLoading(false)
+
+                    AsyncStorage.setItem("@barber_app__phone_verification_time", `${new Date().getHours()}:${new Date().getMinutes()}`)
 
                     setModalContent({
                         image: <MessageErrorAuthImage />,

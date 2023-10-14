@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react"
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions } from "react-native"
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from "react-native"
 
 import { Button } from "../components/Button"
 import { ComeBack } from "../components/ComeBack"
@@ -15,12 +15,15 @@ import { ScheduleUnavailableNow } from "../assets/imgs/ScheduleUnavailableNow"
 
 import { UserContext } from "../context/UserContext"
 
+import { getScreenDimensions } from "../utils/getScreenDimensions"
+
 import { handleError } from "../handlers/handleError"
 
 import auth from '@react-native-firebase/auth';
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import { userPhoneNumberValidated } from "../services/auth/userPhoneNumberValidated"
+
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const GetCode = ({ navigation }) => {
@@ -107,7 +110,7 @@ export const GetCode = ({ navigation }) => {
     }
 
     useEffect(() => {
-        verifyPhoneNumber()
+        // verifyPhoneNumber()
 
     }, [userData.phone])
 
@@ -232,13 +235,13 @@ export const GetCode = ({ navigation }) => {
 
     const phoneHidden = userData?.phone.replace(/[^0-9]/g, '').split('').map((number, index) => index < 8 ? "*" : number).join('')
 
-    if (isLoading) return <Loading flexSize={1} text={"Este procedimento pode levar um tempo para ser concluído."} />
+    // if (isLoading) return <Loading flexSize={1} text={"Este procedimento pode levar um tempo para ser concluído."} />
 
     return (
-        <View style={[globalStyles.container, { flex: 1 }]}>
+        <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
             <ComeBack text={"Código de Verificação"} />
 
-            <GetCodePhoneValidation width={"100%"} height={"60%"} />
+            <GetCodePhoneValidation width={"100%"} height={getScreenDimensions("height", 50)} />
             <DefaultModal modalContent={modalContent} />
             <Contact
                 modalContact={isToShowContactModal}
@@ -300,7 +303,7 @@ export const GetCode = ({ navigation }) => {
                 />
 
             </View>
-        </View>
+        </ScrollView>
     )
 }
 

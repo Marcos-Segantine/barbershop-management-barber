@@ -1,11 +1,12 @@
-import { StyleSheet, PixelRatio, Dimensions } from "react-native";
+import { StyleSheet, PixelRatio } from "react-native";
 
 import { LocaleConfig } from "react-native-calendars";
+import { getScreenDimensions } from "../utils/getScreenDimensions";
 
 const fontScale = PixelRatio.getFontScale();
 const getFontSize = size => size / fontScale;
 
-const { width } = Dimensions.get('screen')
+const width = getScreenDimensions("width");
 
 export const globalStyles = StyleSheet.create({
     orangeColor: "#fc9501",

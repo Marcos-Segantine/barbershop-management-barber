@@ -51,8 +51,8 @@ export const GetClient = ({ navigation, route }) => {
         setIsLoading(true)
 
         const clientData = await getUserDataByEmailOrPhone(
-            email.trim(),
-            phone.trim(),
+            email?.trim(),
+            phone?.trim(),
             setModalContent,
             setSomethingWrong
         )
@@ -149,7 +149,7 @@ export const GetClient = ({ navigation, route }) => {
                     </View>
                 </View>
 
-                <Button text={"Confirmar"} action={handleConfirm} addStyles={{ marginTop: 30, marginBottom: 20 }} isToBlockButton={!email.trim("") && !phone.trim("") ? true : false} />
+                <Button text={"Confirmar"} action={handleConfirm} addStyles={{ marginTop: 30, marginBottom: 20 }} isToBlockButton={!email?.trim("") && !phone?.trim("") ? true : false} />
 
                 <Pressable onPress={handleNewClient}>
                     <Text style={styles.alertInfo}>O cliente deve ter uma conta cadastrada. Caso ainda não tenha uma,

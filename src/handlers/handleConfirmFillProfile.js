@@ -19,6 +19,7 @@ export const handleConfirmFillProfile = async (
     setUserData,
     setCreateNewPearson,
     navigation,
+    setContact
 
 ) => {
     setIsLoading(true)
@@ -105,6 +106,24 @@ export const handleConfirmFillProfile = async (
                 setIsLoading(false)
                 return
             }
+        }
+        else if (createNewPerson.name.split(" ").filter(name => name.split("").length > 15).length > 0 || createNewPerson.name.split("").length > 50) {
+            setModalContent({
+                image: <MessageErrorAuthImage />,
+                mainMessage: "Nome muito Longo",
+                message: "Caso seu nom erealmente seja muito longo, por favor, entre em contato com o suporte",
+                firstButtonText: "Tentar Novamente",
+                firstButtonAction: () => setModalContent(null),
+                secondButtonText: "Contato",
+                secondButtonAction: () => {
+                    setModalContent(null)
+                    setContact(true)
+                }
+            })
+
+            setIsLoading(false)
+            return
+
         }
 
         updateProfessionalData(

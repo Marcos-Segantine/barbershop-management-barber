@@ -6,6 +6,9 @@ import { ContactImage } from "../../assets/imgs/ContactImage"
 import { globalStyles } from "../../assets/globalStyles"
 
 export const Contact = ({ modalContact, setModalVisible }) => {
+
+    // SET HERE THE CONTACT FROM SUPPORT ONLY
+
     return (
         <Modal
             visible={modalContact}

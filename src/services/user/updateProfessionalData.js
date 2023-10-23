@@ -37,7 +37,7 @@ export const updateProfessionalData = async (
             profilePicture: url || userData.profilePicture,
             gender: professionalData.gender || userData.gender,
             uid: professionalUid,
-            phoneNumberValidated: phoneChanged ? false : professionalData.phoneNumberValidated
+            phoneNumberValidated: phoneChanged ? false : userData.phoneNumberValidated
         }
 
         setUserData({ ...dataUpdated })
@@ -52,6 +52,6 @@ export const updateProfessionalData = async (
         navigation.navigate("Profile")
 
     } catch (error) {
-        console.error(error);
+        console.error(error, "ERROR HERE");
     }
 }

@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { TextInput, View, ScrollView, StyleSheet, TouchableOpacity, Image, Text } from "react-native"
 
 import { Button } from "../components/Button"
 import { ComeBack } from "../components/ComeBack"
 import { Loading } from "../components/Loading"
 import { DefaultModal } from "../components/modals/DefaultModal"
+import { Contact } from "../components/modals/Contact"
 
 import { EditProfilePicture } from "../assets/icons/EditProfilePictureIcon"
 import { globalStyles } from "../assets/globalStyles"
@@ -29,6 +30,7 @@ export const FillProfile = ({ navigation, route }) => {
     const [picture, setPicture] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [modalContent, setModalContent] = useState(null)
+    const [contact, setContact] = useState(false)
 
     const [male, setMale] = useState(false)
     const [fame, setFame] = useState(false)
@@ -85,6 +87,11 @@ export const FillProfile = ({ navigation, route }) => {
 
             <DefaultModal
                 modalContent={modalContent}
+            />
+
+            <Contact
+                modalContact={contact}
+                setModalVisible={setContact}
             />
 
             {
@@ -187,6 +194,7 @@ export const FillProfile = ({ navigation, route }) => {
                     setUserData,
                     setCreateNewPearson,
                     navigation,
+                    setContact
                 )}
             />
 

@@ -107,7 +107,7 @@ export const handleConfirmFillProfile = async (
                 return
             }
         }
-        else if (createNewPerson.name.split(" ").filter(name => name.split("").length > 15).length > 0 || createNewPerson.name.split("").length > 50) {
+        else if (createNewPerson.name?.split(" ").filter(name => name.split("").length > 15).length > 0 || createNewPerson.name?.split("").length > 50) {
             setModalContent({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Nome muito Longo",

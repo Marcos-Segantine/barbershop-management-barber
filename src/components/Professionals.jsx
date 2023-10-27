@@ -65,7 +65,7 @@ export const Professionals = ({ preferProfessional }) => {
                 availableProfessional && (
                     availableProfessional.map((professional, index) => {
 
-                        const name = getNameLastName(professional.name)
+                        const name = professional.name
 
                         return (
                             <Pressable
@@ -84,7 +84,6 @@ export const Professionals = ({ preferProfessional }) => {
 
                             </Pressable>
                         )
-
                     }
                     )
                 )
@@ -120,6 +119,7 @@ const styles = StyleSheet.create({
         fontSize: globalStyles.fontSizeMedium,
         fontFamily: globalStyles.fontFamilyBold,
         color: "#000000",
+        width: "60%",
     },
 
     text: {

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { TextInput, View, ScrollView, StyleSheet, TouchableOpacity, Image, Text } from "react-native"
+import { TextInput, View, ScrollView, StyleSheet, Text } from "react-native"
 
 import { Button } from "../components/Button"
 import { ComeBack } from "../components/ComeBack"
@@ -7,9 +7,7 @@ import { Loading } from "../components/Loading"
 import { DefaultModal } from "../components/modals/DefaultModal"
 import { Contact } from "../components/modals/Contact"
 
-import { EditProfilePicture } from "../assets/icons/EditProfilePictureIcon"
 import { globalStyles } from "../assets/globalStyles"
-import DefaultPicture from "../assets/icons/DefaultPicture.png"
 
 import { UserContext } from "../context/UserContext"
 import { CreateNewPersonContext } from "../context/CreateNewPerson"
@@ -22,6 +20,8 @@ import { generateNewUid } from "../utils/generateNewUid"
 import { formatInputPhoneNumber } from "../utils/formatInputPhoneNumber"
 
 import CheckBox from '@react-native-community/checkbox';
+
+import { ProfilePicture } from "../components/ProfilePicture"
 
 export const FillProfile = ({ navigation, route }) => {
     const { userData, setUserData } = useContext(UserContext)
@@ -45,6 +45,7 @@ export const FillProfile = ({ navigation, route }) => {
         };
 
         let uid = null
+        
         if (!isToUpdateProfessionalData) {
             uid = generateNewUid()
             setCreateNewPearson({ ...createNewPerson, uid: uid })
@@ -101,17 +102,10 @@ export const FillProfile = ({ navigation, route }) => {
                 </Text>
             }
 
-            <View style={picture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
-                {
-                    picture ?
-                        <Image source={{ uri: `data:image/png;base64,${picture}` }} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
-                        <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
-                }
-
-                <TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={setNewProfilePicture}>
-                    <EditProfilePicture width={40} height={40} />
-                </TouchableOpacity>
-            </View>
+            <ProfilePicture
+                setNewProfilePicture={() => setNewProfilePicture()}
+                profilePicture={createNewPerson.profilePicture}
+            />
 
             <View style={styles.contentInput}>
                 <TextInput
@@ -223,16 +217,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontSize: globalStyles.fontSizeSmall,
         fontFamily: globalStyles.fontFamilyMedium
-    },
-
-    contentEditPicture: {
-        backgroundColor: '#fc9501',
-        position: 'absolute',
-        bottom: 15,
-        padding: 3,
-        borderRadius: 10,
-        right: 15,
-        padding: 5,
     },
 
     contentGenderOptions: {

@@ -3,6 +3,7 @@ import storage from '@react-native-firebase/storage';
 
 import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
 import { capitalizeName } from '../../utils/capitalizaName';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const updateProfessionalData = async (
     professionalUid,
@@ -22,6 +23,8 @@ export const updateProfessionalData = async (
             const reference = storage().ref("barbers/profilePictures/" + professionalUid)
             await reference.putString(professionalData.profilePicture, 'base64')
             url = await storage().ref("barbers/profilePictures/" + professionalUid).getDownloadURL();
+
+            await AsyncStorage.setItem("@barber_app_barber__profilePicture", professionalData.profilePicture)
         }
 
         const name = capitalizeName(trimAndNormalizeSpaces(professionalData.name || userData.name))

@@ -9,16 +9,15 @@ import { HeaderScreensMenu } from "../components/HeaderScreensMenu"
 import { LinkProfile } from "../components/LinkProfile"
 import { Menu } from "../components/Menu"
 import { DefaultModal } from "../components/modals/DefaultModal"
+import { ProfilePicture } from "../components/ProfilePicture"
 
 import { logOut } from "../services/user/logOut"
 
 import { ProfileIcon } from "../assets/icons/ProfileIcon"
 import { CheckIcon } from "../assets/icons/CheckIcon"
-import { PadlockIcon } from "../assets/icons/PadlockIcon"
 import { LogOutIcon } from "../assets/icons/LogOutIcon"
 import AddProfessional from "../assets/icons/addProfessionalIcon.png"
 import { globalStyles } from "../assets/globalStyles"
-import DefaultPicture from "../assets/icons/DefaultPicture.png"
 import { LogOut } from "../assets/imgs/LogOut"
 
 import { getNameLastName } from "../utils/getNameLastName"
@@ -70,13 +69,7 @@ export const Profile = ({ navigation }) => {
         />
 
         <View style={{ alignItems: 'center' }}>
-          <View>
-            {
-              userData?.profilePicture ?
-                <Image src={userData.profilePicture} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
-                <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
-            }
-          </View>
+          <ProfilePicture />
 
           <Text style={styles.userName}>{userData && getNameLastName(userData.name, false)}</Text>
           <Text style={styles.userEmail}>{userData && userData.email}</Text>

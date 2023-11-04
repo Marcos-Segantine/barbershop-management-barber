@@ -39,7 +39,7 @@ export const findErrorAuth = async (
             return
         }
 
-        else if (!isValidEmail(email)) {
+        else if (!isValidEmail(email, setSomethingWrong)) {
             setError({
                 image: <MessageErrorAuthImage />,
                 mainMessage: "Email inválido",

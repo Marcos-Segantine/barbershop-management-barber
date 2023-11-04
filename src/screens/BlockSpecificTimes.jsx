@@ -19,6 +19,7 @@ import { UserContext } from "../context/UserContext"
 
 import { sortByHour } from "../utils/sortByHour"
 import { SettingsContext } from "../context/SettingsContext"
+import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import { getBlockedDeniedWeekdays } from "../validation/getBlockedDeniedWeekdays"
 
@@ -34,6 +35,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
     const { userData } = useContext(UserContext)
     const { settings } = useContext(SettingsContext)
+    const {setSomethingWrong} = useContext(SomethingWrongContext)
 
     useEffect(() => {
 
@@ -60,7 +62,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
     useEffect(() => {
 
-        getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading)
+        getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading, setSomethingWrong)
 
     }, [lastMonthSelected])
 

@@ -76,7 +76,7 @@ export const verifyPasswordToUpdate = (
         return true
 
     } catch ({ message }) {
-        handleError("verifyPasswordToUpdate", message);
         setSomethingWrong(true)
+        handleError("verifyPasswordToUpdate", message);
     }
 }

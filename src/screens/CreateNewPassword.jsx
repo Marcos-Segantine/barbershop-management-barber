@@ -85,7 +85,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
       return
     }
 
-    const isPasswordValid = verifyPasswordToCreateUser(password, confirmPassword, setModalContent)
+    const isPasswordValid = verifyPasswordToCreateUser(password, confirmPassword, setModalContent, setSomethingWrong)
 
     if (!isPasswordValid) return
 

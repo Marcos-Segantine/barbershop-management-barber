@@ -6,11 +6,13 @@ import { ComeBack } from "../components/ComeBack"
 import { Loading } from "../components/Loading"
 import { DefaultModal } from "../components/modals/DefaultModal"
 import { Contact } from "../components/modals/Contact"
+import { ProfilePicture } from "../components/ProfilePicture"
 
 import { globalStyles } from "../assets/globalStyles"
 
 import { UserContext } from "../context/UserContext"
 import { CreateNewPersonContext } from "../context/CreateNewPerson"
+import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import { handleConfirmFillProfile } from "../handlers/handleConfirmFillProfile"
 
@@ -21,11 +23,10 @@ import { formatInputPhoneNumber } from "../utils/formatInputPhoneNumber"
 
 import CheckBox from '@react-native-community/checkbox';
 
-import { ProfilePicture } from "../components/ProfilePicture"
-
 export const FillProfile = ({ navigation, route }) => {
     const { userData, setUserData } = useContext(UserContext)
     const { createNewPerson, setCreateNewPearson } = useContext(CreateNewPersonContext)
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const [picture, setPicture] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -45,7 +46,7 @@ export const FillProfile = ({ navigation, route }) => {
         };
 
         let uid = null
-        
+
         if (!isToUpdateProfessionalData) {
             uid = generateNewUid()
             setCreateNewPearson({ ...createNewPerson, uid: uid })
@@ -188,7 +189,8 @@ export const FillProfile = ({ navigation, route }) => {
                     setUserData,
                     setCreateNewPearson,
                     navigation,
-                    setContact
+                    setContact,
+                    setSomethingWrong
                 )}
             />
 

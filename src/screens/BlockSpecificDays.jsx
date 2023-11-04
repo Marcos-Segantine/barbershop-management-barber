@@ -16,6 +16,7 @@ import { UserContext } from "../context/UserContext";
 
 import { DefaultModal } from "../components/modals/DefaultModal";
 import { SettingsContext } from "../context/SettingsContext";
+import { SomethingWrongContext } from "../context/SomethingWrongContext";
 
 import { getBlockedDeniedWeekdays } from "../validation/getBlockedDeniedWeekdays";
 
@@ -29,6 +30,7 @@ export const BlockSpecificDays = ({ navigation }) => {
 
     const { userData } = useContext(UserContext)
     const { settings } = useContext(SettingsContext)
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     LocaleConfig.defaultLocale = 'pt-br';
 
@@ -54,7 +56,7 @@ export const BlockSpecificDays = ({ navigation }) => {
 
             if (days === null) await deniedDays(userData)
 
-            getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading)
+            getBlockedDeniedWeekdays(lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading, setSomethingWrong)
             setCalendarLoadingIndicator(false)
         })();
 

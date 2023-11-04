@@ -14,12 +14,14 @@ import { isValidPhoneNumber } from "../../validation/isValidPhoneNumber"
 
 import { formatInputPhoneNumber } from "../../utils/formatInputPhoneNumber"
 import { verifyIfDataAlreadyExist } from "../../validation/verifyIfDataAlreadyExist"
+import { SomethingWrongContext } from "../../context/SomethingWrongContext"
 
 export const GetNewPhoneNumber = ({ visible, setVisible, setTimer, setIsLoading }) => {
     const [newPhone, setNewPhone] = useState("")
     const [modalContent, setModalContent] = useState(null)
 
     const { userData, setUserData } = useContext(UserContext)
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const handleConfirm = () => {
         if (newPhone.trim().length === 0) {
@@ -40,7 +42,7 @@ export const GetNewPhoneNumber = ({ visible, setVisible, setTimer, setIsLoading 
             return
         }
 
-        const isPhoneValid = isValidPhoneNumber(newPhone)
+        const isPhoneValid = isValidPhoneNumber(newPhone, setSomethingWrong)
 
         if (!isPhoneValid) {
             setModalContent({
@@ -60,7 +62,7 @@ export const GetNewPhoneNumber = ({ visible, setVisible, setTimer, setIsLoading 
             return
         }
 
-        const phoneExist = verifyIfDataAlreadyExist("phone", newPhone)
+        const phoneExist = verifyIfDataAlreadyExist("phone", newPhone, setSomethingWrong)
 
         if (phoneExist) {
             setModalContent({

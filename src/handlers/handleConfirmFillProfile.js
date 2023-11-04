@@ -19,7 +19,8 @@ export const handleConfirmFillProfile = async (
     setUserData,
     setCreateNewPearson,
     navigation,
-    setContact
+    setContact,
+    setSomethingWrong
 
 ) => {
     setIsLoading(true)
@@ -28,7 +29,7 @@ export const handleConfirmFillProfile = async (
 
     if (isToUpdateProfessionalData) {
 
-        const fieldsAreSame = verifyIfFieldsAreSameToUpdateUserInfo(createNewPerson, userData)
+        const fieldsAreSame = verifyIfFieldsAreSameToUpdateUserInfo(createNewPerson, userData, setSomethingWrong)
 
         if (fieldsAreSame) {
             setModalContent({
@@ -44,7 +45,7 @@ export const handleConfirmFillProfile = async (
         }
 
         if (createNewPerson.phone?.trim()) {
-            const isPhoneValid = isValidPhoneNumber(createNewPerson.phone)
+            const isPhoneValid = isValidPhoneNumber(createNewPerson.phone, setSomethingWrong)
 
             if (isPhoneValid === false) {
                 setModalContent({
@@ -60,7 +61,7 @@ export const handleConfirmFillProfile = async (
                 return
             }
 
-            const phoneAlreadyExist = await verifyIfDataAlreadyExist("phone", createNewPerson.phone)
+            const phoneAlreadyExist = await verifyIfDataAlreadyExist("phone", createNewPerson.phone ,setSomethingWrong)
 
             if (phoneAlreadyExist) {
                 setModalContent({
@@ -77,7 +78,7 @@ export const handleConfirmFillProfile = async (
             }
         }
         else if (createNewPerson.email?.trim()) {
-            const isEmailValid = isValidEmail(createNewPerson.email)
+            const isEmailValid = isValidEmail(createNewPerson.email, setSomethingWrong)
 
             if (isEmailValid === false) {
                 setModalContent({
@@ -92,7 +93,7 @@ export const handleConfirmFillProfile = async (
                 return
             }
 
-            const emailAlreadyExist = await verifyIfDataAlreadyExist("email", createNewPerson.email)
+            const emailAlreadyExist = await verifyIfDataAlreadyExist("email", createNewPerson.email, setSomethingWrong)
 
             if (emailAlreadyExist) {
                 setModalContent({
@@ -139,7 +140,8 @@ export const handleConfirmFillProfile = async (
         const isFieldsAvailable = verifyFieldsToCreateAccount(
             { ...createNewPerson, gender: gender },
             ["name", "email", "phone", "gender"],
-            setModalContent
+            setModalContent,
+            setSomethingWrong
         )
 
         if (isFieldsAvailable === false) {
@@ -148,7 +150,7 @@ export const handleConfirmFillProfile = async (
 
         } else setModalContent(null)
 
-        const emailAlreadyExist = await verifyIfDataAlreadyExist("email", createNewPerson.email)
+        const emailAlreadyExist = await verifyIfDataAlreadyExist("email", createNewPerson.email, setSomethingWrong)
 
         if (emailAlreadyExist) {
             setModalContent({
@@ -163,7 +165,7 @@ export const handleConfirmFillProfile = async (
             return
         }
 
-        const phoneAlreadyExist = await verifyIfDataAlreadyExist("phone", createNewPerson.phone)
+        const phoneAlreadyExist = await verifyIfDataAlreadyExist("phone", createNewPerson.phone, setSomethingWrong)
 
         if (phoneAlreadyExist) {
             setModalContent({

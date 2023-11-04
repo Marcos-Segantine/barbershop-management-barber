@@ -7,6 +7,7 @@ export const verifyFieldsToCreateAccount = (
     userInformation,
     fields,
     setModalContent,
+    setSomethingWrong
 ) => {
     for (const field of fields) {
         if (userInformation[field] === undefined || userInformation[field] === "") {
@@ -22,7 +23,7 @@ export const verifyFieldsToCreateAccount = (
         }
     }
 
-    const isPhoneValid = isValidPhoneNumber(userInformation.phone)
+    const isPhoneValid = isValidPhoneNumber(userInformation.phone, setSomethingWrong)
     if (!isPhoneValid) {
         setModalContent({
             image: <MessageErrorAuthImage />,
@@ -35,7 +36,7 @@ export const verifyFieldsToCreateAccount = (
         return false
     }
 
-    const isEmailValid = isValidEmail(userInformation.email)
+    const isEmailValid = isValidEmail(userInformation.email, setSomethingWrong)
     if (!isEmailValid) {
         setModalContent({
             image: <MessageErrorAuthImage />,

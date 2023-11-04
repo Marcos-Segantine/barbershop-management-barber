@@ -1,7 +1,7 @@
 import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage";
 import { handleError } from "../handlers/handleError";
 
-export const verifyPasswordToCreateUser = (password, confirmPassword, setModalContent) => {
+export const verifyPasswordToCreateUser = (password, confirmPassword, setModalContent, setSomethingWrong) => {
     try {
         password = password.trim()
         confirmPassword = confirmPassword.trim()
@@ -43,6 +43,7 @@ export const verifyPasswordToCreateUser = (password, confirmPassword, setModalCo
         return true
 
     } catch ({ message }) {
+        setSomethingWrong(true)
         handleError("verifyPasswordToCreateUser", message);
     }
 }

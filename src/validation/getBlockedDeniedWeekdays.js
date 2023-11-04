@@ -1,73 +1,80 @@
+import { handleError } from "../handlers/handleError";
+
 import { getMonth, getYear } from "../utils/dateHelper";
 import { getWeekdayFromMonth } from "../utils/getWeekdayFromMonth";
 
-export const getBlockedDeniedWeekdays = (lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading) => {
+export const getBlockedDeniedWeekdays = (lastMonthSelected, settings, setWeekdaysBlocked, setIsLoading, setSomethingWrong) => {
+    try {
 
-    const formatDeniedDays = (data) => {
-        const result = {}
+        const formatDeniedDays = (data) => {
+            const result = {}
 
-        for (const day of data) {
-            result[day] = {
-                disableTouchEvent: true,
-                disabled: true
-            }
-        }
-
-        return result
-    }
-
-    if (lastMonthSelected === null) {
-        const date = new Date()
-        const currentYear = date.getFullYear()
-        const currentMonth = date.getMonth() + 1
-        const monthFormatted = currentMonth < 10 ? `0${currentMonth}` : currentMonth
-
-        const data = []
-
-        for (const weekday of settings.blockedWeekdays) {
-            data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear))
-
-            const result = []
-
-            for (const dates of data) {
-
-                for (const day of dates) {
-                    const dayFormatted = day < 10 ? `0${day}` : day
-                    result.push(`${currentYear}-${monthFormatted}-${dayFormatted}`)
-
+            for (const day of data) {
+                result[day] = {
+                    disableTouchEvent: true,
+                    disabled: true
                 }
             }
 
-            setWeekdaysBlocked(formatDeniedDays(result));
+            return result
         }
 
-        setIsLoading(false)
-        return
-    }
-    else {
+        if (lastMonthSelected === null) {
+            const date = new Date()
+            const currentYear = date.getFullYear()
+            const currentMonth = date.getMonth() + 1
+            const monthFormatted = currentMonth < 10 ? `0${currentMonth}` : currentMonth
 
-        const data = []
+            const data = []
 
-        for (const weekday of settings.blockedWeekdays) {
-            data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected), getYear(lastMonthSelected)))
+            for (const weekday of settings.blockedWeekdays) {
+                data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear))
 
-            const result = []
+                const result = []
 
-            for (const dates of data) {
+                for (const dates of data) {
 
-                for (const day of dates) {
-                    const currentYear = getYear(lastMonthSelected)
-                    const currentMonth = getMonth(lastMonthSelected)
-                    const dayFormatted = day < 10 ? `0${day}` : day
+                    for (const day of dates) {
+                        const dayFormatted = day < 10 ? `0${day}` : day
+                        result.push(`${currentYear}-${monthFormatted}-${dayFormatted}`)
 
-                    result.push(`${currentYear}-${currentMonth}-${dayFormatted}`)
+                    }
                 }
+
+                setWeekdaysBlocked(formatDeniedDays(result));
             }
 
-            setWeekdaysBlocked(formatDeniedDays(result));
+            setIsLoading(false)
+            return
         }
+        else {
 
-        setIsLoading(false)
-        return
+            const data = []
+
+            for (const weekday of settings.blockedWeekdays) {
+                data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected), getYear(lastMonthSelected)))
+
+                const result = []
+
+                for (const dates of data) {
+
+                    for (const day of dates) {
+                        const currentYear = getYear(lastMonthSelected)
+                        const currentMonth = getMonth(lastMonthSelected)
+                        const dayFormatted = day < 10 ? `0${day}` : day
+
+                        result.push(`${currentYear}-${currentMonth}-${dayFormatted}`)
+                    }
+                }
+
+                setWeekdaysBlocked(formatDeniedDays(result));
+            }
+
+            setIsLoading(false)
+            return
+        }
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("getBlockedDeniedWeekdays", message)
     }
 }

@@ -19,7 +19,7 @@ export const getUserDataByEmailOrPhone = async (
     phone = phone.trim()
 
     if (email !== "") {
-      const isValid = isValidEmail(email)
+      const isValid = isValidEmail(email, setSomethingWrong)
 
       if (!isValid) {
         setModalContent({
@@ -35,7 +35,7 @@ export const getUserDataByEmailOrPhone = async (
     }
 
     else if (phone !== "") {
-      const isValid = isValidPhoneNumber(phone)
+      const isValid = isValidPhoneNumber(phone, setSomethingWrong)
 
       if (!isValid) {
         setModalContent({

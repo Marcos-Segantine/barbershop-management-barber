@@ -1,5 +1,13 @@
-export const isValidEmail = (email) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { handleError } from "../handlers/handleError";
 
-    return emailPattern.test(email);
+export const isValidEmail = (email, setSomethingWrong) => {
+    try {
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("isValidEmail", message);
+    }
 }

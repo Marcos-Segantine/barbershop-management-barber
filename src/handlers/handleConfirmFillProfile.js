@@ -133,7 +133,8 @@ export const handleConfirmFillProfile = async (
             userData,
             setUserData,
             setIsLoading,
-            navigation
+            navigation,
+            setSomethingWrong
         )
     }
     else {

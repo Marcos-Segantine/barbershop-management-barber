@@ -12,6 +12,7 @@ import { getDay, getMonth } from "../utils/dateHelper"
 import { sortByHour } from "../utils/sortByHour"
 
 import { Loading } from "./Loading"
+import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 export const Schedules = ({ preferProfessional }) => {
     const [availableTimes, setAvailableTimes] = useState(null)
@@ -20,22 +21,23 @@ export const Schedules = ({ preferProfessional }) => {
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { userData } = useContext(UserContext)
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
-    const day = schedule.day && `${getDay(schedule.day)} de ${getMonth(schedule.day)}`
+    const day = schedule.day && `${getDay(schedule.day, setSomethingWrong)} de ${getMonth(schedule.day, setSomethingWrong)}`
 
     useEffect(() => {
 
         (async () => {
 
             if (!!(schedule.professional && schedule.day) && preferProfessional) {
-                const data = await getAvailableTimesByProfessional(userData.uid, schedule, setIsLoading)
-                setAvailableTimes(sortByHour(data))
+                const data = await getAvailableTimesByProfessional(userData.uid, schedule, setIsLoading, setSomethingWrong)
+                setAvailableTimes(sortByHour(data, setSomethingWrong))
                 setIsLoading(false)
 
             }
             else if (!preferProfessional) {
                 const data = await getAllTimes()
-                setAllTimes(sortByHour(data))
+                setAllTimes(sortByHour(data, setSomethingWrong))
                 setIsLoading(false)
             }
 

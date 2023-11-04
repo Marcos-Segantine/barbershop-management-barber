@@ -40,7 +40,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
 
     }, [isFocused]);
 
-    const totalPriceServicesSelected = schedule.services && formatPrice(schedule.services.reduce((acc, service) => acc + Number(service.price), 0))
+    const totalPriceServicesSelected = schedule.services && formatPrice(schedule.services.reduce((acc, service) => acc + Number(service.price), 0), setSomethingWrong)
 
     if (isLoading) return <Loading flexSize={1} />
 
@@ -75,7 +75,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         <Text style={styles.describe}>Dia da Semana</Text>
-                        <Text style={styles.info}>{getDayOfWeek(schedule.day)}</Text>
+                        <Text style={styles.info}>{getDayOfWeek(schedule.day, setSomethingWrong)}</Text>
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
@@ -90,7 +90,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         <Text style={styles.describe}>Profissional</Text>
-                        <Text style={styles.info}>{getNameLastName(schedule.professional)}</Text>
+                        <Text style={styles.info}>{getNameLastName(schedule.professional, setSomethingWrong)}</Text>
                     </View>
                 </View>
 
@@ -104,7 +104,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
                                         <View style={{ flexDirection: 'row' }}>
                                             <Text style={styles.describe}>{service.name}</Text>
                                         </View>
-                                        <Text style={styles.info}>{formatPrice(service.price)}</Text>
+                                        <Text style={styles.info}>{formatPrice(service.price, setSomethingWrong)}</Text>
                                     </View>
                                 )
                             })

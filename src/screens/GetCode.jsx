@@ -241,7 +241,7 @@ export const GetCode = ({ navigation }) => {
         <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
             <ComeBack text={"Código de Verificação"} />
 
-            <GetCodePhoneValidation width={"100%"} height={getScreenDimensions("height", 50)} />
+            <GetCodePhoneValidation width={"100%"} height={getScreenDimensions("height", 50, setSomethingWrong)} />
             <DefaultModal modalContent={modalContent} />
             <Contact
                 modalContact={isToShowContactModal}

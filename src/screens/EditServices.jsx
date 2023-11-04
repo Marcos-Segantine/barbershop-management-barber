@@ -97,7 +97,7 @@ export const EditServices = ({ navigation }) => {
 
         } else if (createNewPerson?.newPerson && userData !== null) {
 
-            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) }).then(() => {
+            await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) }, setSomethingWrong).then(() => {
 
                 setModalContent({
                     image: <AccountCreated width={"100%"} height={300} />,
@@ -178,7 +178,7 @@ export const EditServices = ({ navigation }) => {
                                             <CloseIcon width={35} height={35} />
                                         </Pressable>
                                         <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Serviço:</Text> {service.name}</Text>
-                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Preço:</Text> {formatPrice(service.price)}</Text>
+                                        <Text style={styles.serviceText}><Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}>Preço:</Text> {formatPrice(service.price, setSomethingWrong)}</Text>
                                     </View>
                                 )
                             })

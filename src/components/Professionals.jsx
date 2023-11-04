@@ -5,6 +5,7 @@ import { globalStyles } from "../assets/globalStyles"
 import DefaultPicture from "../assets/icons/DefaultPicture.png"
 
 import { ScheduleContext } from "../context/ScheduleContext"
+import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 import { Loading } from "./Loading"
 
@@ -16,6 +17,7 @@ export const Professionals = ({ preferProfessional }) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const { schedule, setSchedule } = useContext(ScheduleContext)
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const professionalSelected = [styles.professional, { borderColor: globalStyles.orangeColor }]
 
@@ -28,7 +30,7 @@ export const Professionals = ({ preferProfessional }) => {
         (async () => {
 
             if (schedule.day && schedule.schedule && !preferProfessional) {
-                await getAvailableProfessional(schedule, setAvailableProfessional, setIsLoading)
+                await getAvailableProfessional(schedule, setAvailableProfessional, setIsLoading, setSomethingWrong)
                 setIsLoading(false)
             } else if (preferProfessional) {
                 setAvailableProfessional(await getAllProfessionals())

@@ -11,7 +11,8 @@ export const updateProfessionalData = async (
     userData,
     setUserData,
     setIsLoading,
-    navigation
+    navigation,
+    setSomethingWrong
 ) => {
     try {
 
@@ -27,7 +28,7 @@ export const updateProfessionalData = async (
             await AsyncStorage.setItem("@barber_app_barber__profilePicture", professionalData.profilePicture)
         }
 
-        const name = capitalizeName(trimAndNormalizeSpaces(professionalData.name || userData.name))
+        const name = capitalizeName(trimAndNormalizeSpaces(professionalData.name || userData.name), setSomethingWrong)
         const email = trimAndNormalizeSpaces(professionalData.email || userData.email)
         const phone = trimAndNormalizeSpaces(professionalData.phone || userData.phone)
 

@@ -40,7 +40,7 @@ export const OurServices = ({ navigation, route }) => {
         navigation.navigate("ConfirmSchedule", { scheduleToUpdate, isToUpdateSchedule })
     }
 
-    const totalPriceServicesSelected = formatPrice(servicesSelected.reduce((acc, service) => acc + Number(service.price), 0))
+    const totalPriceServicesSelected = formatPrice(servicesSelected.reduce((acc, service) => acc + Number(service.price), 0), setSomethingWrong)
 
     if (services === null) return <Loading flexSize={1} />
 
@@ -59,7 +59,7 @@ export const OurServices = ({ navigation, route }) => {
                                 </Pressable>
                                 <Text style={styles.describe}>{service.name}</Text>
                             </View>
-                            <Text style={styles.info}>{formatPrice(service.price)}</Text>
+                            <Text style={styles.info}>{formatPrice(service.price, setSomethingWrong)}</Text>
                         </View>
                     ))
                 }
@@ -83,6 +83,7 @@ export const OurServices = ({ navigation, route }) => {
                                     servicesSelected={servicesSelected}
                                     setServicesSelected={setServicesSelected}
                                     removeServiceSelected={removeServiceSelected}
+                                    setSomethingWrong={setSomethingWrong}
                                     key={index}
                                 />
                             })

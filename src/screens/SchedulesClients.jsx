@@ -121,7 +121,7 @@ const Top = ({ data, dateToFilter, setShowModalFilter, showModalFilter }) => {
             <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}> {dateToFilter[0] || "---"}</Text>
           </Text>
           <Text style={style.contentFilterText}>Mês:
-            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}> {dateToFilter && getMonthName(dateToFilter[1])}</Text>
+            <Text style={{ fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeSmall }}> {dateToFilter && getMonthName(dateToFilter[1], setSomethingWrong, false)}</Text>
           </Text>
         </View>
 

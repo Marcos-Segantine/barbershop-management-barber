@@ -13,6 +13,7 @@ import { DayWeek } from '../assets/icons/DayWeekIcon';
 import { getNumberOfSchedules } from '../services/schedules/getNumberOfSchedules';
 import { getDayOfWeek } from '../utils/getDayOfWeek';
 import { globalStyles } from '../assets/globalStyles';
+import { SomethingWrongContext } from '../context/SomethingWrongContext';
 
 export const Day = ({ day }) => {
   const [numberOfSchedules, setNumberOfSchedules] = useState(0)
@@ -21,6 +22,7 @@ export const Day = ({ day }) => {
 
   const { schedule, setSchedule } = useContext(ScheduleContext);
   const { userData } = useContext(UserContext)
+  const { setSomethingWrong } = useContext(SomethingWrongContext)
 
   const handleClick = () => {
     setSchedule({ ...schedule, day: day })
@@ -29,8 +31,8 @@ export const Day = ({ day }) => {
   };
 
   (async () => {
-    userData && setNumberOfSchedules(await getNumberOfSchedules(userData.uid, day))
-    setDayOfWeek(getDayOfWeek(day))
+    userData && setNumberOfSchedules(await getNumberOfSchedules(userData.uid, day, setSomethingWrong))
+    setDayOfWeek(getDayOfWeek(day, setSomethingWrong))
 
   })();
 

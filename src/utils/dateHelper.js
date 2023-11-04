@@ -1,6 +1,6 @@
 import { handleError } from "../handlers/handleError";
 
-export const getDay = (scheduleInfo) => {
+export const getDay = (scheduleInfo, setSomethingWrong) => {
   try {
 
     // If don't have scheduleInfo return the current day
@@ -10,24 +10,38 @@ export const getDay = (scheduleInfo) => {
     return scheduleInfo.split("").slice(8).join("")
 
   } catch ({ message }) {
+    setSomethingWrong(true)
     handleError("getDay", message);
-    console.log(error);
   }
 };
 
-export const getHour = (scheduleInfo) => {
-  return scheduleInfo?.schedule || scheduleInfo;
+export const getHour = (scheduleInfo, setSomethingWrong) => {
+  try {
+    return scheduleInfo?.schedule || scheduleInfo;
+
+  } catch ({ message }) {
+    setSomethingWrong(true)
+    handleError("getHour", message)
+  }
 };
 
-export const getMonth = (scheduleInfo) => {
-  const [year, month] = scheduleInfo?.day?.split('-') || scheduleInfo.split('-')
-  return month;
+export const getMonth = (scheduleInfo, setSomethingWrong) => {
+  try {
+    const [year, month] = scheduleInfo?.day?.split('-') || scheduleInfo.split('-')
+    return month;
+
+  } catch ({ message }) {
+    setSomethingWrong(true)
+    handleError("getMonth", message)
+  }
 };
 
-export const getProfessional = (scheduleInfo) => {
-  return scheduleInfo?.professional || scheduleInfo;
-};
+export const getYear = (scheduleInfo, setSomethingWrong) => {
+  try {
+    return scheduleInfo?.day?.slice(0, 4) || scheduleInfo.slice(0, 4)
 
-export const getYear = (scheduleInfo) => {
-  return scheduleInfo?.day?.slice(0, 4) || scheduleInfo.slice(0, 4)
+  } catch ({ message }) {
+    setSomethingWrong(true)
+    handleError("getYear", message)
+  }
 };

@@ -1,9 +1,16 @@
 import { Dimensions } from "react-native"
+import { handleError } from "../handlers/handleError"
 
-export const getScreenDimensions = (filed = "width", percentage = null) => {
-    const data = Dimensions.get('screen')
+export const getScreenDimensions = (filed, percentage, setSomethingWrong) => {
+    try {
+        const data = Dimensions.get('screen')
 
-    if (filed && percentage) return (data[filed] - (data[filed] * (+percentage / 100)))
-    else if (filed) return data[filed]
-    return data
+        if (filed && percentage) return (data[filed] - (data[filed] * (+percentage / 100)))
+        else if (filed) return data[filed]
+        return data
+
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("getScreenDimensions", message)
+    }
 }

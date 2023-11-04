@@ -48,7 +48,7 @@ export const FillProfile = ({ navigation, route }) => {
         let uid = null
 
         if (!isToUpdateProfessionalData) {
-            uid = generateNewUid()
+            uid = generateNewUid(setSomethingWrong)
             setCreateNewPearson({ ...createNewPerson, uid: uid })
         }
         else uid = userData.uid
@@ -67,12 +67,12 @@ export const FillProfile = ({ navigation, route }) => {
     const handlePhoneNumber = (phone) => {
         if (phone.length > 15) {
             phone = phone.split("").slice(0, 15).join("")
-            setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone) })
+            setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone, setSomethingWrong) })
 
             return
         }
 
-        setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone) })
+        setCreateNewPearson({ ...createNewPerson, phone: formatInputPhoneNumber(phone, setSomethingWrong) })
     }
 
     const headerText = !!createNewPerson?.newPerson ? createNewPerson.newPerson === "client" ? "Dados do Cliente" : "Dados do Profissional" : "Atualizar Perfil"
@@ -128,7 +128,7 @@ export const FillProfile = ({ navigation, route }) => {
                     style={styles.input}
                     placeholder="Número de celular"
                     placeholderTextColor={"#00000050"}
-                    value={formatInputPhoneNumber(createNewPerson?.phone)}
+                    value={formatInputPhoneNumber(createNewPerson?.phone, setSomethingWrong)}
                     onChangeText={text => handlePhoneNumber(text)}
                     keyboardType="numeric"
                 />

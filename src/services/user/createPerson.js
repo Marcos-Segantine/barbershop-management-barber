@@ -5,10 +5,10 @@ import { generateNewUid } from '../../utils/generateNewUid';
 import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
 import { capitalizeName } from '../../utils/capitalizaName';
 
-export const createPerson = async (newPerson, setSchedule, schedule) => {
+export const createPerson = async (newPerson, setSchedule, schedule, setSomethingWrong) => {
     try {
 
-        const uid = newPerson.uid ? newPerson.uid : generateNewUid()
+        const uid = newPerson.uid ? newPerson.uid : generateNewUid(setSomethingWrong)
 
         const batch = firestore().batch();
 
@@ -23,7 +23,7 @@ export const createPerson = async (newPerson, setSchedule, schedule) => {
             const schedulesByUserRef = firestore().collection("schedules_by_user").doc(uid)
 
             batch.set(usersRef, {
-                name: capitalizeName(trimAndNormalizeSpaces(newPerson.name)),
+                name: capitalizeName(trimAndNormalizeSpaces(newPerson.name), setSomethingWrong),
                 email: trimAndNormalizeSpaces(newPerson.email),
                 password: newPerson.password,
                 phone: trimAndNormalizeSpaces(newPerson.phone),
@@ -92,6 +92,7 @@ export const createPerson = async (newPerson, setSchedule, schedule) => {
         await batch.commit();
 
     } catch ({ message }) {
-        console.error(error);
+        setSomethingWrong(true)
+        console.error(message);
     }
 }

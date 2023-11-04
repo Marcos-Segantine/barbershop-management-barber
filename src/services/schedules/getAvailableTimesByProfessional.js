@@ -5,15 +5,16 @@ import { getDay, getMonth, getYear } from '../../utils/dateHelper';
 export const getAvailableTimesByProfessional = async (
     professionalUid,
     scheduleInfo,
-    setIsLoading
+    setIsLoading,
+    setSomethingWrong
 ) => {
     setIsLoading(true)
 
     try {
 
-        const year = getYear(scheduleInfo);
-        const month = getMonth(scheduleInfo);
-        const day = getDay(scheduleInfo);
+        const year = getYear(scheduleInfo, setSomethingWrong);
+        const month = getMonth(scheduleInfo, setSomethingWrong);
+        const day = getDay(scheduleInfo, setSomethingWrong);
 
         const CurrentDayWeek = new Date(scheduleInfo.day).getDay() + 1
         const weekday = CurrentDayWeek <= 5 ? "weekday" : CurrentDayWeek === 6 ? "saturday" : "sunday"

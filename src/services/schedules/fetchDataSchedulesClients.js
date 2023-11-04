@@ -26,7 +26,7 @@ export const fetchDataSchedulesClients = async (
 
         if (!hasScheduleInCurrentDay.length) return
 
-        if (isDatePassed(data[day][professionalUid][Object.keys(data[day][professionalUid])[0]].day, data[day][professionalUid][Object.keys(data[day][professionalUid])[0]].schedule)) return
+        if (isDatePassed(data[day][professionalUid][Object.keys(data[day][professionalUid])[0]].day, data[day][professionalUid][Object.keys(data[day][professionalUid])[0]].schedule, setSomethingWrong)) return
 
         const keys__barberSchedule = Object.keys(barberSchedule)
 

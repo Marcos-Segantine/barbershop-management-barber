@@ -15,9 +15,9 @@ export const getSchedulesInDay = async (
 ) => {
   try {
 
-    const day = getDay(scheduleDay)
-    const month = getMonth(scheduleDay)
-    const year = getYear(scheduleDay)
+    const day = getDay(scheduleDay, setSomethingWrong)
+    const month = getMonth(scheduleDay, setSomethingWrong)
+    const year = getYear(scheduleDay, setSomethingWrong)
 
     const schedulesMonthRef = firestore().collection("schedules_month").doc(dateFormatted)
     const workingHoursRef = firestore().collection("working_hours").doc(barberInfo.uid)
@@ -29,7 +29,7 @@ export const getSchedulesInDay = async (
 
     const schedulesOfProfessional = Object.keys(schedulesMonthData)
 
-    const currentHour = getCurrentHour()
+    const currentHour = getCurrentHour(setSomethingWrong)
     const currentMonth = new Date().getMonth() + 1;
     const currentDay = new Date().getDate();
     const currentDate = Number(currentDay) === Number(day) && Number(currentMonth) === Number(month)
@@ -58,7 +58,7 @@ export const getSchedulesInDay = async (
       }
     });
 
-    setData(sortByHour(data))
+    setData(sortByHour(data, setSomethingWrong))
 
   } catch ({ message }) {
     console.error(error);

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Modal, Pressable } from "react-native"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import { globalStyles } from "../../assets/globalStyles"
 import { CloseIcon } from "../../assets/icons/CloseIcon"
@@ -7,9 +7,12 @@ import { CloseIcon } from "../../assets/icons/CloseIcon"
 import { Button } from "../Button"
 
 import { getMonthName } from "../../utils/getMonthName"
+import { SomethingWrongContext } from "../../context/SomethingWrongContext"
 
 export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFilter }) => {
     const [dateToFilterTemp, setDateToFilterTemp] = useState(dateToFilter)
+
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const currentYear = +new Date().getFullYear()
     const currentMonth = new Date().getMonth() + 1
@@ -113,7 +116,7 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                                             <Text
                                                 style={[styles.itemText, { color: "white" }]}
                                             >
-                                                {getMonthName(month, true)}
+                                                {getMonthName(month, setSomethingWrong, true)}
                                             </Text>
                                         </Pressable>
                                     )
@@ -128,7 +131,7 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                                             <Text
                                                 style={[styles.itemText, { color: "#808080" }]}
                                             >
-                                                {getMonthName(month, true)}
+                                                {getMonthName(month, setSomethingWrong, true)}
                                             </Text>
                                         </Pressable>
                                     )
@@ -143,7 +146,7 @@ export const Filter = ({ visible, setShowModalFilter, dateToFilter, setDateToFil
                                         <Text
                                             style={styles.itemText}
                                         >
-                                            {getMonthName(month, true)}
+                                            {getMonthName(month, setSomethingWrong, true)}
                                         </Text>
                                     </Pressable>
                                 )

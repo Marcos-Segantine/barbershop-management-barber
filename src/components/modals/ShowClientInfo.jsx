@@ -58,7 +58,7 @@ export const ShowClientInfo = ({
 
                     </View>
 
-                    <Text style={styles.clientName}>{getNameLastName(modalShowUser.name, false)}</Text>
+                    <Text style={styles.clientName}>{getNameLastName(modalShowUser.name, setSomethingWrong, false)}</Text>
 
                     <View style={{ alignItems: 'flex-start', marginTop: 25 }}>
                         <Text style={styles.description}>Email: <Text style={styles.info}>{modalShowUser.email}</Text></Text>

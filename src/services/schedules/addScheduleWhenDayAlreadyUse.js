@@ -18,14 +18,15 @@ export const addScheduleWhenDayAlreadyUse = async (
   scheduleInfo,
   setModalContent,
   navigation,
-  setIsLoading
+  setIsLoading,
+  setSomethingWrong
 ) => {
 
   try {
-    const scheduleMonth = getMonth(scheduleInfo);
-    const scheduleDay = getDay(scheduleInfo);
-    const scheduleHour = getHour(scheduleInfo);
-    const scheduleYear = getYear(scheduleInfo)
+    const scheduleMonth = getMonth(scheduleInfo, setSomethingWrong);
+    const scheduleDay = getDay(scheduleInfo, setSomethingWrong);
+    const scheduleHour = getHour(scheduleInfo, setSomethingWrong);
+    const scheduleYear = getYear(scheduleInfo, setSomethingWrong)
 
     const nameDocMonth_Year = `${scheduleMonth}_${scheduleYear}`
 

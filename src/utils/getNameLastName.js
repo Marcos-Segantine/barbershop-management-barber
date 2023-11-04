@@ -1,12 +1,19 @@
-export const getNameLastName = (name, ellipsis = true) => {
+import { handleError } from "../handlers/handleError"
 
-    if (!name) return null
+export const getNameLastName = (name, setSomethingWrong, ellipsis = true) => {
+    try {
 
-    if (ellipsis) {
-        name = name.split("")
-        return name.length > 12 ? name.splice(0, 12).join("") + "..." : name.join("")
+        if (!name) return null
+
+        if (ellipsis) {
+            name = name.split("")
+            return name.length > 12 ? name.splice(0, 12).join("") + "..." : name.join("")
+        }
+
+        name = name.split(" ")
+        return name[0] + " " + name[1]
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("getNameLastName", message)
     }
-
-    name = name.split(" ")
-    return name[0] + " " + name[1]
 }

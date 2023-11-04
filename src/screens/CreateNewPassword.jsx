@@ -91,7 +91,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
     createNewPerson.newPerson === "client" ?
       (
-        await createPerson({ ...createNewPerson, password, }, setSchedule, schedule),
+        await createPerson({ ...createNewPerson, password, }, setSchedule, schedule, setSomethingWrong),
         navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: false })
       ) :
       (

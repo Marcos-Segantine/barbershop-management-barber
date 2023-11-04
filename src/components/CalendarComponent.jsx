@@ -13,6 +13,7 @@ import { getWeekdayFromMonth } from '../utils/getWeekdayFromMonth';
 import { getMonth, getYear } from '../utils/dateHelper';
 
 import { daysBlocked } from '../services/schedules/daysBlocked';
+import { SomethingWrongContext } from '../context/SomethingWrongContext';
 
 export const CalendarComponent = () => {
     const [deniedDaysData, setDeniedDaysData] = useState(null)
@@ -23,6 +24,7 @@ export const CalendarComponent = () => {
     const { schedule, setSchedule } = useContext(ScheduleContext)
     const { userData } = useContext(UserContext)
     const { settings } = useContext(SettingsContext)
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     LocaleConfig.defaultLocale = 'pt-br';
 
@@ -80,15 +82,15 @@ export const CalendarComponent = () => {
                 const data = []
 
                 for (const weekday of settings.blockedWeekdays) {
-                    data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected), getYear(lastMonthSelected)))
+                    data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected, setSomethingWrong), getYear(lastMonthSelected, setSomethingWrong)))
 
                     const result = []
 
                     for (const dates of data) {
 
                         for (const day of dates) {
-                            const currentYear = getYear(lastMonthSelected)
-                            const currentMonth = getMonth(lastMonthSelected)
+                            const currentYear = getYear(lastMonthSelected, setSomethingWrong)
+                            const currentMonth = getMonth(lastMonthSelected, setSomethingWrong)
                             const dayFormatted = day < 10 ? `0${day}` : day
 
                             result.push(`${currentYear}-${currentMonth}-${dayFormatted}`)

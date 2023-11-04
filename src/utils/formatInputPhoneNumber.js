@@ -1,21 +1,29 @@
-export const formatInputPhoneNumber = (input) => {
-    if (!input) return
+import { handleError } from "../handlers/handleError";
 
-    const cleanedInput = input.replace(/\D/g, '');
+export const formatInputPhoneNumber = (input, setSomethingWrong) => {
+    try {
+        if (!input) return
 
-    if (cleanedInput.length > 11) {
-        return input;
-    }
+        const cleanedInput = input.replace(/\D/g, '');
 
-    if (cleanedInput.length <= 2) {
-        return input
-    }
+        if (cleanedInput.length > 11) {
+            return input;
+        }
 
-    if (cleanedInput.length > 2 && cleanedInput.length <= 7) {
-        return `(${cleanedInput.slice(0, 2)}) ${cleanedInput.slice(2, 7)}`;
-    }
+        if (cleanedInput.length <= 2) {
+            return input
+        }
 
-    if (cleanedInput.length >= 8 && cleanedInput.length <= 11) {
-        return `(${cleanedInput.slice(0, 2)}) ${cleanedInput.slice(2, 7)}-${cleanedInput.slice(7)}`;
+        if (cleanedInput.length > 2 && cleanedInput.length <= 7) {
+            return `(${cleanedInput.slice(0, 2)}) ${cleanedInput.slice(2, 7)}`;
+        }
+
+        if (cleanedInput.length >= 8 && cleanedInput.length <= 11) {
+            return `(${cleanedInput.slice(0, 2)}) ${cleanedInput.slice(2, 7)}-${cleanedInput.slice(7)}`;
+        }
+
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("formatInputPhoneNumber", message)
     }
 }

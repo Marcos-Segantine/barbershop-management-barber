@@ -8,7 +8,9 @@ export const Service = ({
     service,
     servicesSelected,
     setServicesSelected,
-    removeServiceSelected }) => {
+    removeServiceSelected,
+    setSomethingWrong
+ }) => {
 
     const handleSelectServices = (service) => {
         let isServiceSelected = null;
@@ -34,7 +36,7 @@ export const Service = ({
         <TouchableOpacity style={style} onPress={() => handleSelectServices(service)}>
             <Text style={styles.serviceName}>{service.name}</Text>
 
-            <Text style={styles.price}>+ {formatPrice(service.price)}</Text>
+            <Text style={styles.price}>+ {formatPrice(service.price, setSomethingWrong)}</Text>
         </TouchableOpacity>
     )
 }

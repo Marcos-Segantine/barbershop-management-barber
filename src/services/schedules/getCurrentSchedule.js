@@ -1,6 +1,6 @@
 import { getCurrentHour } from "../../utils/getCurrentHour";
 
-export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEarlier, setIsLoading) => {
+export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEarlier, setIsLoading, setSomethingWrong) => {
     try {
 
         let earliest = null;
@@ -9,7 +9,7 @@ export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEar
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth() + 1;
         const currentDay = currentDate.getDate();
-        const currentHor = getCurrentHour();
+        const currentHor = getCurrentHour(setSomethingWrong);
 
         for (const schedule of schedulesOfProfessional) {
 

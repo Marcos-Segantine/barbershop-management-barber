@@ -86,12 +86,12 @@ export const GetNewPhoneNumber = ({ visible, setVisible, setTimer, setIsLoading 
     const handlePhoneNumber = (phone) => {
         if (phone.length > 15) {
             phone = phone.split("").slice(0, 15).join("")
-            setNewPhone(formatInputPhoneNumber(phone))
+            setNewPhone(formatInputPhoneNumber(phone, setSomethingWrong))
 
             return
         }
 
-        setNewPhone(formatInputPhoneNumber(phone))
+        setNewPhone(formatInputPhoneNumber(phone, setSomethingWrong))
     }
 
     return (

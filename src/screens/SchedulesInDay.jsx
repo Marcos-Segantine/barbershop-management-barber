@@ -30,8 +30,8 @@ export const SchedulesInDay = ({ route }) => {
   const navigation = useNavigation();
   const { day } = route.params;
 
-  const year = getYear(day)
-  const month = getMonth(day)
+  const year = getYear(day, setSomethingWrong)
+  const month = getMonth(day, setSomethingWrong)
 
   const date = new Date(day).getDay() + 1
   const weekday = date <= 5 ? "weekday" : date === 6 ? "saturday" : "sunday"
@@ -82,7 +82,7 @@ export const SchedulesInDay = ({ route }) => {
       <View style={style.contentSchedules}>
 
         {
-          getDay(day) === getDay() &&
+          getDay(day, setSomethingWrong) === getDay() &&
           <View style={{ width: "100%", justifyContent: 'space-between', flexDirection: "row", alignItems: "center", marginVertical: 20 }}>
             <Text style={{ color: "#000000", fontFamily: globalStyles.fontFamilyBold, fontSize: globalStyles.fontSizeMedium }}>Filtrar horários?</Text>
 
@@ -113,7 +113,7 @@ export const SchedulesInDay = ({ route }) => {
                     <Text style={style.scheduleText}>{data.hour}</Text>
                     <View style={data.isScheduleFree ? [style.status, { backgroundColor: "green" }] : [style.status, { backgroundColor: "red" }]}></View>
                   </View>
-                  <Text style={style.nameCLientText}>{data.isScheduleFree ? "Horário livre" : getNameLastName(data.clientName)}</Text>
+                  <Text style={style.nameCLientText}>{data.isScheduleFree ? "Horário livre" : getNameLastName(data.clientName, setSomethingWrong)}</Text>
                 </Pressable>
               );
             }) :

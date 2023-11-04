@@ -7,9 +7,9 @@ export const getScheduleByDateAndHour = async (isScheduleFree, professionalUid, 
 
         if (isScheduleFree) return
 
-        const daySchedule = getDay(date)
-        const monthSchedule = getMonth(date)
-        const yearSchedule = getYear(date)
+        const daySchedule = getDay(date, setSomethingWrong)
+        const monthSchedule = getMonth(date, setSomethingWrong)
+        const yearSchedule = getYear(date, setSomethingWrong)
 
         const schedulesMonthRef = firestore().collection("schedules_month").doc(`${monthSchedule}_${yearSchedule}`)
         const schedulesMonthData = await (await schedulesMonthRef.get()).data()[daySchedule][professionalUid][hour]

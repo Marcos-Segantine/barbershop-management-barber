@@ -9,7 +9,7 @@ export const filterSchedulesByDate = (schedules, date) => {
         date[1] = date[1].toString()
 
         return schedules.filter(schedule => {
-            return getYear(schedule.day) === date[0] && getMonth(schedule.day) === date[1]
+            return getYear(schedule.day, setSomethingWrong) === date[0] && getMonth(schedule.day, setSomethingWrong) === date[1]
         })
     }
 
@@ -17,13 +17,13 @@ export const filterSchedulesByDate = (schedules, date) => {
     else if (date[0] !== null && date[1] === null) {
         date[0] = date[0].toString()
 
-        return schedules.filter(schedule => getYear(schedule.day) === date[0])
+        return schedules.filter(schedule => getYear(schedule.day, setSomethingWrong) === date[0])
     }
 
     // Means that user want to filter schedules by month
     else if (date[0] === null && date[1] !== null) {
         date[1] = date[1].toString()
 
-        return schedules.filter(schedule => getMonth(schedule.day) === date[1])
+        return schedules.filter(schedule => getMonth(schedule.day, setSomethingWrong) === date[1])
     }
 }

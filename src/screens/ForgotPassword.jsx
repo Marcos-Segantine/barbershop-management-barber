@@ -35,12 +35,12 @@ export const ForgotPassword = ({ navigation }) => {
     const handlePhoneNumber = (phone) => {
         if (phone.length > 15) {
             phone = phone.split("").slice(0, 15).join("")
-            setPhone(formatInputPhoneNumber(phone))
+            setPhone(formatInputPhoneNumber(phone, setSomethingWrong))
 
             return
         }
 
-        setPhone(formatInputPhoneNumber(phone))
+        setPhone(formatInputPhoneNumber(phone, setSomethingWrong))
     }
 
     const handleConfirm = async () => {

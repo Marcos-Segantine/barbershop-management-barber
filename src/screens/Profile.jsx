@@ -71,7 +71,7 @@ export const Profile = ({ navigation }) => {
         <View style={{ alignItems: 'center' }}>
           <ProfilePicture />
 
-          <Text style={styles.userName}>{userData && getNameLastName(userData.name, false)}</Text>
+          <Text style={styles.userName}>{userData && getNameLastName(userData.name, setSomethingWrong, false)}</Text>
           <Text style={styles.userEmail}>{userData && userData.email}</Text>
         </View>
 

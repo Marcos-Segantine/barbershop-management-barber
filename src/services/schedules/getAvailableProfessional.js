@@ -5,15 +5,16 @@ import { getDay, getHour, getMonth, getYear } from '../../utils/dateHelper';
 export const getAvailableProfessional = async (
     schedule,
     setAvailableProfessional,
-    setIsLoading
+    setIsLoading,
+    setSomethingWrong
 ) => {
     try {
         setIsLoading(true)
 
-        const month = getMonth(schedule)
-        const year = getYear(schedule)
-        const day = getDay(schedule)
-        const hour = getHour(schedule)
+        const month = getMonth(schedule, setSomethingWrong)
+        const year = getYear(schedule, setSomethingWrong)
+        const day = getDay(schedule, setSomethingWrong)
+        const hour = getHour(schedule, setSomethingWrong)
 
         const unavailableTimesRef = firestore().collection("unavailable_times").doc(`${month}_${year}`)
         const barbersRef = firestore().collection("barbers")

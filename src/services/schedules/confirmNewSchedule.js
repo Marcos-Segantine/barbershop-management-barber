@@ -17,9 +17,9 @@ export const confirmNewSchedule = async (
 
     try {
 
-        const scheduleMouth = getMonth(scheduleInfo);
-        const scheduleDay = getDay(scheduleInfo);
-        const scheduleYear = getYear(scheduleInfo)
+        const scheduleMouth = getMonth(scheduleInfo, setSomethingWrong);
+        const scheduleDay = getDay(scheduleInfo, setSomethingWrong);
+        const scheduleYear = getYear(scheduleInfo, setSomethingWrong)
 
         const dateForDoc = `${scheduleMouth}_${scheduleYear}`
 
@@ -32,7 +32,8 @@ export const confirmNewSchedule = async (
                 scheduleInfo,
                 setModalContent,
                 navigation,
-                setIsLoading
+                setIsLoading,
+                setSomethingWrong
             );
             return;
         }
@@ -45,14 +46,16 @@ export const confirmNewSchedule = async (
                 scheduleInfo,
                 setModalContent,
                 navigation,
-                setIsLoading
+                setIsLoading,
+                setSomethingWrong
             )
             : addScheduleWhenDayNotUse(
                 clientUid,
                 scheduleInfo,
                 setModalContent,
                 navigation,
-                setIsLoading
+                setIsLoading,
+                setSomethingWrong
             );
 
     } catch ({ message }) {

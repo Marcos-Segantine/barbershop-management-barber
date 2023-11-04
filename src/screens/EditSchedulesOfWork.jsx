@@ -189,7 +189,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
                         {
                             currentTimes[dayOfWeek] &&
                             (
-                                sortByHour(currentTimes[dayOfWeek]).map((time, index) => (
+                                sortByHour(currentTimes[dayOfWeek], setSomethingWrong).map((time, index) => (
                                     <View
                                         style={{ alignItems: "flex-end", width: "30%", marginTop: 10, marginHorizontal: 5 }}
                                         key={index}

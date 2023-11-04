@@ -52,15 +52,15 @@ export const getBlockedDeniedWeekdays = (lastMonthSelected, settings, setWeekday
             const data = []
 
             for (const weekday of settings.blockedWeekdays) {
-                data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected), getYear(lastMonthSelected)))
+                data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected, setSomethingWrong), getYear(lastMonthSelected, setSomethingWrong)))
 
                 const result = []
 
                 for (const dates of data) {
 
                     for (const day of dates) {
-                        const currentYear = getYear(lastMonthSelected)
-                        const currentMonth = getMonth(lastMonthSelected)
+                        const currentYear = getYear(lastMonthSelected, setSomethingWrong)
+                        const currentMonth = getMonth(lastMonthSelected, setSomethingWrong)
                         const dayFormatted = day < 10 ? `0${day}` : day
 
                         result.push(`${currentYear}-${currentMonth}-${dayFormatted}`)

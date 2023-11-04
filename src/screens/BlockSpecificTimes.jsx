@@ -54,7 +54,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
             const data = await getAllTimesFromProfessional(userData.uid)
 
-            setTimesFromDaySelected(sortByHour(data[dayOfWeek]))
+            setTimesFromDaySelected(sortByHour(data[dayOfWeek], setSomethingWrong))
 
         })();
 

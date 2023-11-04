@@ -1,7 +1,15 @@
-export const formatPrice = (text) => {
-    text = String(text)
+import { handleError } from "../handlers/handleError";
 
-    const number = parseFloat(text.replace(".", ","));
-    return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+export const formatPrice = (text, setSomethingWrong) => {
+    try {
+        text = String(text)
+
+        const number = parseFloat(text.replace(".", ","));
+        return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("formatPrice", message)
+    }
 }
 

@@ -8,7 +8,7 @@ export const getAllTimesFromProfessional = async (professionalUid) => {
 
         return workingHoursData
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
     }
 }

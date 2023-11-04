@@ -11,7 +11,7 @@ export const logOut = async (navigation, setSomethingWrong) => {
 
         await auth().signOut();
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error('Error logging out:', error);
         setSomethingWrong(true)
     }

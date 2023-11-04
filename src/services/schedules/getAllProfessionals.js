@@ -17,7 +17,7 @@ export const getAllProfessionals = async () => {
 
         return barbers
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
     }
 }

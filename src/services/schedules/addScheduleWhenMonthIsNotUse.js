@@ -88,7 +88,7 @@ export const addScheduleWhenMonthIsNotUse = async (
 
     setIsLoading(false)
 
-  } catch (error) {
+  } catch ({ message }) {
     console.log(error);
   }
 };

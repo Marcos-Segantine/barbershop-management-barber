@@ -9,7 +9,7 @@ export const signInWithEmailAndPassword = async (email, password, navigation, se
         await AsyncStorage.setItem('@barberApp__adm__email', email);
         navigation.navigate("SchedulesClients")
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
         setSomethingWrong(true)
     }

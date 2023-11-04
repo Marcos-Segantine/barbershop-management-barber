@@ -18,7 +18,7 @@ export const getServicesOfProfessional = async (setServices, professionalUid, se
 
         setServices(data)
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
         setSomethingWrong(true)
     }

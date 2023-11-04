@@ -1,3 +1,5 @@
+import { handleError } from "../handlers/handleError";
+
 export const formatDate = (dateString, setSomethingWrong) => {
     try {
 
@@ -15,8 +17,8 @@ export const formatDate = (dateString, setSomethingWrong) => {
 
         return formattedDate;
 
-    } catch (error) {
-        console.log(error);
+    } catch ({ message }) {
+        handleError("formatDate", message);
         setSomethingWrong(true)
     }
 }

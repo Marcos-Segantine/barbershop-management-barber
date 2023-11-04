@@ -38,7 +38,7 @@ export const fetchDataSchedulesClients = async (
 
     setDataFiltered(dataTemp);
 
-  } catch (error) {
+  } catch ({ message }) {
     console.error(error);
     setSomethingWrong(true)
   }

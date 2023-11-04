@@ -1,3 +1,5 @@
+import { handleError } from "../handlers/handleError";
+
 export const getDay = (scheduleInfo) => {
   try {
 
@@ -7,7 +9,8 @@ export const getDay = (scheduleInfo) => {
     if (scheduleInfo?.day !== undefined) return scheduleInfo.day.slice(8)
     return scheduleInfo.split("").slice(8).join("")
 
-  } catch (error) {
+  } catch ({ message }) {
+    handleError("getDay", message);
     console.log(error);
   }
 };

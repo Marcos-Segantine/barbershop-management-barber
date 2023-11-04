@@ -56,7 +56,7 @@ export const getAvailableProfessional = async (
 
         setAvailableProfessional(dataTemp);
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error(error);
     }
 }

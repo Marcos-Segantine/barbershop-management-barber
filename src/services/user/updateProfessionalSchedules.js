@@ -6,7 +6,7 @@ export const updateProfessionalSchedules = async (professionalUid, newSchedules,
         const workingHoursRef = firestore().collection("working_hours").doc(professionalUid)
         await workingHoursRef.update(newSchedules)
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
         setSomethingWrong(true)
     }

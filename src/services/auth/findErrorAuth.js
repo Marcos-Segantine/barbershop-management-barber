@@ -1,7 +1,10 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { isValidEmail } from '../../validation/isValidEmail';
+
 import { MessageErrorAuthImage } from '../../assets/imgs/MessageErrorAuthImage';
+
+import { handleError } from '../../handlers/handleError';
 
 export const findErrorAuth = async (
     email,
@@ -119,8 +122,8 @@ export const findErrorAuth = async (
 
         return barberData
 
-    } catch (error) {
-        console.log(error);
+    } catch ({ message }) {
+        handleError("findErrorAuth", message);
         setSomethingWrong(true)
     }
 }

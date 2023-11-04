@@ -114,7 +114,7 @@ export const getUserDataByEmailOrPhone = async (
       return user
     }
 
-  } catch (error) {
+  } catch ({ message }) {
     console.log(error);
     setSomethingWrong(true)
   }

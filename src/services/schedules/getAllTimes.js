@@ -8,7 +8,7 @@ export const getAllTimes = async () => {
 
         return workingHoursData
         
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
     }
 }

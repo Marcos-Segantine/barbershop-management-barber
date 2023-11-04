@@ -7,7 +7,7 @@ export const getAllSchedulesOfProfessional = async (professionalUid, setCurrentT
         const workingHoursData = (await workingHoursRef.get({ source: "server" })).data()
 
         setCurrentTimes(workingHoursData)
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
     }
 }

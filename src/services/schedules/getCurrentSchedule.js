@@ -27,7 +27,7 @@ export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEar
         setScheduleEarlier(earliest ? earliest.schedule : [])
         setIsLoading(false)
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
     }
 }

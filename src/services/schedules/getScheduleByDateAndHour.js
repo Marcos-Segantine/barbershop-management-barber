@@ -16,7 +16,7 @@ export const getScheduleByDateAndHour = async (isScheduleFree, professionalUid, 
 
         return schedulesMonthData
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
         setSomethingWrong(true)
     }

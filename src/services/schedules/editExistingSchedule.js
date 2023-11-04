@@ -23,7 +23,7 @@ export const editExistingSchedule = async (
             setIsLoading
         )
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error(error);
         setSomethingWrong(true)
     }

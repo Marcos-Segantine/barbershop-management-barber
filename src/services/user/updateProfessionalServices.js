@@ -17,7 +17,7 @@ export const updateProfessionalServices = async (professionalUid, newServices, s
             ...servicesOfProfessional
         })
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
         setSomethingWrong(true)
     }

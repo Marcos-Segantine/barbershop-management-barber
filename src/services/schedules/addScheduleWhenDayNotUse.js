@@ -102,7 +102,7 @@ export const addScheduleWhenDayNotUse = async (
 
     setIsLoading(false)
 
-  } catch (error) {
+  } catch ({ message }) {
     console.error('Error adding schedule:', error);
   }
 };

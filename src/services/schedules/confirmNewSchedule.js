@@ -55,7 +55,7 @@ export const confirmNewSchedule = async (
                 setIsLoading
             );
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error(error);
         setSomethingWrong(true)
     }

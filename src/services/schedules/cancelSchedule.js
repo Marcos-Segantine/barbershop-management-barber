@@ -52,7 +52,7 @@ export const cancelSchedule = async (clientUid, scheduleInfo, setSomethingWrong)
 
     await batch.commit();
 
-  } catch (error) {
+  } catch ({ message }) {
     console.error('Error cancelling schedule: ', error);
     setSomethingWrong(true);
   }

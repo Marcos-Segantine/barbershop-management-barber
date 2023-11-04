@@ -16,7 +16,7 @@ export const getNumberOfSchedules = async (professionalUid, date) => {
 
         return numberOfSchedules.length
 
-    } catch (error) {
+    } catch ({ message }) {
         console.log(error);
     }
 }

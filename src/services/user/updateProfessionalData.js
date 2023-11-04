@@ -54,7 +54,7 @@ export const updateProfessionalData = async (
         setIsLoading(false)
         navigation.navigate("Profile")
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error(error, "ERROR HERE");
     }
 }

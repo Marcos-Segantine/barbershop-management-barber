@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { handleError } from '../handlers/handleError';
 
 export const verifyIfUserLogged = async (navigation, setSomethingWrong) => {
     try {
@@ -19,8 +20,8 @@ export const verifyIfUserLogged = async (navigation, setSomethingWrong) => {
                 navigation.navigate("Login", { emailProfessionalCreated: null, passwordProfessionalCreated: null })
             }, 500)
         }
-    } catch (error) {
-        console.log(error);
+    } catch ({ message }) {
+        handleError("verifyIfUserLogged", message);
         setSomethingWrong(true)
     }
 }

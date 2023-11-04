@@ -91,7 +91,7 @@ export const createPerson = async (newPerson, setSchedule, schedule) => {
 
         await batch.commit();
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error(error);
     }
 }

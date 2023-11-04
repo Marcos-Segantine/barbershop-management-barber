@@ -18,7 +18,7 @@ export const updateUserPassword = async (
         await auth().currentUser.updatePassword(newPassword)
         setUserData({ ...userData, password: newPassword })
 
-    } catch (error) {
+    } catch ({ message }) {
         if (error.code === 'auth/requires-recent-login') {
             auth()
                 .signInWithEmailAndPassword(userData.email, userData.password)

@@ -60,7 +60,7 @@ export const getSchedulesInDay = async (
 
     setData(sortByHour(data))
 
-  } catch (error) {
+  } catch ({ message }) {
     console.error(error);
     setSomethingWrong(true)
   }

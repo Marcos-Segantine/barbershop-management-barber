@@ -109,7 +109,7 @@ export const getAvailableTimesByProfessional = async (
                 return unavailableTimes(time)
             })
 
-    } catch (error) {
+    } catch ({ message }) {
         console.error(error);
     }
 };

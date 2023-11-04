@@ -1,4 +1,5 @@
 import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage";
+import { handleError } from "../handlers/handleError";
 
 export const verifyPasswordToUpdate = (
     currentPassword,
@@ -74,8 +75,8 @@ export const verifyPasswordToUpdate = (
 
         return true
 
-    } catch (error) {
-        console.log(error);
+    } catch ({ message }) {
+        handleError("verifyPasswordToUpdate", message);
         setSomethingWrong(true)
     }
 }

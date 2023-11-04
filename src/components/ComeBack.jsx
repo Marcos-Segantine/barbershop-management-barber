@@ -9,9 +9,13 @@ import { SomethingWrong } from "./modals/SomethingWrong"
 import { getPreviousScreensName } from "../utils/getPreviousScreensName"
 
 import { handleNavigation } from "../handlers/handleNavigation"
+import { useContext } from "react"
+import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 export const ComeBack = ({ text }) => {
     const navigation = useNavigation()
+
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const handleComeBack = () => {
         const [previousScreen, lastScreen] = getPreviousScreensName(navigation)
@@ -20,6 +24,7 @@ export const ComeBack = ({ text }) => {
             previousScreen,
             lastScreen,
             navigation,
+            setSomethingWrong
         )
     }
 

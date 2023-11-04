@@ -8,15 +8,18 @@ import { getPreviousScreensName } from "../utils/getPreviousScreensName";
 import { handleNavigation } from "../handlers/handleNavigation";
 
 import { useNavigation } from "@react-navigation/native";
+import { SomethingWrongContext } from "../context/SomethingWrongContext";
 
 export const HeaderScreensMenu = ({ screenName }) => {
     const navigation = useNavigation();
+
+    const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     useEffect(() => {
 
         BackHandler.addEventListener('hardwareBackPress', () => {
             const [previousScreen, lastScreen] = getPreviousScreensName(navigation)
-            return handleNavigation(previousScreen, lastScreen, navigation)
+            return handleNavigation(previousScreen, lastScreen, navigation, setSomethingWrong)
         })
 
     }, [])

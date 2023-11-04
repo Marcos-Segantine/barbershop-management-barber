@@ -10,7 +10,6 @@ import { Loading } from "./Loading"
 
 import { getAvailableProfessional } from "../services/schedules/getAvailableProfessional"
 import { getAllProfessionals } from "../services/schedules/getAllProfessionals"
-import { getNameLastName } from "../utils/getNameLastName"
 
 export const Professionals = ({ preferProfessional }) => {
     const [availableProfessional, setAvailableProfessional] = useState([])
@@ -20,8 +19,8 @@ export const Professionals = ({ preferProfessional }) => {
 
     const professionalSelected = [styles.professional, { borderColor: globalStyles.orangeColor }]
 
-    const handleProfessionalSelected = async (professionalName, professionalUid) => {
-        setSchedule({ ...schedule, professional: professionalName, professionalUid: professionalUid })
+    const handleProfessionalSelected = async (professionalName, professionalUid, professionalGender) => {
+        setSchedule({ ...schedule, professional: professionalName, professionalUid: professionalUid, professionalGender: professionalGender })
     }
 
     useEffect(() => {
@@ -40,7 +39,7 @@ export const Professionals = ({ preferProfessional }) => {
     }, [schedule.day, schedule.schedule])
 
     useEffect(() => {
-        if (availableProfessional.length === 1) setSchedule({ ...schedule, professional: availableProfessional[0].name, professionalUid: availableProfessional[0].professionalUid })
+        if (availableProfessional.length === 1) setSchedule({ ...schedule, professional: availableProfessional[0].name, professionalUid: availableProfessional[0].professionalUid, professionalGender: availableProfessional[0].professionalGender })
 
     }, [availableProfessional])
 
@@ -71,7 +70,7 @@ export const Professionals = ({ preferProfessional }) => {
                             <Pressable
                                 style={schedule.professional === professional.name ? professionalSelected : styles.professional}
                                 activeOpacity={.8}
-                                onPress={() => handleProfessionalSelected(professional.name, professional.professionalUid)}
+                                onPress={() => handleProfessionalSelected(professional.name, professional.professionalUid, professional.professionalGender)}
                                 key={index}
                             >
                                 <Text style={styles.professionalName}>{name}</Text>

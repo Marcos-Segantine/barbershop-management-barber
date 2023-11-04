@@ -10,7 +10,8 @@ export const getAllProfessionals = async () => {
             {
                 name: barber._data.name,
                 profilePicture: barber._data.profilePicture,
-                professionalUid: barber._data.uid
+                professionalUid: barber._data.uid,
+                professionalGender: barber._data.gender
             }
         ))
 

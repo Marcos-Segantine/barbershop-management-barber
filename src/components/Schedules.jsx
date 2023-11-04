@@ -52,7 +52,7 @@ export const Schedules = ({ preferProfessional }) => {
                 (
                     availableTimes.length ?
                         <Text style={styles.text}>Escolha um horário</Text> :
-                        <Text style={styles.text}>Infelizmente {schedule.gender.toLowerCase() === "feminino" ? "a" : "o"} {schedule.professional} não tem nenhum horário vago no dia {day}</Text>
+                        <Text style={styles.text}>Infelizmente {schedule.professionalGender?.toLowerCase() === "feminino" ? "a" : "o"} {schedule.professional} não tem nenhum horário vago no dia {day}</Text>
                 )
 
             }

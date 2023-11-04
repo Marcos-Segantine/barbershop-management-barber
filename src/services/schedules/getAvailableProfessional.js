@@ -22,7 +22,8 @@ export const getAvailableProfessional = async (
         const barbersData = await (await barbersRef.get())._docs.map(docBarber => ({
             name: docBarber._data.name,
             professionalUid: docBarber._data.uid,
-            profilePicture: docBarber._data.profilePicture
+            profilePicture: docBarber._data.profilePicture,
+            professionalGender: barber._data.gender
         }))
 
         if (!unavailableTimesData) {

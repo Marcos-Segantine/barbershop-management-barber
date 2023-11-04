@@ -33,7 +33,7 @@ export const Professionals = ({ preferProfessional }) => {
                 await getAvailableProfessional(schedule, setAvailableProfessional, setIsLoading, setSomethingWrong)
                 setIsLoading(false)
             } else if (preferProfessional) {
-                setAvailableProfessional(await getAllProfessionals())
+                setAvailableProfessional(await getAllProfessionals(setSomethingWrong))
             }
 
         })();

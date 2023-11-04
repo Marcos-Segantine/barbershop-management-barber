@@ -1,3 +1,4 @@
+import { handleError } from "../../handlers/handleError";
 import { getCurrentHour } from "../../utils/getCurrentHour";
 
 export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEarlier, setIsLoading, setSomethingWrong) => {
@@ -28,6 +29,7 @@ export const getCurrentSchedule = async (schedulesOfProfessional, setScheduleEar
         setIsLoading(false)
 
     } catch ({ message }) {
-        console.log(error);
+        setSomethingWrong(true)
+        handleError("getCurrentSchedule", message)
     }
 }

@@ -1,3 +1,4 @@
+import { handleError } from "../../handlers/handleError";
 import { getMonth, getDay, getYear } from "../../utils/dateHelper";
 
 import { addScheduleWhenDayAlreadyUse } from "./addScheduleWhenDayAlreadyUse";
@@ -59,7 +60,7 @@ export const confirmNewSchedule = async (
             );
 
     } catch ({ message }) {
-        console.error(error);
         setSomethingWrong(true)
+        handleError("confirmNewSchedule", message)
     }
 };

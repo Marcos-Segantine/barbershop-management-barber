@@ -31,7 +31,7 @@ export const CalendarComponent = () => {
     useEffect(() => {
 
         const deniedDays = async () => {
-            setDeniedDaysData(await daysBlocked(userData.uid, false));
+            setDeniedDaysData(await daysBlocked(userData.uid, false, null, setSomethingWrong));
         }
 
         if (deniedDaysData === null) deniedDays()

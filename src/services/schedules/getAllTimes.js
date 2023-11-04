@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
+import { handleError } from '../../handlers/handleError';
 
-export const getAllTimes = async () => {
+export const getAllTimes = async (setSomethingWrong) => {
     try {
 
         const workingHoursRef = firestore().collection("working_hours").doc("default")
@@ -9,6 +10,7 @@ export const getAllTimes = async () => {
         return workingHoursData
         
     } catch ({ message }) {
-        console.log(error);
+        setSomethingWrong(true)
+        handleError("getAllTimes", message)
     }
 }

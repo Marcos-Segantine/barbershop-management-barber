@@ -61,7 +61,7 @@ export const getAvailableTimesByProfessional = async (
 
         else if (unavailableTimesData[day] === undefined && currentDate && currentDayHasBlockedTime)
             return workingHoursData.filter(time => {
-                return unavailableTimesCurrentDays(time) && blockedTimes(time)
+                return unavailableTimesCurrentDays(time) && blockedTimes(time, setSomethingWrong)
             })
 
         else if (unavailableTimesData[day] === undefined && currentDate)
@@ -74,7 +74,7 @@ export const getAvailableTimesByProfessional = async (
 
         else if (unavailableTimesData[day][professionalUid] === undefined && currentDate && currentDayHasBlockedTime)
             return workingHoursData.filter(time => {
-                return unavailableTimesCurrentDays(time) && blockedTimes(time)
+                return unavailableTimesCurrentDays(time) && blockedTimes(time, setSomethingWrong)
             })
 
         else if (unavailableTimesData[day][professionalUid] === undefined && currentDate)
@@ -84,7 +84,7 @@ export const getAvailableTimesByProfessional = async (
 
         else if (unavailableTimesData[day][professionalUid] === undefined && currentDayHasBlockedTime)
             return workingHoursData.filter(time => {
-                return blockedTimes(time)
+                return blockedTimes(time, setSomethingWrong)
             })
 
         else if (unavailableTimesData[day][professionalUid] === undefined)
@@ -92,7 +92,7 @@ export const getAvailableTimesByProfessional = async (
 
         else if (unavailableTimesData[day][professionalUid] && currentDate && currentDayHasBlockedTime)
             return workingHoursData.filter(time => {
-                return unavailableTimes(time) && unavailableTimesCurrentDays(time) && blockedTimes(time)
+                return unavailableTimes(time) && unavailableTimesCurrentDays(time) && blockedTimes(time, setSomethingWrong)
             })
 
         else if (unavailableTimesData[day][professionalUid] && currentDate)
@@ -102,7 +102,7 @@ export const getAvailableTimesByProfessional = async (
 
         else if (unavailableTimesData[day][professionalUid] && currentDayHasBlockedTime)
             return workingHoursData.filter(time => {
-                return unavailableTimes(time) && blockedTimes(time)
+                return unavailableTimes(time) && blockedTimes(time, setSomethingWrong)
             })
 
         else if (unavailableTimesData[day][professionalUid])

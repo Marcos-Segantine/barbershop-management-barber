@@ -62,7 +62,7 @@ export const EditServices = ({ navigation }) => {
             return
         }
 
-        else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setModalContent)) {
+        else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setModalContent,  setSomethingWrong)) {
             setModalContent(null)
 
             setCurrentServices([...currentServices, formatServicePrice(newService)].reverse())

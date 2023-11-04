@@ -123,7 +123,7 @@ export const findErrorAuth = async (
         return barberData
 
     } catch ({ message }) {
-        handleError("findErrorAuth", message);
         setSomethingWrong(true)
+        handleError("findErrorAuth", message);
     }
 }

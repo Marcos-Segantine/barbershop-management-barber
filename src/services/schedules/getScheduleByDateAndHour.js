@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getYear, getDay, getMonth } from '../../utils/dateHelper';
+import { handleError } from '../../handlers/handleError';
 
 export const getScheduleByDateAndHour = async (isScheduleFree, professionalUid, hour, date, setSomethingWrong) => {
     try {
@@ -17,7 +18,7 @@ export const getScheduleByDateAndHour = async (isScheduleFree, professionalUid, 
         return schedulesMonthData
 
     } catch ({ message }) {
-        console.log(error);
         setSomethingWrong(true)
+        handleError("getScheduleByDateAndHour", message)
     }
 };

@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import { handleError } from '../../handlers/handleError';
 
 export const getServicesOfProfessional = async (setServices, professionalUid, setSomethingWrong) => {
     try {
@@ -19,7 +20,7 @@ export const getServicesOfProfessional = async (setServices, professionalUid, se
         setServices(data)
 
     } catch ({ message }) {
-        console.log(error);
         setSomethingWrong(true)
+        handleError("getServicesOfProfessional", message)
     }
 }

@@ -48,7 +48,7 @@ export const SchedulesClients = ({ navigation }) => {
   useEffect(() => {
     if (dateToFilter[0] === null && dateToFilter[1] === null) return
 
-    setDataFiltered(filterSchedulesByDate(data, dateToFilter))
+    setDataFiltered(filterSchedulesByDate(data, dateToFilter, setSomethingWrong))
 
   }, [data, dateToFilter])
 

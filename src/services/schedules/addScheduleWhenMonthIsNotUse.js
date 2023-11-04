@@ -12,6 +12,7 @@ import { verifySchedulesUid } from './verifySchedulesUid';
 
 import { NewScheduleConfirmationImage } from '../../assets/imgs/NewScheduleConfirmationImage';
 import { ScheduleUnavailableNow } from '../../assets/imgs/ScheduleUnavailableNow';
+import { handleError } from '../../handlers/handleError';
 
 export const addScheduleWhenMonthIsNotUse = async (
   clientUid,
@@ -83,13 +84,14 @@ export const addScheduleWhenMonthIsNotUse = async (
       message: "Infelizmente alguém acabou de fazer um agendamento no mesmo horário e dia do que voc. Você terá que refazer o processo.",
       firstButtonText: "Entendi",
       firstButtonAction: () => {
-        navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext : true });
+        navigation.navigate("AddSchedule", { headerText: "Agendar Horário", scheduleToUpdate: null, isToUpdateSchedule: null, isToClearScheduleContext: true });
       }
     })
 
     setIsLoading(false)
 
   } catch ({ message }) {
-    console.log(error);
+    setSomethingWrong(true)
+    handleError("addScheduleWhenMonthIsNotUse", message)
   }
 };

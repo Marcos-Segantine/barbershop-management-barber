@@ -5,6 +5,7 @@ import { MessageErrorAuthImage } from '../../assets/imgs/MessageErrorAuthImage';
 
 import { isValidEmail } from '../../validation/isValidEmail';
 import { isValidPhoneNumber } from '../../validation/isValidPhoneNumber';
+import { handleError } from '../../handlers/handleError';
 
 export const getUserDataByEmailOrPhone = async (
   email,
@@ -115,7 +116,7 @@ export const getUserDataByEmailOrPhone = async (
     }
 
   } catch ({ message }) {
-    console.log(error);
     setSomethingWrong(true)
+    handleError("getUserDataByEmailOrPhone", message)
   }
 };

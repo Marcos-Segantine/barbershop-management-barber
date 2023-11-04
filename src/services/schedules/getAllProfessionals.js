@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
+import { handleError } from '../../handlers/handleError';
 
-export const getAllProfessionals = async () => {
+export const getAllProfessionals = async (setSomethingWrong) => {
     try {
 
         const barbersRef = firestore().collection("barbers")
@@ -18,6 +19,7 @@ export const getAllProfessionals = async () => {
         return barbers
 
     } catch ({ message }) {
-        console.log(error);
+        setSomethingWrong(true)
+        handleError("getAllProfessionals", message)
     }
 }

@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import { handleError } from '../../handlers/handleError';
 
 export const updateProfessionalSchedules = async (professionalUid, newSchedules, setSomethingWrong) => {
     try {
@@ -7,7 +8,7 @@ export const updateProfessionalSchedules = async (professionalUid, newSchedules,
         await workingHoursRef.update(newSchedules)
 
     } catch ({ message }) {
-        console.log(error);
         setSomethingWrong(true)
+        handleError("updateProfessionalSchedules", message)
     }
 }

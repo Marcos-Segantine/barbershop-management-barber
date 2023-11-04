@@ -43,7 +43,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
             if (userData && timesFromDaySelected === null) {
                 setTimesBlockedFromEachDay(await blockedTimes(userData.uid))
 
-                setBlockedDays(await daysBlocked(userData.uid, false))
+                setBlockedDays(await daysBlocked(userData.uid, false, null, setSomethingWrong))
             }
 
             if (!!(!userData || day === null)) return
@@ -52,7 +52,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
             const weekDay = date.getDay() + 1;
             const dayOfWeek = weekDay <= 5 ? "weekday" : weekDay === 6 ? "saturday" : "sunday"
 
-            const data = await getAllTimesFromProfessional(userData.uid)
+            const data = await getAllTimesFromProfessional(userData.uid, setSomethingWrong)
 
             setTimesFromDaySelected(sortByHour(data[dayOfWeek], setSomethingWrong))
 
@@ -112,7 +112,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
     const handleConfirm = async () => {
         setIsLoading(true)
-        await blockedTimes(userData.uid, timesBlockedFromEachDay)
+        await blockedTimes(userData.uid, timesBlockedFromEachDay, setSomethingWrong)
         setModalContent({
             image: <DataUpdated />,
             mainMessage: "Atualizado com Sucesso!",

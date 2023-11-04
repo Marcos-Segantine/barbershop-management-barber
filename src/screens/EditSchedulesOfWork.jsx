@@ -38,7 +38,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
 
     useEffect(() => {
         if (!createNewPerson?.newPerson && userData) {
-            getAllSchedulesOfProfessional(userData.uid, setCurrentTimes)
+            getAllSchedulesOfProfessional(userData.uid, setCurrentTimes, setSomethingWrong)
         }
 
     }, [userData, createNewPerson])

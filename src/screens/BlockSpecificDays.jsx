@@ -41,7 +41,7 @@ export const BlockSpecificDays = ({ navigation }) => {
             if (!userData) return
 
             const deniedDays = async () => {
-                const data = await daysBlocked(userData.uid, false)
+                const data = await daysBlocked(userData.uid, false, null, setSomethingWrong)
 
                 for (const date in data) {
                     data[date] = {
@@ -89,7 +89,7 @@ export const BlockSpecificDays = ({ navigation }) => {
     const handleConfirm = async () => {
         setIsLoading(true)
 
-        await daysBlocked(userData.uid, false, days)
+        await daysBlocked(userData.uid, false, days, setSomethingWrong)
 
         setIsLoading(false)
         setModalContent({

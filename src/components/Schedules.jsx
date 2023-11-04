@@ -36,7 +36,7 @@ export const Schedules = ({ preferProfessional }) => {
 
             }
             else if (!preferProfessional) {
-                const data = await getAllTimes()
+                const data = await getAllTimes(setSomethingWrong)
                 setAllTimes(sortByHour(data, setSomethingWrong))
                 setIsLoading(false)
             }

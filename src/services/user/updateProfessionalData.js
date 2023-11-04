@@ -4,6 +4,7 @@ import storage from '@react-native-firebase/storage';
 import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
 import { capitalizeName } from '../../utils/capitalizaName';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { handleError } from '../../handlers/handleError';
 
 export const updateProfessionalData = async (
     professionalUid,
@@ -56,6 +57,7 @@ export const updateProfessionalData = async (
         navigation.navigate("Profile")
 
     } catch ({ message }) {
-        console.error(error, "ERROR HERE");
+        setSomethingWrong(true)
+        handleError("updateProfessionalData", message)
     }
 }

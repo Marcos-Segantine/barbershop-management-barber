@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { findErrorAuth } from './findErrorAuth';
 
 import { MessageErrorAuthImage } from '../../assets/imgs/MessageErrorAuthImage';
+import { handleError } from '../../handlers/handleError';
 
 export const signInWithEmailAndPassword = async (
   email,
@@ -90,7 +91,7 @@ export const signInWithEmailAndPassword = async (
       })
 
   } catch (err) {
-    console.error(err);
     setSomethingWrong(true)
+    handleError("signInWithEmailAndPassword", err.message);
   }
 }

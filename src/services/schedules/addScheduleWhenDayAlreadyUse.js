@@ -12,6 +12,7 @@ import { verifySchedulesUid } from './verifySchedulesUid';
 
 import { NewScheduleConfirmationImage } from '../../assets/imgs/NewScheduleConfirmationImage';
 import { ScheduleUnavailableNow } from '../../assets/imgs/ScheduleUnavailableNow';
+import { handleError } from '../../handlers/handleError';
 
 export const addScheduleWhenDayAlreadyUse = async (
   clientUid,
@@ -126,6 +127,7 @@ export const addScheduleWhenDayAlreadyUse = async (
     setIsLoading(false)
 
   } catch ({ message }) {
-    console.error(error);
+    setSomethingWrong(true)
+    handleError("addScheduleWhenDayAlreadyUse", message)
   }
 };

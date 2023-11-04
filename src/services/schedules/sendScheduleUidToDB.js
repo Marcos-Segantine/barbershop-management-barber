@@ -1,17 +1,24 @@
 import firestore from '@react-native-firebase/firestore';
+import { handleError } from '../../handlers/handleError';
 
-export const sendScheduleUidToDB = async (scheduleMonth, scheduleUid) => {
-    const schedulesUidRef = firestore().collection('schedules_uid').doc(scheduleMonth)
-    const schedulesUidData = (await schedulesUidRef.get()).data()
+export const sendScheduleUidToDB = async (scheduleMonth, scheduleUid, setSomethingWrong) => {
+    try {
 
-    if (schedulesUidData === undefined) {
-        schedulesUidRef.set({ schedules: [scheduleUid] })
+        const schedulesUidRef = firestore().collection('schedules_uid').doc(scheduleMonth)
+        const schedulesUidData = (await schedulesUidRef.get()).data()
 
-        return
+        if (schedulesUidData === undefined) {
+            schedulesUidRef.set({ schedules: [scheduleUid] })
+
+            return
+        }
+
+        const currentSchedules = schedulesUidData.schedules
+        const schedulesUiUpdated = [...currentSchedules, scheduleUid]
+
+        schedulesUidRef.set({ schedules: [...schedulesUiUpdated] })
+    } catch ({ message }) {
+        setSomethingWrong(true)
+        handleError("sendScheduleUidToDB", message)
     }
-
-    const currentSchedules = schedulesUidData.schedules
-    const schedulesUiUpdated = [...currentSchedules, scheduleUid]
-
-    schedulesUidRef.set({ schedules: [...schedulesUiUpdated] })
 }

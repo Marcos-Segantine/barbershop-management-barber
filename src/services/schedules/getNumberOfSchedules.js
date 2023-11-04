@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getMonth, getYear } from '../../utils/dateHelper';
+import { handleError } from '../../handlers/handleError';
 
 export const getNumberOfSchedules = async (professionalUid, date, setSomethingWrong) => {
     try {
@@ -17,6 +18,7 @@ export const getNumberOfSchedules = async (professionalUid, date, setSomethingWr
         return numberOfSchedules.length
 
     } catch ({ message }) {
-        console.log(error);
+        setSomethingWrong(true)
+        handleError("getNumberOfSchedules", message)
     }
 }

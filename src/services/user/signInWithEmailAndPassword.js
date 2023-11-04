@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { handleError } from '../../handlers/handleError';
 
 export const signInWithEmailAndPassword = async (email, password, navigation, setSomethingWrong) => {
     try {
@@ -10,7 +11,7 @@ export const signInWithEmailAndPassword = async (email, password, navigation, se
         navigation.navigate("SchedulesClients")
 
     } catch ({ message }) {
-        console.log(error);
         setSomethingWrong(true)
+        handleError("signInWithEmailAndPassword", message)
     }
 }

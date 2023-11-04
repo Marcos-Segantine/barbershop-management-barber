@@ -10,7 +10,10 @@ export const getScreenDimensions = (filed, percentage, setSomethingWrong) => {
         return data
 
     } catch ({ message }) {
-        setSomethingWrong(true)
+        if (setSomethingWrong) {
+            setSomethingWrong(true)
+        }
+
         handleError("getScreenDimensions", message)
     }
 }

@@ -110,6 +110,8 @@ export const SchedulesClients = ({ navigation }) => {
 };
 
 const Top = ({ data, dateToFilter, setShowModalFilter, showModalFilter }) => {
+  const { setSomethingWrong } = useContext(SomethingWrongContext)
+
   return (
     <View style={{ width: "100%" }}>
       <HeaderScreensMenu screenName={!data?.length ? "No momento, sua agenda está vazia" : "Seus Agendamentos"} />

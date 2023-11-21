@@ -11,9 +11,13 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [user, setUser] = useState();
 
-  auth().onAuthStateChanged(res => {
-    res ? setUser(res) : setUser(null);
-  });
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged((res) => {
+      res ? setUser(res) : setUser(null);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     try {

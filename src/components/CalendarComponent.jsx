@@ -59,7 +59,7 @@ export const CalendarComponent = () => {
                 const data = []
 
                 for (const weekday of settings.blockedWeekdays) {
-                    data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear))
+                    data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear, setSomethingWrong))
 
                     const result = []
 
@@ -82,7 +82,7 @@ export const CalendarComponent = () => {
                 const data = []
 
                 for (const weekday of settings.blockedWeekdays) {
-                    data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected, setSomethingWrong), getYear(lastMonthSelected, setSomethingWrong)))
+                    data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected, setSomethingWrong), getYear(lastMonthSelected, setSomethingWrong), setSomethingWrong))
 
                     const result = []
 
@@ -110,13 +110,12 @@ export const CalendarComponent = () => {
 
     }, [lastMonthSelected])
 
+    // useEffect(() => {
+    //     if (schedule.day !== null) {
+    //         setSchedule({ ...schedule, schedule: null })
+    //     }
 
-    useEffect(() => {
-        if (schedule.day !== null) {
-            setSchedule({ ...schedule, schedule: null })
-        }
-
-    }, [schedule.day])
+    // }, [schedule.day])
 
     const markedDatesCalendar = {
         ...deniedDaysData,

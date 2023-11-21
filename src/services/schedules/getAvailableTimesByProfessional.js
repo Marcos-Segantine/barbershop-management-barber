@@ -18,7 +18,7 @@ export const getAvailableTimesByProfessional = async (
         const day = getDay(scheduleInfo, setSomethingWrong);
 
         const CurrentDayWeek = new Date(scheduleInfo.day).getDay() + 1
-        const weekday = CurrentDayWeek <= 5 ? "weekday" : CurrentDayWeek === 6 ? "saturday" : "sunday"
+        const weekday = getWeekdayType(CurrentDayWeek)
 
         const unavailableTimesRef = firestore().collection("unavailable_times").doc(`${month}_${year}`)
         const workingHoursRef = firestore().collection('working_hours').doc(professionalUid)

@@ -19,6 +19,7 @@ import { UserContext } from '../context/UserContext';
 import { formatDate } from '../utils/formatDate';
 import { getMonth, getYear, getDay } from '../utils/dateHelper';
 import { getNameLastName } from '../utils/getNameLastName';
+import { getWeekdayType } from '../utils/getWeekdayType';
 
 export const SchedulesInDay = ({ route }) => {
   const [data, setData] = useState(null);
@@ -34,7 +35,7 @@ export const SchedulesInDay = ({ route }) => {
   const month = getMonth(day, setSomethingWrong)
 
   const date = new Date(day).getDay() + 1
-  const weekday = date <= 5 ? "weekday" : date === 6 ? "saturday" : "sunday"
+  const weekday = getWeekdayType(date)
 
   const dateFormatted = month + '_' + year;
 

@@ -1,6 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getHour, getMonth, getYear } from '../../utils/dateHelper';
+import { getWeekdayType } from '../../utils/getWeekdayType';
+
 import { handleError } from '../../handlers/handleError';
 
 export const getAvailableProfessional = async (
@@ -28,15 +30,6 @@ export const getAvailableProfessional = async (
             professionalGender: docBarber._data.gender
         }))
 
-        if (!unavailableTimesData) {
-            setAvailableProfessional(barbersData)
-            return
-        }
-        else if (!!!(unavailableTimesData[day])) {
-            setAvailableProfessional(barbersData)
-            return
-        }
-
         const dataTemp = []
         const professionals = barbersData.map(barber => ({
             name: barber.name,
@@ -45,12 +38,27 @@ export const getAvailableProfessional = async (
         }))
 
         for (const barber of professionals) {
-            if (!!!unavailableTimesData[day][barber.professionalUid]) {
+            const workingHoursRef = firestore().collection("working_hours").doc(barber.professionalUid)
+            const workingHoursData = (await workingHoursRef.get()).data()
+
+            const weekType = getWeekdayType(new Date(schedule.day).getDay() + 1)
+
+            if (workingHoursData[weekType].includes(hour) == false) {
+                continue;
+            }
+            else if (!unavailableTimesData) {
                 dataTemp.push(barber)
                 continue
             }
-
-            if (!unavailableTimesData[day][barber].includes(hour)) {
+            else if (unavailableTimesData[day] === undefined) {
+                dataTemp.push(barber)
+                continue
+            }
+            else if (unavailableTimesData[day][barber.professionalUid] === undefined) {
+                dataTemp.push(barber)
+                continue
+            }
+            else if (unavailableTimesData[day][barber.professionalUid].includes(hour) === false) {
                 dataTemp.push(barber)
                 continue
             }

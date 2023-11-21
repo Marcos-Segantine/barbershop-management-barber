@@ -18,6 +18,8 @@ import { DataUpdated } from "../assets/imgs/DataUpdated"
 import { UserContext } from "../context/UserContext"
 
 import { sortByHour } from "../utils/sortByHour"
+import { getWeekdayType } from "../utils/getWeekdayType"
+
 import { SettingsContext } from "../context/SettingsContext"
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
@@ -50,7 +52,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
 
             const date = new Date(Object.keys(day)[0])
             const weekDay = date.getDay() + 1;
-            const dayOfWeek = weekDay <= 5 ? "weekday" : weekDay === 6 ? "saturday" : "sunday"
+            const dayOfWeek = getWeekdayType(weekDay)
 
             const data = await getAllTimesFromProfessional(userData.uid, setSomethingWrong)
 

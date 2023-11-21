@@ -1,9 +1,7 @@
+import { handleError } from "../handlers/handleError";
+
 export const getWeekdayFromMonth = (weekday, month, year, setSomethingWrong) => {
     try {
-        // Validate input
-        if (+weekday < 0 || +weekday > 6 || +month < 1 || +month > 12) {
-            return "Invalid input";
-        }
         const result = []
 
         const firstDayOfNextMonth = new Date(year, month, 1);

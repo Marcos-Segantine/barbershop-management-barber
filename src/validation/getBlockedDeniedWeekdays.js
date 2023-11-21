@@ -28,7 +28,7 @@ export const getBlockedDeniedWeekdays = (lastMonthSelected, settings, setWeekday
             const data = []
 
             for (const weekday of settings.blockedWeekdays) {
-                data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear))
+                data.push(getWeekdayFromMonth(weekday, monthFormatted, currentYear, setSomethingWrong))
 
                 const result = []
 
@@ -52,7 +52,7 @@ export const getBlockedDeniedWeekdays = (lastMonthSelected, settings, setWeekday
             const data = []
 
             for (const weekday of settings.blockedWeekdays) {
-                data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected, setSomethingWrong), getYear(lastMonthSelected, setSomethingWrong)))
+                data.push(getWeekdayFromMonth(weekday, getMonth(lastMonthSelected, setSomethingWrong), getYear(lastMonthSelected, setSomethingWrong), setSomethingWrong))
 
                 const result = []
 

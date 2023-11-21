@@ -6,7 +6,7 @@ import DefaultPicture from "../assets/icons/DefaultPicture.png"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null }) => {
+export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, isCreatingNewAccount = false }) => {
     const [pictureCached, setPictureCached] = useState(null)
 
     useEffect(() => {
@@ -19,9 +19,55 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null }) 
 
     }, [])
 
-    if (pictureCached) {
+    useEffect(() => {
+
+        (async () => {
+
+            if (isCreatingNewAccount) {
+                await AsyncStorage.removeItem("@barber_app_barber__profilePicture")
+            }
+
+        })();
+
+    }, [])
+
+    if (isCreatingNewAccount) {
         return (
-            <Image source={{ uri: `data:image/png;base64,${pictureCached}` }} style={{ width: 200, height: 200, borderRadius: 150 }} />
+            <View style={profilePicture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
+                {
+                    pictureCached ?
+                        <Image source={{ uri: `data:image/png;base64,${pictureCached}` }} style={styles.img} /> :
+                        <Image source={DefaultPicture} style={styles.img} />
+                }
+
+                {
+                    !!setNewProfilePicture &&
+                    <TouchableOpacity TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={() => setNewProfilePicture()}>
+                        <EditProfilePicture width={40} height={40} />
+                    </TouchableOpacity>
+                }
+
+            </View>
+        )
+    }
+    else if (pictureCached) {
+        return (
+            <View style={profilePicture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
+                {
+                    pictureCached ?
+                        <Image source={{ uri: `data:image/png;base64,${pictureCached}` }} style={styles.img} /> :
+                        <Image source={DefaultPicture} style={styles.img} />
+                }
+
+                {
+                    !!setNewProfilePicture &&
+                    <TouchableOpacity TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={() => setNewProfilePicture()}>
+                        <EditProfilePicture width={40} height={40} />
+                    </TouchableOpacity>
+                }
+
+            </View>
+
         )
     }
 
@@ -29,8 +75,8 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null }) 
         <View style={profilePicture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
             {
                 profilePicture ?
-                    <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
-                    <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
+                    <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={styles.img} /> :
+                    <Image source={DefaultPicture} style={styles.img} />
             }
 
             {
@@ -54,4 +100,10 @@ const styles = StyleSheet.create({
         right: 15,
         padding: 5,
     },
+
+    img: {
+        width: 200,
+        height: 200,
+        borderRadius: 150,
+    }
 })

@@ -11,7 +11,14 @@ export const getNameLastName = (name, setSomethingWrong, ellipsis = true) => {
         }
 
         name = name.split(" ")
-        return name[0] + " " + name[1]
+
+        if (name.length > 1) {
+            return name[0] + " " + name[1]
+        }
+        else {
+            return name[0]
+        }
+
     } catch ({ message }) {
         setSomethingWrong(true)
         handleError("getNameLastName", message)

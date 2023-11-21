@@ -56,7 +56,6 @@ export const signInWithEmailAndPassword = async (
           return
         }
 
-
         await AsyncStorage.setItem('@barber_app__barber_email', email);
 
         setUserData(userData);
@@ -85,6 +84,19 @@ export const signInWithEmailAndPassword = async (
           setEmail("")
           setPassword("")
           setIsLoading(false)
+        }
+        else if (error.message === "[auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later. [ Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. ]") {
+          setModalInfo({
+            image: <MessageErrorAuthImage />,
+            mainMessage: "Muitas tentativas",
+            message: "Parece que houve fez muitas tentativas de acesso a sua conta, por questoẽs de segunrança seu acesso sera suspenso temporariamente.",
+            firstButtonText: "Ok",
+            firstButtonAction: () => setModalInfo(null),
+          })
+
+          setIsLoading(false)
+
+          return
         }
         else throw Error("User not found")
       })

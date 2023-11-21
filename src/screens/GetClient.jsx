@@ -49,6 +49,8 @@ export const GetClient = ({ navigation, route }) => {
     const handleConfirm = async () => {
         setInputSelected(null)
         setIsLoading(true)
+        setPhone("")
+        setEmail("")
 
         const clientData = await getUserDataByEmailOrPhone(
             email?.trim(),
@@ -60,7 +62,6 @@ export const GetClient = ({ navigation, route }) => {
         if (clientData !== undefined) {
             setClientData(clientData)
             setSchedule({ ...schedule, client: { ...clientData } })
-
         }
 
         setIsLoading(false)

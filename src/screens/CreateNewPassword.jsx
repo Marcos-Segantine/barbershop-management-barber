@@ -126,7 +126,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
               <TextInput
                 style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
-                placeholder={"Nova Senha"}
+                placeholder={"Senha atual"}
                 value={currentPassword}
                 placeholderTextColor={"#00000050"}
                 secureTextEntry={hiddenCurrentPassword}

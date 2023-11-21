@@ -103,7 +103,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
 
             </View>
 
-            <Text style={styles.clientName}>{data && getNameLastName(data.name, setSomethingWrong)}</Text>
+            <Text style={styles.clientName}>{data && getNameLastName(data.name, setSomethingWrong, false)}</Text>
 
             <View style={{ alignItems: 'flex-start', marginTop: 25, width: "100%" }}>
               <Text style={styles.description}>Email: <Text style={styles.info}>{data && data.email}</Text></Text>

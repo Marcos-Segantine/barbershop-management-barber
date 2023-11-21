@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getMonth, getYear } from '../../utils/dateHelper';
+import { handleError } from '../../handlers/handleError';
 
 export const getAvailableTimesByProfessional = async (
     professionalUid,
@@ -111,6 +112,7 @@ export const getAvailableTimesByProfessional = async (
             })
 
     } catch ({ message }) {
-        console.error(error);
+        setSomethingWrong(true)
+        handleError("getAvailableTimesByProfessional", message)
     }
 };

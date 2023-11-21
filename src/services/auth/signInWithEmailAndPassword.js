@@ -68,7 +68,6 @@ export const signInWithEmailAndPassword = async (
 
       })
       .catch(async (error) => {
-        console.log(error.message);
         if (
           error.message ===
           "[auth/wrong-password] The password is invalid or the user does not have a password." ||

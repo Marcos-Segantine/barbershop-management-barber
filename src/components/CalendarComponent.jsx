@@ -110,8 +110,11 @@ export const CalendarComponent = () => {
 
     }, [lastMonthSelected])
 
+
     useEffect(() => {
-        setSchedule({ ...schedule, schedule: null })
+        if (schedule.day !== null) {
+            setSchedule({ ...schedule, schedule: null })
+        }
 
     }, [schedule.day])
 

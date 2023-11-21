@@ -58,7 +58,7 @@ export const SchedulesClients = ({ navigation }) => {
 
   if (!data?.length) return (
     <>
-      <View style={[globalStyles.container, { flex: 1, justifyContent: "space-between" }]}>
+      <View style={[globalStyles.container, { flex: 1, justifyContent: data.length ? "center" : "space-between"}]}>
         <HeaderScreensMenu screenName={!data?.length ? "Agenda Vazia" : "Seus Agendamentos"} />
 
         <FreeTimeImage width={"100%"} height={"60%"} />

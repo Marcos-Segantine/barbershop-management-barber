@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getHour, getMonth, getYear } from '../../utils/dateHelper';
+import { handleError } from '../../handlers/handleError';
 
 export const getAvailableProfessional = async (
     schedule,
@@ -24,7 +25,7 @@ export const getAvailableProfessional = async (
             name: docBarber._data.name,
             professionalUid: docBarber._data.uid,
             profilePicture: docBarber._data.profilePicture,
-            professionalGender: barber._data.gender
+            professionalGender: docBarber._data.gender
         }))
 
         if (!unavailableTimesData) {
@@ -44,7 +45,7 @@ export const getAvailableProfessional = async (
         }))
 
         for (const barber of professionals) {
-            if (!!!unavailableTimesData[day][barber]) {
+            if (!!!unavailableTimesData[day][barber.professionalUid]) {
                 dataTemp.push(barber)
                 continue
             }
@@ -58,6 +59,7 @@ export const getAvailableProfessional = async (
         setAvailableProfessional(dataTemp);
 
     } catch ({ message }) {
-        console.error(error);
+        setSomethingWrong(true)
+        handleError("getAvailableProfessional", message)
     }
 }

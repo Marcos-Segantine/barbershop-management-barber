@@ -1,7 +1,9 @@
 import { handleError } from "../handlers/handleError";
 
 export const formatInputPhoneNumber = (input, setSomethingWrong) => {
+
     try {
+
         if (!input) return
 
         const cleanedInput = input.replace(/\D/g, '');
@@ -21,7 +23,6 @@ export const formatInputPhoneNumber = (input, setSomethingWrong) => {
         if (cleanedInput.length >= 8 && cleanedInput.length <= 11) {
             return `(${cleanedInput.slice(0, 2)}) ${cleanedInput.slice(2, 7)}-${cleanedInput.slice(7)}`;
         }
-
     } catch ({ message }) {
         setSomethingWrong(true)
         handleError("formatInputPhoneNumber", message)

@@ -29,6 +29,7 @@ export const EditServices = ({ navigation }) => {
     const [modalContent, setModalContent] = useState(null)
 
     const [isNewBarber, setIsNewBarber] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const { createNewPerson, setCreateNewPearson } = useContext(CreateNewPersonContext)
     const { setSomethingWrong } = useContext(SomethingWrongContext)
@@ -62,7 +63,7 @@ export const EditServices = ({ navigation }) => {
             return
         }
 
-        else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setModalContent,  setSomethingWrong)) {
+        else if (verifyFieldsOfNewService(newService.name, newService.price, currentServices, setModalContent, setSomethingWrong)) {
             setModalContent(null)
 
             setCurrentServices([...currentServices, formatServicePrice(newService)].reverse())
@@ -76,6 +77,7 @@ export const EditServices = ({ navigation }) => {
     }
 
     const handleContinue = async () => {
+        setIsLoading(true)
 
         if (createNewPerson?.newPerson && userData === null) {
             await createPerson({ ...createNewPerson, services: [...currentServices].sort((a, b) => a.name.localeCompare(b.name)) }).then(() => {
@@ -93,6 +95,7 @@ export const EditServices = ({ navigation }) => {
                 })
             })
 
+            setIsLoading(false)
             return
 
         } else if (createNewPerson?.newPerson && userData !== null) {
@@ -112,6 +115,7 @@ export const EditServices = ({ navigation }) => {
                 })
             })
 
+            setIsLoading(false)
             return
 
         } else {
@@ -126,9 +130,11 @@ export const EditServices = ({ navigation }) => {
                 }
             })
         }
+
+        setIsLoading(false)
     }
 
-    if (isNewBarber === null) return <Loading flexSize={1} />
+    if (isNewBarber === null || isLoading) return <Loading flexSize={1} />
 
     return (
         <ScrollView

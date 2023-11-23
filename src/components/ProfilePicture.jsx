@@ -33,10 +33,10 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
 
     if (isCreatingNewAccount) {
         return (
-            <View style={profilePicture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
+            <View style={styles.contentPicture}>
                 {
-                    pictureCached ?
-                        <Image source={{ uri: `data:image/png;base64,${pictureCached}` }} style={styles.img} /> :
+                    profilePicture ?
+                        <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={styles.img} /> :
                         <Image source={DefaultPicture} style={styles.img} />
                 }
 
@@ -52,7 +52,7 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
     }
     else if (pictureCached) {
         return (
-            <View style={profilePicture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
+            <View style={styles.contentPicture}>
                 {
                     pictureCached ?
                         <Image source={{ uri: `data:image/png;base64,${pictureCached}` }} style={styles.img} /> :
@@ -72,10 +72,10 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
     }
 
     return (
-        <View style={profilePicture ? { padding: 10, marginTop: 30, } : { borderRadius: 150, marginTop: 30 }}>
+        <View style={styles.contentPicture}>
             {
                 profilePicture ?
-                    <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={styles.img} /> :
+                    <Image source={{ uri: profilePicture }} style={styles.img} /> :
                     <Image source={DefaultPicture} style={styles.img} />
             }
 
@@ -91,6 +91,13 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
 }
 
 const styles = StyleSheet.create({
+    contentPicture: {
+        width: 250,
+        height: 250,
+        borderRadius: 150,
+        marginTop: 20
+    },
+
     contentEditPicture: {
         backgroundColor: '#fc9501',
         position: 'absolute',
@@ -102,8 +109,8 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        width: 200,
-        height: 200,
+        width: "100%",
+        height: "100%",
         borderRadius: 150,
     }
 })

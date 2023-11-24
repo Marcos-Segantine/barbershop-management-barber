@@ -70,7 +70,6 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
 
         )
     }
-
     return (
         <View style={styles.contentPicture}>
             {
@@ -86,7 +85,7 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
                 </TouchableOpacity>
             }
 
-        </View >
+        </View>
     )
 }
 

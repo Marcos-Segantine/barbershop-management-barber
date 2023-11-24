@@ -105,7 +105,7 @@ export const FillProfile = ({ navigation, route }) => {
 
             <ProfilePicture
                 setNewProfilePicture={setNewProfilePicture}
-                profilePicture={createNewPerson.profilePicture}
+                profilePicture={createNewPerson.profilePicture || userData.profilePicture}
                 isCreatingNewAccount={!isToUpdateProfessionalData}
             />
 

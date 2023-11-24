@@ -69,7 +69,11 @@ export const Profile = ({ navigation }) => {
         />
 
         <View style={{ alignItems: 'center' }}>
-          <ProfilePicture />
+          <ProfilePicture
+            setNewProfilePicture={null}
+            profilePicture={userData.profilePicture}
+            isCreatingNewAccount={false}
+          />
 
           <Text style={styles.userName}>{userData && getNameLastName(userData.name, setSomethingWrong, false)}</Text>
           <Text style={styles.userEmail}>{userData && userData.email}</Text>

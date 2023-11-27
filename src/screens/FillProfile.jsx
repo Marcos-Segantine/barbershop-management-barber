@@ -85,7 +85,7 @@ export const FillProfile = ({ navigation, route }) => {
             overScrollMode="never"
             bounces={false}
         >
-            <ComeBack text={headerText} />
+            <ComeBack text={headerText} action={() => setCreateNewPearson(null)} />
 
             <DefaultModal
                 modalContent={modalContent}
@@ -106,7 +106,8 @@ export const FillProfile = ({ navigation, route }) => {
             <ProfilePicture
                 setNewProfilePicture={setNewProfilePicture}
                 profilePicture={createNewPerson.profilePicture || userData.profilePicture}
-                isCreatingNewAccount={!isToUpdateProfessionalData}
+                isCreatingAccount={isToUpdateProfessionalData ? false : true}
+                creatingNewAccount={createNewPerson}
             />
 
             <View style={styles.contentInput}>

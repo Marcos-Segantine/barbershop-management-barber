@@ -6,7 +6,7 @@ import DefaultPicture from "../assets/icons/DefaultPicture.png"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, isCreatingNewAccount = false }) => {
+export const ProfilePicture = ({ setNewProfilePicture, profilePicture, creatingNewAccount, isCreatingAccount }) => {
     const [pictureCached, setPictureCached] = useState(null)
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
 
         (async () => {
 
-            if (isCreatingNewAccount) {
+            if (creatingNewAccount) {
                 await AsyncStorage.removeItem("@barber_app_barber__profilePicture")
             }
 
@@ -31,12 +31,12 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
 
     }, [])
 
-    if (isCreatingNewAccount) {
+    if (isCreatingAccount === false) {
         return (
             <View style={styles.contentPicture}>
                 {
                     profilePicture ?
-                        <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={styles.img} /> :
+                        <Image source={{ uri: profilePicture }} style={styles.img} /> :
                         <Image source={DefaultPicture} style={styles.img} />
                 }
 
@@ -46,38 +46,35 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
                         <EditProfilePicture width={40} height={40} />
                     </TouchableOpacity>
                 }
-
             </View>
         )
     }
-    else if (pictureCached) {
+
+    if (creatingNewAccount?.newPerson == "client") {
         return (
             <View style={styles.contentPicture}>
                 {
-                    pictureCached ?
-                        <Image source={{ uri: `data:image/png;base64,${pictureCached}` }} style={styles.img} /> :
-                        <Image source={DefaultPicture} style={styles.img} />
-                }
-
-                {
-                    !!setNewProfilePicture &&
-                    <TouchableOpacity TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={() => setNewProfilePicture()}>
-                        <EditProfilePicture width={40} height={40} />
-                    </TouchableOpacity>
-                }
-
-            </View>
-
-        )
-    }
-    else if (!!setNewProfilePicture) {
-        return (
-            <View style={styles.contentPicture}>
-                {
-                    profilePicture ?
+                    creatingNewAccount.profilePicture ?
                         <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={styles.img} /> :
                         <Image source={DefaultPicture} style={styles.img} />
                 }
+
+                <TouchableOpacity TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={() => setNewProfilePicture()}>
+                    <EditProfilePicture width={40} height={40} />
+                </TouchableOpacity>
+
+            </View>
+        )
+    }
+    else if (creatingNewAccount !== null) {
+        return (
+            <View style={styles.contentPicture}>
+                {
+                    creatingNewAccount.profilePicture ?
+                        <Image source={{ uri: `data:image/png;base64,${creatingNewAccount.profilePicture}` }} style={styles.img} /> :
+                        <Image source={DefaultPicture} style={styles.img} />
+                }
+
 
                 <TouchableOpacity TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={() => setNewProfilePicture()}>
                     <EditProfilePicture width={40} height={40} />

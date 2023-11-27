@@ -72,7 +72,8 @@ export const Profile = ({ navigation }) => {
           <ProfilePicture
             setNewProfilePicture={null}
             profilePicture={userData.profilePicture}
-            isCreatingNewAccount={false}
+            isCreatingAccount={false}
+            creatingNewAccount={createNewPerson}
           />
 
           <Text style={styles.userName}>{userData && getNameLastName(userData.name, setSomethingWrong, false)}</Text>

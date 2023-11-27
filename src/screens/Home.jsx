@@ -191,11 +191,14 @@ export const Home = ({ navigation }) => {
                 />
 
                 <HeaderScreensMenu screenName={dayFormatted} />
-                {
-                    scheduleEarlier?.profilePicture ?
-                        <Image src={scheduleEarlier.profilePicture} style={{ width: 200, height: 200, borderRadius: 150 }} /> :
-                        <Image source={DefaultPicture} style={{ width: 200, height: 200, borderRadius: 150 }} />
-                }
+
+                <View style={styles.contentPicture}>
+                    {
+                        scheduleEarlier?.profilePicture ?
+                            <Image src={scheduleEarlier.profilePicture} style={styles.img} /> :
+                            <Image source={DefaultPicture} style={styles.img} />
+                    }
+                </View>
 
                 <Text style={styles.clientName}>{scheduleEarlier?.name && getNameLastName(scheduleEarlier.name, setSomethingWrong, false)}</Text>
 
@@ -294,5 +297,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-around",
         marginTop: 30,
+    },
+
+    contentPicture: {
+        width: 250,
+        height: 250,
+        borderRadius: 150,
+    },
+
+    img: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 150,
     }
 })

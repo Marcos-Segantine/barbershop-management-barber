@@ -14,12 +14,14 @@ import { handleNavigation } from "../handlers/handleNavigation"
 
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
-export const ComeBack = ({ text }) => {
+export const ComeBack = ({ text, action }) => {
     const navigation = useNavigation()
 
     const { setSomethingWrong } = useContext(SomethingWrongContext)
 
     const handleComeBack = () => {
+        if (action) action()
+
         const [previousScreen, lastScreen] = getPreviousScreensName(navigation)
 
         handleNavigation(

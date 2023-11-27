@@ -1,4 +1,5 @@
 import { handleError } from "../../handlers/handleError"
+
 import { getMonth, getYear } from "../../utils/dateHelper"
 
 export const filterSchedulesByDate = (schedules, date, setSomethingWrong) => {

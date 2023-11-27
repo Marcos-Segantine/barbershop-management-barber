@@ -31,7 +31,6 @@ export const ConfirmSchedule = ({ navigation, route }) => {
     const { scheduleToUpdate, isToUpdateSchedule } = route.params
 
     const dateFormatted = schedule && formatDate(schedule.day, setSomethingWrong)
-    const phoneFormatted = schedule.client?.phone && schedule.client.phone
 
     const isFocused = useIsFocused();
 
@@ -70,7 +69,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         <Text style={styles.describe}>Celular</Text>
-                        <Text style={styles.info}>{phoneFormatted}</Text>
+                        <Text style={styles.info}>{schedule?.client.phone}</Text>
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>

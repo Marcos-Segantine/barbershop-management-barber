@@ -1,4 +1,5 @@
 import { MessageErrorAuthImage } from "../../assets/imgs/MessageErrorAuthImage";
+
 import { handleError } from "../../handlers/handleError";
 
 export const verifyFieldsOfNewService = (

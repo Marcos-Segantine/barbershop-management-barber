@@ -4,6 +4,7 @@ import storage from '@react-native-firebase/storage';
 import { generateNewUid } from '../../utils/generateNewUid';
 import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
 import { capitalizeName } from '../../utils/capitalizaName';
+
 import { handleError } from '../../handlers/handleError';
 
 export const createPerson = async (newPerson, setSchedule, schedule, setSomethingWrong) => {

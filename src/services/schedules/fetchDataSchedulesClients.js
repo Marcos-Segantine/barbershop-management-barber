@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { isDatePassed } from '../../utils/isDatePassed';
+
 import { handleError } from '../../handlers/handleError';
 
 export const fetchDataSchedulesClients = async (

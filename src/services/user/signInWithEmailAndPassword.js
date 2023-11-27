@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { handleError } from '../../handlers/handleError';
 
 export const signInWithEmailAndPassword = async (email, password, navigation, setSomethingWrong) => {

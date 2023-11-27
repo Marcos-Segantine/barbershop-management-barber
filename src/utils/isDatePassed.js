@@ -1,4 +1,5 @@
 import { handleError } from "../handlers/handleError";
+
 import { getDay, getMonth, getYear } from "./dateHelper";
 
 export const isDatePassed = (date, hourSchedule, setSomethingWrong) => {

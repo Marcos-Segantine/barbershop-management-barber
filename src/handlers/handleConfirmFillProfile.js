@@ -7,6 +7,7 @@ import { verifyIfDataAlreadyExist } from "../validation/verifyIfDataAlreadyExist
 import { updateProfessionalData } from "../services/user/updateProfessionalData"
 
 import { MessageErrorAuthImage } from "../assets/imgs/MessageErrorAuthImage"
+
 import { handleError } from "./handleError"
 
 export const handleConfirmFillProfile = async (

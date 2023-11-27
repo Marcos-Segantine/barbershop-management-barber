@@ -1,5 +1,7 @@
-import { useNavigation } from "@react-navigation/native"
+import { useContext } from "react"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
+
+import { useNavigation } from "@react-navigation/native"
 
 import { ArrowComeBack } from "../assets/icons/ArrowComeBackIcon"
 import { globalStyles } from "../assets/globalStyles"
@@ -9,7 +11,7 @@ import { SomethingWrong } from "./modals/SomethingWrong"
 import { getPreviousScreensName } from "../utils/getPreviousScreensName"
 
 import { handleNavigation } from "../handlers/handleNavigation"
-import { useContext } from "react"
+
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
 
 export const ComeBack = ({ text }) => {

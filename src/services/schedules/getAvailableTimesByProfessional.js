@@ -1,6 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getDay, getMonth, getYear } from '../../utils/dateHelper';
+import { getWeekdayType } from '../../utils/getWeekdayType';
+
 import { handleError } from '../../handlers/handleError';
 
 export const getAvailableTimesByProfessional = async (

@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { globalStyles } from '../../assets/globalStyles';
+
 import { handleError } from '../../handlers/handleError';
 
 export const daysBlocked = async (professionalUid, isToEditDays, days, setSomethingWrong) => {

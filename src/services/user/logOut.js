@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import auth from '@react-native-firebase/auth';
+
 import { handleError } from '../../handlers/handleError';
 
 export const logOut = async (navigation, setSomethingWrong) => {

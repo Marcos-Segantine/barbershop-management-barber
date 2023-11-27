@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 import { getYear, getDay, getMonth } from '../../utils/dateHelper';
+
 import { handleError } from '../../handlers/handleError';
 
 export const cancelSchedule = async (clientUid, scheduleInfo, setSomethingWrong) => {

@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+
 import { handleError } from '../../handlers/handleError';
 
 export const verifySchedulesUid = async (scheduleMonth, scheduleUid, setSomethingWrong) => {

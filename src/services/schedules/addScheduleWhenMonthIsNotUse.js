@@ -12,6 +12,7 @@ import { verifySchedulesUid } from './verifySchedulesUid';
 
 import { NewScheduleConfirmationImage } from '../../assets/imgs/NewScheduleConfirmationImage';
 import { ScheduleUnavailableNow } from '../../assets/imgs/ScheduleUnavailableNow';
+
 import { handleError } from '../../handlers/handleError';
 
 export const addScheduleWhenMonthIsNotUse = async (

@@ -1,4 +1,5 @@
 import { Dimensions } from "react-native"
+
 import { handleError } from "../handlers/handleError"
 
 export const getScreenDimensions = (filed, percentage, setSomethingWrong) => {

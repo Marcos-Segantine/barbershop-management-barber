@@ -110,7 +110,7 @@ export const GetCode = ({ navigation }) => {
     }
 
     useEffect(() => {
-        // verifyPhoneNumber()
+        verifyPhoneNumber()
 
     }, [userData.phone])
 
@@ -235,7 +235,7 @@ export const GetCode = ({ navigation }) => {
 
     const phoneHidden = userData?.phone.replace(/[^0-9]/g, '').split('').map((number, index) => index < 8 ? "*" : number).join('')
 
-    // if (isLoading) return <Loading flexSize={1} text={"Este procedimento pode levar um tempo para ser concluído."} />
+    if (isLoading) return <Loading flexSize={1} text={"Este procedimento pode levar um tempo para ser concluído."} />
 
     return (
         <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>

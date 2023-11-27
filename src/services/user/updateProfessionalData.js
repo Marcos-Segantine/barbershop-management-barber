@@ -3,7 +3,9 @@ import storage from '@react-native-firebase/storage';
 
 import { trimAndNormalizeSpaces } from '../../utils/trimAndNormalizeSpaces';
 import { capitalizeName } from '../../utils/capitalizaName';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { handleError } from '../../handlers/handleError';
 
 export const updateProfessionalData = async (
@@ -33,8 +35,6 @@ export const updateProfessionalData = async (
         const email = trimAndNormalizeSpaces(professionalData.email || userData.email)
         const phone = trimAndNormalizeSpaces(professionalData.phone || userData.phone)
 
-        const phoneChanged = !!professionalData.phone
-
         const dataUpdated = {
             name: name,
             email: email,
@@ -42,16 +42,11 @@ export const updateProfessionalData = async (
             profilePicture: url || userData.profilePicture,
             gender: professionalData.gender || userData.gender,
             uid: professionalUid,
-            phoneNumberValidated: phoneChanged ? false : userData.phoneNumberValidated
+            phoneNumberValidated: userData.phoneNumberValidated || false
         }
 
         setUserData({ ...dataUpdated })
         await barbersRef.update({ ...dataUpdated })
-
-        if (phoneChanged) {
-            navigation.navigate("GetCode")
-            return
-        }
 
         setIsLoading(false)
         navigation.navigate("Profile")

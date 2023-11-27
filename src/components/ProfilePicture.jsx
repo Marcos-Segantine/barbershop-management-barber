@@ -70,6 +70,22 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture = null, is
 
         )
     }
+    else if (!!setNewProfilePicture) {
+        return (
+            <View style={styles.contentPicture}>
+                {
+                    profilePicture ?
+                        <Image source={{ uri: `data:image/png;base64,${profilePicture}` }} style={styles.img} /> :
+                        <Image source={DefaultPicture} style={styles.img} />
+                }
+
+                <TouchableOpacity TouchableOpacity style={styles.contentEditPicture} activeOpacity={.8} onPress={() => setNewProfilePicture()}>
+                    <EditProfilePicture width={40} height={40} />
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.contentPicture}>
             {

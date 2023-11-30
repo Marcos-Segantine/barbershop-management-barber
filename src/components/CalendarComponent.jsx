@@ -110,13 +110,6 @@ export const CalendarComponent = () => {
 
     }, [lastMonthSelected])
 
-    // useEffect(() => {
-    //     if (schedule.day !== null) {
-    //         setSchedule({ ...schedule, schedule: null })
-    //     }
-
-    // }, [schedule.day])
-
     const markedDatesCalendar = {
         ...deniedDaysData,
         ...weekdaysBlocked,
@@ -149,6 +142,7 @@ export const CalendarComponent = () => {
             <Calendar
                 context={{ date: '' }}
                 minDate={date.toString()}
+                current={schedule.day ? schedule.day : date.toString()}
                 maxDate={`${year}-${month}-${day}`}
                 markedDates={{ ...markedDatesCalendar }}
                 onDayPress={day => handleDayPress(day.dateString)}

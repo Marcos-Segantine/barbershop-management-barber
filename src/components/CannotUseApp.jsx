@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     text: {
         fontSize: globalStyles.fontSizeSmall,
         fontFamily: globalStyles.fontFamilyMedium,
-        marginTop: 20
+        marginTop: 20,
+        color: "#000000"
     },
 
     contactButtonText: {

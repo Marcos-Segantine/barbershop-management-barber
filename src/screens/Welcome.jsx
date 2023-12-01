@@ -28,7 +28,7 @@ export const Welcome = ({ navigation }) => {
             }
             else if (data.response === "[maintenance]") {
                 setBlockAccessData({
-                    mainMessage: "Estamos em manutenção por favor aguarde um momento, agradecemos sua compressão.",
+                    mainMessage: "No momento estamos em manutenção, agradecemos sua compreenção.",
                     showContact: false
                 })
             }

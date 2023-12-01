@@ -10,7 +10,7 @@ import { verifyIfUserLogged } from "../validation/verifyIfUserLogged";
 import { CannotUseApp } from "../components/CannotUseApp";
 
 export const Welcome = ({ navigation }) => {
-    const [blockAccess, setBlockAccess] = useState(false);
+    const [blockAccessData, setBlockAccessData] = useState(null)
 
     const { setSomethingWrong } = useContext(SomethingWrongContext)
 
@@ -23,18 +23,33 @@ export const Welcome = ({ navigation }) => {
             }
             const data = await response.json();
 
-            if (data.response) {
+            if (data.response === "true") {
                 verifyIfUserLogged(navigation, setSomethingWrong);
             }
+            else if (data.response === "[maintenance]") {
+                setBlockAccessData({
+                    mainMessage: "Estamos em manutenção por favor aguarde um momento, agradecemos sua compressão.",
+                    showContact: false
+                })
+            }
+            else if (data.response === "[update required]") {
+                setBlockAccessData({
+                    mainMessage: "Por favor atualize o aplicativo para a versão mais recente.",
+                    showContact: false
+                })
+            }
             else {
-                setBlockAccess(true)
+                setBlockAccessData({
+                    mainMessage: "Você não pode acessar o aplicativo agora.",
+                    showContact: true
+                })
             }
 
         }))();
 
     }, []);
 
-    if (blockAccess) return <CannotUseApp />
+    if (blockAccessData !== null) return <CannotUseApp data={blockAccessData} />
 
     return (
         <SafeAreaView style={styles.container}>

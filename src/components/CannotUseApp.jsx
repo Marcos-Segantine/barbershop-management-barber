@@ -7,7 +7,7 @@ import { globalStyles } from "../assets/globalStyles";
 import { Contact } from "./modals/Contact";
 import { useState } from "react";
 
-export const CannotUseApp = ({ width = "100%", height = "40%" }) => {
+export const CannotUseApp = ({ data, width = "100%", height = "40%" }) => {
     const [contactModal, setContactModal] = useState(false);
     const handleContact = () => setContactModal(true)
 
@@ -25,11 +25,15 @@ export const CannotUseApp = ({ width = "100%", height = "40%" }) => {
                 style={{ width, height, }}
             />
 
-            <Text style={styles.title}>No momento você não pode acessar o aplicativo</Text>
-            <Text style={styles.text}>Para mais informações entre em
-                <Text style={styles.contactButtonText} onPress={handleContact}> contato </Text>
-                conosco.
-            </Text>
+            <Text style={styles.title}>{data.mainMessage}</Text>
+
+            {
+                data.showContact &&
+                <Text style={styles.text}>Para mais informações entre em
+                    <Text style={styles.contactButtonText} onPress={handleContact}> contato </Text>
+                    conosco.
+                </Text>
+            }
         </View>
     )
 }

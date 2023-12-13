@@ -70,8 +70,8 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture, creatingN
         return (
             <View style={styles.contentPicture}>
                 {
-                    creatingNewAccount.profilePicture ?
-                        <Image source={{ uri: `data:image/png;base64,${creatingNewAccount.profilePicture}` }} style={styles.img} /> :
+                    creatingNewAccount?.profilePicture ?
+                        <Image source={{ uri: `data:image/png;base64,${creatingNewAccount?.profilePicture}` }} style={styles.img} /> :
                         <Image source={DefaultPicture} style={styles.img} />
                 }
 

@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     input: {
         width: "100%",
         backgroundColor: "#fafafa",
+        height: 50,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "transparent",

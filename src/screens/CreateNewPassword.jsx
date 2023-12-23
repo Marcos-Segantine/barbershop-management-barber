@@ -125,7 +125,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
               <PadlockIcon />
 
               <TextInput
-                style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
+                style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium, height: 50 }}
                 placeholder={"Senha atual"}
                 value={currentPassword}
                 placeholderTextColor={"#00000050"}
@@ -151,7 +151,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
           <PadlockIcon />
 
           <TextInput
-            style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
+            style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium, height: 50 }}
             placeholder={"Nova senha"}
             value={password}
             placeholderTextColor={"#00000050"}
@@ -169,7 +169,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
           <PadlockIcon />
 
           <TextInput
-            style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium }}
+            style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, fontFamily: globalStyles.fontFamilyMedium, height: 50 }}
             placeholder={"Confirmar Senha"}
             value={confirmPassword}
             placeholderTextColor={"#00000050"}

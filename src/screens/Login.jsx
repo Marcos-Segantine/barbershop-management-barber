@@ -97,7 +97,7 @@ export const Login = ({ navigation, route }) => {
                     <EmailIcon />
 
                     <TextInput
-                        style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall }}
+                        style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, height: 50 }}
                         placeholder={"Email"}
                         value={email}
                         placeholderTextColor={"#00000050"}
@@ -111,7 +111,7 @@ export const Login = ({ navigation, route }) => {
                     <PadlockIcon />
 
                     <TextInput
-                        style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall }}
+                        style={{ color: "#000000", width: "100%", fontSize: globalStyles.fontSizeSmall, height: 50 }}
                         placeholder={"Senha"}
                         value={password}
                         placeholderTextColor={"#00000050"}

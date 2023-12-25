@@ -31,12 +31,14 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture, creatingN
 
     }, [])
 
+    const uri = profilePicture.includes("https://firebasestorage.googleapis.com") ? profilePicture : `data:image/png;base64,${profilePicture}`;
+
     if (isCreatingAccount === false) {
         return (
             <View style={styles.contentPicture}>
                 {
                     profilePicture ?
-                        <Image source={{ uri: profilePicture }} style={styles.img} /> :
+                        <Image source={{ uri: uri }} style={styles.img} /> :
                         <Image source={DefaultPicture} style={styles.img} />
                 }
 

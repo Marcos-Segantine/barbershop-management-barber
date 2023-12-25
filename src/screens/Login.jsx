@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Pressa
 
 import { UserContext } from "../context/UserContext"
 import { SomethingWrongContext } from "../context/SomethingWrongContext"
+import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
 import { EmailIcon } from "../assets/icons/EmailIcon"
 import { PadlockIcon } from "../assets/icons/PadlockIcon"
@@ -16,7 +17,6 @@ import { Loading } from "../components/Loading"
 import { DefaultModal } from "../components/modals/DefaultModal"
 
 import { signInWithEmailAndPassword } from "../services/auth/signInWithEmailAndPassword"
-import { CreateNewPersonContext } from "../context/CreateNewPerson"
 
 export const Login = ({ navigation, route }) => {
     const [inputSelected, setInputSelected] = useState("")

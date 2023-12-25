@@ -140,7 +140,12 @@ export const FillProfile = ({ navigation, route }) => {
                 <View style={styles.contentGenderOptions}>
                     <View style={styles.contentCheckbox}>
                         <CheckBox
-                            tintColors={{ true: globalStyles.orangeColor, false: globalStyles.orangeColor }}
+                            onTintColor={globalStyles.orangeColor}
+                            onFillColor={globalStyles.orangeColor}
+                            onCheckColor={"#FFFFFF"}
+                            onAnimationType={"one-stroke"}
+                            offAnimationType={"one-stroke"}
+                            animationDuration={0.3}
                             disabled={false}
                             value={male}
                             onValueChange={(newValue) => { setMale(newValue), setFame(false), setOtherGender(false) }}
@@ -151,7 +156,12 @@ export const FillProfile = ({ navigation, route }) => {
 
                     <View style={[styles.contentCheckbox, { justifyContent: "center" }]}>
                         <CheckBox
-                            tintColors={{ true: globalStyles.orangeColor, false: globalStyles.orangeColor }}
+                            onTintColor={globalStyles.orangeColor}
+                            onFillColor={globalStyles.orangeColor}
+                            onCheckColor={"#FFFFFF"}
+                            onAnimationType={"one-stroke"}
+                            offAnimationType={"one-stroke"}
+                            animationDuration={0.3}
                             disabled={false}
                             value={fame}
                             onValueChange={(newValue) => { setFame(newValue), setMale(false), setOtherGender(false) }}
@@ -162,7 +172,12 @@ export const FillProfile = ({ navigation, route }) => {
 
                     <View style={styles.contentCheckbox}>
                         <CheckBox
-                            tintColors={{ true: globalStyles.orangeColor, false: globalStyles.orangeColor }}
+                            onTintColor={globalStyles.orangeColor}
+                            onFillColor={globalStyles.orangeColor}
+                            onCheckColor={"#FFFFFF"}
+                            onAnimationType={"one-stroke"}
+                            offAnimationType={"one-stroke"}
+                            animationDuration={0.3}
                             disabled={false}
                             value={otherGender}
                             onValueChange={(newValue) => { setOtherGender(newValue), setFame(false), setMale(false) }}
@@ -242,7 +257,8 @@ const styles = StyleSheet.create({
     text: {
         color: "#000000",
         fontFamily: globalStyles.fontFamilyBold,
-        fontSize: globalStyles.fontSizeSmall
+        fontSize: globalStyles.fontSizeSmall,
+        marginLeft: 5,
     },
 
     alertBottom: {

@@ -108,7 +108,7 @@ export const EditServices = ({ navigation }) => {
                     message: "Agora você pode fazer login com sua nova conta.",
                     firstButtonText: "Continuar",
                     firstButtonAction: () => {
-                        navigation.navigate("Login", { emailProfessionalCreated: createNewPerson.email, passwordProfessionalCreated: createNewPerson.password })
+                        navigation.navigate("Profile")
                         setCreateNewPearson(null)
                         setModalContent(null)
                     }

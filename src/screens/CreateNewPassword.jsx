@@ -102,7 +102,6 @@ export const CreateNewPassword = ({ navigation, route }) => {
         navigation.navigate("EditSchedulesOfWork")
       )
 
-    setCreateNewPearson(null)
     setIsLoading(true)
   }
 

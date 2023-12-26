@@ -31,7 +31,7 @@ export const ProfilePicture = ({ setNewProfilePicture, profilePicture, creatingN
 
     }, [])
 
-    const uri = profilePicture.includes("https://firebasestorage.googleapis.com") ? profilePicture : `data:image/png;base64,${profilePicture}`;
+    const uri = profilePicture?.includes("https://firebasestorage.googleapis.com") ? profilePicture : `data:image/png;base64,${profilePicture}`;
 
     if (isCreatingAccount === false) {
         return (

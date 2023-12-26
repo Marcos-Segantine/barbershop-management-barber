@@ -37,8 +37,10 @@ export const EditSchedulesOfWork = ({ navigation }) => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        if (!createNewPerson?.newPerson && userData) {
+        if (createNewPerson === null && userData) {
             getAllSchedulesOfProfessional(userData.uid, setCurrentTimes, setSomethingWrong)
+        }
+        else {
         }
 
     }, [userData, createNewPerson])

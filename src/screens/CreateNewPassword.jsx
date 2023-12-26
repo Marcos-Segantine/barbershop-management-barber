@@ -102,7 +102,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
         navigation.navigate("EditSchedulesOfWork")
       )
 
-    setIsLoading(true)
+    setIsLoading(false)
   }
 
   if (isLoading) return <Loading flexSize={1} />

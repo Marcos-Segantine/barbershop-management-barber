@@ -50,9 +50,9 @@ export const CreateNewPassword = ({ navigation, route }) => {
   const styleConfirmPassword = inputSelected === 'confirmPassword' ? [styles.input, { backgroundColor: '#fff8ec', borderColor: '#fc9501', borderWidth: 1 }] : styles.input
 
   const handleContinue = async () => {
-    if (isToUpdateUserPassword) {
-      setIsLoading(true)
+    setIsLoading(true)
 
+    if (isToUpdateUserPassword) {
       if (verifyPasswordToUpdate(
         userData.password,
         currentPassword,
@@ -87,7 +87,10 @@ export const CreateNewPassword = ({ navigation, route }) => {
 
     const isPasswordValid = verifyPasswordToCreateUser(password, confirmPassword, setModalContent, setSomethingWrong)
 
-    if (!isPasswordValid) return
+    if (!isPasswordValid) {
+      setIsLoading(false)
+      return
+    }
 
     createNewPerson.newPerson === "client" ?
       (
@@ -98,16 +101,19 @@ export const CreateNewPassword = ({ navigation, route }) => {
         setCreateNewPearson({ ...createNewPerson, password: password, }),
         navigation.navigate("EditSchedulesOfWork")
       )
+
+    setCreateNewPearson(null)
+    setIsLoading(true)
   }
 
   if (isLoading) return <Loading flexSize={1} />
 
   return (
     <ScrollView
-            contentContainerStyle={globalStyles.container}
-            overScrollMode="never"
-            bounces={false}
-        >
+      contentContainerStyle={globalStyles.container}
+      overScrollMode="never"
+      bounces={false}
+    >
       <ComeBack text={isToUpdateUserPassword ? "Atualizar Senha" : "Criar Senha"} />
 
       <DefaultModal

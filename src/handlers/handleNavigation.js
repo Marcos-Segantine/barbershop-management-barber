@@ -23,6 +23,11 @@ export const handleNavigation = (
             return true
 
         }
+        else if(previousScreen === "CreateNewPassword" && lastScreen === "AddSchedule") {
+            navigation.navigate("Home")
+            return true;
+
+        }
         else {
             navigation.goBack();
             return true;

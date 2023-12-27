@@ -27,7 +27,9 @@ export const UserProvider = ({ children }) => {
           .where('email', '==', user.email)
           .get()
           .then(async ({ _docs }) => {
-            setUserData(_docs[0]._data);
+            if (_docs.lenght > 0) {
+              setUserData(_docs[0]._data);
+            }
           })
         : setUserData(null);
     } catch ({ message }) {

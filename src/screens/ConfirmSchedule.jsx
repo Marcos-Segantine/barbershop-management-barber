@@ -48,6 +48,7 @@ export const ConfirmSchedule = ({ navigation, route }) => {
             contentContainerStyle={[globalStyles.container, { paddingBottom: "20%" }]}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <DefaultModal
                 modalContent={modalContent}

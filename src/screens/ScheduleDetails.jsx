@@ -83,6 +83,7 @@ export const ScheduleDetails = ({ route, navigation }) => {
         contentContainerStyle={globalStyles.container}
         overScrollMode="never"
         bounces={false}
+        showsVerticalScrollIndicator={false}
       >
         <ComeBack text={hour} />
         <DefaultModal

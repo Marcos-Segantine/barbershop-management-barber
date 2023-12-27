@@ -86,6 +86,7 @@ export const ForgotPassword = ({ navigation }) => {
             contentContainerStyle={globalStyles.container}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <ComeBack text={"Resetar senha"} />
             <DefaultModal modalContent={modalContent} />

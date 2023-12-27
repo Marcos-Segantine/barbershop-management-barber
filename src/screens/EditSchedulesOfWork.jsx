@@ -120,6 +120,7 @@ export const EditSchedulesOfWork = ({ navigation }) => {
             contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <DefaultModal
                 modalContent={modalContent}

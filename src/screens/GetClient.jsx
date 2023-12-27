@@ -83,6 +83,7 @@ export const GetClient = ({ navigation, route }) => {
                 contentContainerStyle={globalStyles.container}
                 overScrollMode="never"
                 bounces={false}
+                showsVerticalScrollIndicator={false}
             >
                 <ShowClientInfo
                     modalShowUser={clientData}

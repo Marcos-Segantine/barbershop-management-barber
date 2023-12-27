@@ -181,6 +181,7 @@ export const Home = ({ navigation }) => {
                 contentContainerStyle={[globalStyles.container, { justifyContent: "space-between" }]}
                 overScrollMode="never"
                 bounces={false}
+                showsVerticalScrollIndicator={false}
             >
                 <DefaultModal
                     modalContent={modalContent}

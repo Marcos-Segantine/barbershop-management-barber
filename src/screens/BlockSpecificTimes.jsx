@@ -154,6 +154,7 @@ export const BlockSpecificTimes = ({ navigation }) => {
             contentContainerStyle={globalStyles.container}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <ComeBack text={"Bloquear Horários"} />
             <DefaultModal modalContent={modalContent} />

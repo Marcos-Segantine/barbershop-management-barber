@@ -84,6 +84,7 @@ export const Login = ({ navigation, route }) => {
             contentContainerStyle={globalStyles.container}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <DefaultModal
                 modalContent={modalInfo}

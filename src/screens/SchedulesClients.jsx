@@ -92,6 +92,8 @@ export const SchedulesClients = ({ navigation }) => {
         )}
         numColumns={2}
         columnWrapperStyle={style.contentDays}
+        overScrollMode="never"
+        bounces={false}
       />
 
       {

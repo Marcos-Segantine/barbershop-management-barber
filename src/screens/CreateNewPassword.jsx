@@ -112,6 +112,7 @@ export const CreateNewPassword = ({ navigation, route }) => {
       contentContainerStyle={globalStyles.container}
       overScrollMode="never"
       bounces={false}
+      showsVerticalScrollIndicator={false}
     >
       <ComeBack text={isToUpdateUserPassword ? "Atualizar Senha" : "Criar Senha"} />
 

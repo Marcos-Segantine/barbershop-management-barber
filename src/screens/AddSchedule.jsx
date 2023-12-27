@@ -40,6 +40,7 @@ export const AddSchedule = ({ navigation, route }) => {
       onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
       overScrollMode="never"
       bounces={false}
+      showsVerticalScrollIndicator={false}
     >
       <ComeBack text={headerText} />
 

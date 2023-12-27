@@ -62,6 +62,7 @@ export const Profile = ({ navigation }) => {
         contentContainerStyle={globalStyles.container}
         overScrollMode="never"
         bounces={false}
+        showsVerticalScrollIndicator={false}
       >
         <HeaderScreensMenu screenName={"Perfil"} />
         <DefaultModal

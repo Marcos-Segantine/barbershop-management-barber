@@ -238,7 +238,10 @@ export const GetCode = ({ navigation }) => {
     if (isLoading) return <Loading flexSize={1} text={"Este procedimento pode levar um tempo para ser concluído."} />
 
     return (
-        <ScrollView contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}>
+        <ScrollView
+            contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}
+            showsVerticalScrollIndicator={false}
+        >
             <ComeBack text={"Código de Verificação"} />
 
             <GetCodePhoneValidation width={"100%"} height={getScreenDimensions("height", 50, setSomethingWrong)} />

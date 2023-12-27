@@ -111,6 +111,7 @@ export const BlockSpecificDays = ({ navigation }) => {
             contentContainerStyle={globalStyles.container}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <ComeBack text={"Bloquear Dias"} />
             <DefaultModal modalContent={modalContent} />

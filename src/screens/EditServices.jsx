@@ -141,6 +141,7 @@ export const EditServices = ({ navigation }) => {
             contentContainerStyle={[globalStyles.container, { minHeight: "100%" }]}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <DefaultModal
                 modalContent={modalContent}

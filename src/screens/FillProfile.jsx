@@ -84,6 +84,7 @@ export const FillProfile = ({ navigation, route }) => {
             contentContainerStyle={globalStyles.container}
             overScrollMode="never"
             bounces={false}
+            showsVerticalScrollIndicator={false}
         >
             <ComeBack text={headerText} action={() => setCreateNewPearson(null)} />
 

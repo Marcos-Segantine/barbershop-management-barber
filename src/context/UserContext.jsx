@@ -20,22 +20,25 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    try {
-      user
-        ? firestore()
-          .collection('barbers')
-          .where('email', '==', user.email)
-          .get()
-          .then(async ({ _docs }) => {
-            if (_docs.lenght > 0) {
-              setUserData(_docs[0]._data);
-            }
-          })
-        : setUserData(null);
-    } catch ({ message }) {
-      handleError("UserProvider", message);
-    }
+    (async () => {
+      try {
+        if (user) {
+          const userRef = firestore().collection("barbers").where("email", "==", user.email)
+          const userDataCollection = (await userRef.get()).docs
+
+          if (userDataCollection.length > 0) {
+            setUserData(userDataCollection[0].data());
+          }
+        }
+      } catch ({ message }) {
+        handleError("UserProvider", message)
+      }
+
+    })();
+
   }, [user]);
+
+  // console.log(userData);
 
 
   return (
